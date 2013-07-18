@@ -17,7 +17,8 @@ Example screenshots
 
 Installation
 ------------
-Unzip the zip file in the `mod` folder of the Moodle directory
+Unzip the zip file in the `mod` folder of the Moodle directory and, if
+necessary, rename the folder to "videofile".
 -- OR --
 Go to Administration > Site Administration > Install add-ons to install
 the Videofile module directly from your Moodle installation.

@@ -69,6 +69,7 @@ class mod_videofile_mod_form extends moodleform_mod {
                            'width',
                            get_string('width', 'videofile'),
                            array('size' => 4));
+        $mform->setType('width', PARAM_INT);
         $mform->addHelpButton('width', 'width', 'videofile');
         $mform->addRule('width', null, 'required', null, 'client');
         $mform->addRule('width', null, 'numeric', null, 'client');
@@ -80,6 +81,7 @@ class mod_videofile_mod_form extends moodleform_mod {
                            'height',
                            get_string('height', 'videofile'),
                            array('size' => 4));
+        $mform->setType('height', PARAM_INT);
         $mform->addHelpButton('height', 'height', 'videofile');
         $mform->addRule('height', null, 'required', null, 'client');
         $mform->addRule('height', null, 'numeric', null, 'client');

@@ -1,0 +1,7 @@
+0.23  -  Modified code and comments based on feedback from the Moodle
+         Code Checker, which checks code against some aspects of the
+         Moodle coding guidelines. Passes cleanly using the following
+         settings (excludes third party video.js library):
+
+             Path to check: mod/videofile
+             Exclude: video-js

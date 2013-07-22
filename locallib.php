@@ -136,7 +136,7 @@ class videofile {
         }
 
         // Delete the instance.
-        // Note: all context files are deleted automatically
+        // Note: all context files are deleted automatically.
         $DB->delete_records('videofile', array('id' => $this->get_instance()->id));
 
         return $result;
@@ -348,7 +348,7 @@ class videofile {
     protected function save_files($formdata) {
         global $DB;
 
-        // Storage of files from the filemanager (videos):
+        // Storage of files from the filemanager (videos).
         $draftitemid = $formdata->videos;
         if ($draftitemid) {
             file_save_draft_area_files(
@@ -360,7 +360,7 @@ class videofile {
             );
         }
 
-        // Storage of files from the filemanager (captions):
+        // Storage of files from the filemanager (captions).
         $draftitemid = $formdata->captions;
         if ($draftitemid) {
             file_save_draft_area_files(
@@ -372,7 +372,7 @@ class videofile {
             );
         }
 
-        // Storage of files from the filemanager (posters):
+        // Storage of files from the filemanager (posters).
         $draftitemid = $formdata->posters;
         if ($draftitemid) {
             file_save_draft_area_files(

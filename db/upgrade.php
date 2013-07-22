@@ -40,26 +40,41 @@ defined('MOODLE_INTERNAL') || die();
 function xmldb_videofile_upgrade($oldversion) {
     global $CFG, $DB;
 
-    $dbman = $DB->get_manager(); // loads ddl manager and xmldb classes
+    $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
-    // Added width and height fields
+    // Added width and height fields.
     if ($oldversion < 2013071701) {
         $table = new xmldb_table('videofile');
-        $width_field = new xmldb_field('width', XMLDB_TYPE_INTEGER, '4', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '800', 'introformat');
-        $height_field = new xmldb_field('height', XMLDB_TYPE_INTEGER, '4', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '500', 'width');
+        $widthfield = new xmldb_field('width',
+                                      XMLDB_TYPE_INTEGER,
+                                      '4',
+                                      XMLDB_UNSIGNED,
+                                      XMLDB_NOTNULL,
+                                      null,
+                                      '800',
+                                      'introformat');
+        $heightfield = new xmldb_field('height',
+                                       XMLDB_TYPE_INTEGER,
+                                       '4',
+                                       XMLDB_UNSIGNED,
+                                       XMLDB_NOTNULL,
+                                       null,
+                                       '500',
+                                       'width');
 
-        // Add width field
-        if (!$dbman->field_exists($table, $width_field)) {
-            $dbman->add_field($table, $width_field);
+        // Add width field.
+        if (!$dbman->field_exists($table, $widthfield)) {
+            $dbman->add_field($table, $widthfield);
         }
 
-        // Add height field
-        if (!$dbman->field_exists($table, $height_field)) {
-            $dbman->add_field($table, $height_field);
+        // Add height field.
+        if (!$dbman->field_exists($table, $heightfield)) {
+            $dbman->add_field($table, $heightfield);
         }
 
-        // Once we reach this point, we can store the new version and consider the module
-        // upgraded to the version 2013071701 so the next time this block is skipped
+        /* Once we reach this point, we can store the new version and
+           consider the module upgraded to the version 2013071701 so the
+           next time this block is skipped. */
         upgrade_mod_savepoint(true, 2013071701, 'videofile');
     }
 

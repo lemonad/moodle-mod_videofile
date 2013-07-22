@@ -22,8 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once dirname(__FILE__) . '/../../config.php';
-require_once dirname(__FILE__) . '/locallib.php';
+require_once(dirname(__FILE__) . '/../../config.php');
+require_once(dirname(__FILE__) . '/locallib.php');
 
 $id = required_param('id', PARAM_INT);
 
@@ -40,11 +40,11 @@ $PAGE->set_pagelayout('incourse');
 $url = new moodle_url('/mod/videofile/view.php', array('id' => $id));
 $PAGE->set_url('/mod/videofile/view.php', array('id' => $cm->id));
 
-// Update 'viewed' state if required by completion system
+// Update 'viewed' state if required by completion system.
 $completion=new completion_info($course);
 $completion->set_module_viewed($cm);
 
-// Log viewing
+// Log viewing.
 add_to_log($course->id,
            'videofile',
            'view',

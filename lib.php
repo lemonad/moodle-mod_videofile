@@ -46,8 +46,6 @@ function videofile_supports($feature) {
             return false;
         case FEATURE_COMPLETION_TRACKS_VIEWS:
             return true;
-        // case FEATURE_COMPLETION_HAS_RULES:
-        //    return true;
         case FEATURE_GROUPS:
             return false;
         case FEATURE_GROUPINGS:
@@ -77,7 +75,7 @@ function videofile_supports($feature) {
  */
 function videofile_add_instance(stdClass $data,
                                 mod_videofile_mod_form $form = null) {
-    require_once dirname(__FILE__) . '/locallib.php';
+    require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
     $videofile = new videofile($context, null, null);
@@ -98,7 +96,7 @@ function videofile_add_instance(stdClass $data,
  */
 function videofile_update_instance(stdClass $data,
                                    mod_videofile_mod_form $form = null) {
-    require_once dirname(__FILE__) . '/locallib.php';
+    require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
     $videofile = new videofile($context, null, null);
@@ -117,7 +115,7 @@ function videofile_update_instance(stdClass $data,
  * @return boolean
  */
 function videofile_delete_instance($id) {
-    require_once dirname(__FILE__) . '/locallib.php';
+    require_once(dirname(__FILE__) . '/locallib.php');
 
     $cm = get_coursemodule_from_instance('videofile', $id, 0, false, MUST_EXIST);
     $context = context_module::instance($cm->id);
@@ -228,7 +226,7 @@ function videofile_get_coursemodule_info($coursemodule) {
     $result->name = $videofile->name;
     if ($coursemodule->showdescription) {
         // Convert intro to html.
-        // Do not filter cached version, filters run at display time
+        // Do not filter cached version, filters run at display time.
         $result->content = format_module_intro('videofile',
                                                $videofile,
                                                $coursemodule->id,
@@ -248,7 +246,7 @@ function videofile_get_coursemodule_info($coursemodule) {
  * @since   0.0.1
  */
 function videofile_get_view_actions() {
-    return array('view','view help');
+    return array('view', 'view help');
 }
 
 /**
@@ -269,7 +267,7 @@ function videofile_get_post_actions() {
  * @param stdClass $cm
  * @param stdClass $context
  * @return array Array of [(string)filearea] => (string)description]
-*/
+ */
 function videofile_get_file_areas($course, $cm, $context) {
     return array(
         'captions' => get_string('filearea_captions', 'videofile'),
@@ -291,7 +289,7 @@ function videofile_get_file_areas($course, $cm, $context) {
  * @param string $filepath File path
  * @param string $filename File name
  * @return file_info Instance or null if not found
-*/
+ */
 function videofile_get_file_info($browser,
                                  $areas,
                                  $course,
@@ -307,13 +305,13 @@ function videofile_get_file_info($browser,
         return null;
     }
 
-    // filearea must contain a real area
+    // Filearea must contain a real area.
     if (!isset($areas[$filearea])) {
         return null;
     }
 
     if (!has_capability('moodle/course:managefiles', $context)) {
-        // students can not peak here!
+        // Students can not peek here!
         return null;
     }
 
@@ -328,7 +326,7 @@ function videofile_get_file_info($browser,
                                          0,
                                          $filepath,
                                          $filename)) {
-            // not found
+            // Not found.
             return null;
         }
 
@@ -345,7 +343,7 @@ function videofile_get_file_info($browser,
                                     false);
     }
 
-    // not found
+    // Not found.
     return null;
 }
 
@@ -361,7 +359,7 @@ function videofile_get_file_info($browser,
  * @param array $options Additional options affecting the file serving
  * @return bool False if file not found, does not return if found -
  *              just sends the file
-*/
+ */
 function videofile_pluginfile($course,
                               $cm,
                               $context,
@@ -371,7 +369,7 @@ function videofile_pluginfile($course,
                               array $options=array()) {
     global $CFG, $DB, $USER;
 
-    require_once dirname(__FILE__) . '/locallib.php';
+    require_once(dirname(__FILE__) . '/locallib.php');
 
     if ($context->contextlevel != CONTEXT_MODULE) {
         return false;
@@ -384,7 +382,7 @@ function videofile_pluginfile($course,
     }
 
     if ($filearea !== 'videos' && $filearea !== 'captions' && $filearea !== 'posters') {
-        // intro is handled automatically in pluginfile.php
+        // Intro is handled automatically in pluginfile.php.
         return false;
     }
 
@@ -398,7 +396,7 @@ function videofile_pluginfile($course,
         return false;
     }
 
-    // Default cache lifetime is 86400s
+    // Default cache lifetime is 86400s.
     send_stored_file($file);
 }
 

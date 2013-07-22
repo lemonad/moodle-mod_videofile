@@ -22,7 +22,7 @@
 
 require('../../config.php');
 
-$id = required_param('id', PARAM_INT); // course id
+$id = required_param('id', PARAM_INT); // Course id.
 
 $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
 
@@ -84,14 +84,17 @@ foreach ($videofiles as $videofile) {
     $extra = empty($cm->extra) ? '' : $cm->extra;
     $icon = '';
     if (!empty($cm->icon)) {
-        // each videofile has an icon in 2.0
-        $icon = '<img src="'.$OUTPUT->pix_url($cm->icon).'" class="activityicon" alt="'.get_string('modulename', $cm->modname).'" /> ';
+        // Each videofile has an icon in 2.0.
+        $icon = '<img src="' . $OUTPUT->pix_url($cm->icon) .
+                '" class="activityicon" alt="' .
+                get_string('modulename', $cm->modname) . '" /> ';
     }
-
-    $class = $videofile->visible ? '' : 'class="dimmed"'; // hidden modules are dimmed
+    // Dim hidden modules.
+    $class = $videofile->visible ? '' : 'class="dimmed"';
     $table->data[] = array (
         $printsection,
-        "<a $class $extra href=\"view.php?id=$cm->id\">".$icon.format_string($videofile->name)."</a>",
+        "<a $class $extra href=\"view.php?id=$cm->id\">" .
+            $icon . format_string($videofile->name) . "</a>",
         format_module_intro('videofile', $videofile, $cm->id));
 }
 

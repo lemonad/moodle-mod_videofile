@@ -27,9 +27,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once $CFG->dirroot . '/course/moodleform_mod.php';
-require_once dirname(__FILE__) . '/locallib.php';
-require_once $CFG->libdir . '/filelib.php';
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
+require_once(dirname(__FILE__) . '/locallib.php');
+require_once($CFG->libdir . '/filelib.php');
 
 class mod_videofile_mod_form extends moodleform_mod {
     /**
@@ -43,7 +43,7 @@ class mod_videofile_mod_form extends moodleform_mod {
         $config = get_config('videofile');
         $mform =& $this->_form;
 
-        // Name and description fields
+        // Name and description fields.
         $mform->addElement('header', 'general', get_string('general', 'form'));
         $mform->addElement('text', 'name', get_string('name'), array('size' => '48'));
         if (!empty($CFG->formatstringstriptags)) {
@@ -59,12 +59,12 @@ class mod_videofile_mod_form extends moodleform_mod {
                         'client');
         $this->add_intro_editor(false);
 
-        // Video fields
+        // Video fields.
         $mform->addElement('header',
                            'video_fieldset',
                            get_string('video_fieldset', 'videofile'));
 
-        // Width
+        // Width.
         $mform->addElement('text',
                            'width',
                            get_string('width', 'videofile'),
@@ -76,7 +76,7 @@ class mod_videofile_mod_form extends moodleform_mod {
         $mform->addRule('width', null, 'nonzero', null, 'client');
         $mform->setDefault('width', $config->width);
 
-        // Height
+        // Height.
         $mform->addElement('text',
                            'height',
                            get_string('height', 'videofile'),
@@ -88,7 +88,7 @@ class mod_videofile_mod_form extends moodleform_mod {
         $mform->addRule('height', null, 'nonzero', null, 'client');
         $mform->setDefault('height', $config->height);
 
-        // Video file manager
+        // Video file manager.
         $options = array('subdirs' => false,
                          'maxbytes' => 0,
                          'maxfiles' => -1,
@@ -102,7 +102,7 @@ class mod_videofile_mod_form extends moodleform_mod {
         $mform->addHelpButton('videos', 'videos', 'videofile');
         $mform->addRule('videos', null, 'required', null, 'client');
 
-        // Posters file manager
+        // Posters file manager.
         $options = array('subdirs' => false,
                          'maxbytes' => 0,
                          'maxfiles' => 1,
@@ -115,7 +115,7 @@ class mod_videofile_mod_form extends moodleform_mod {
             $options);
         $mform->addHelpButton('posters', 'posters', 'videofile');
 
-        // Captions file manager
+        // Captions file manager.
         $options = array('subdirs' => false,
                          'maxbytes' => 0,
                          'maxfiles' => -1,
@@ -128,10 +128,10 @@ class mod_videofile_mod_form extends moodleform_mod {
             $options);
         $mform->addHelpButton('captions', 'captions', 'videofile');
 
-        // Standard elements, common to all modules
+        // Standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 
-        // Standard buttons, common to all modules
+        // Standard buttons, common to all modules.
         $this->add_action_buttons();
     }
 
@@ -141,7 +141,7 @@ class mod_videofile_mod_form extends moodleform_mod {
      * @param array $data to be set
      * @return void
      */
-    public function data_preprocessing(&$default_values) {
+    public function data_preprocessing(&$defaultvalues) {
         if ($this->current->instance) {
             $options = array('subdirs' => false,
                              'maxbytes' => 0,
@@ -153,7 +153,7 @@ class mod_videofile_mod_form extends moodleform_mod {
                                     'videos',
                                     0,
                                     $options);
-            $default_values['videos'] = $draftitemid;
+            $defaultvalues['videos'] = $draftitemid;
 
             $options = array('subdirs' => false,
                              'maxbytes' => 0,
@@ -165,7 +165,7 @@ class mod_videofile_mod_form extends moodleform_mod {
                                     'posters',
                                     0,
                                     $options);
-            $default_values['posters'] = $draftitemid;
+            $defaultvalues['posters'] = $draftitemid;
 
             $options = array('subdirs' => false,
                              'maxbytes' => 0,
@@ -177,14 +177,14 @@ class mod_videofile_mod_form extends moodleform_mod {
                                     'captions',
                                     0,
                                     $options);
-            $default_values['captions'] = $draftitemid;
+            $defaultvalues['captions'] = $draftitemid;
 
-            if (empty($default_values['width'])) {
-                $default_values['width'] = 800;
+            if (empty($defaultvalues['width'])) {
+                $defaultvalues['width'] = 800;
             }
 
-            if (empty($default_values['height'])) {
-                $default_values['height'] = 500;
+            if (empty($defaultvalues['height'])) {
+                $defaultvalues['height'] = 500;
             }
         }
     }

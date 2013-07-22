@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once $CFG->dirroot . '/mod/videofile/locallib.php';
+require_once($CFG->dirroot . '/mod/videofile/locallib.php');
 
 /**
  * Videofile module renderer class
@@ -61,7 +61,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
             new moodle_url($CFG->wwwroot . '/mod/videofile/video-js/video-js.swf') .
             '";');
 
-        // Header setup
+        // Header setup.
         $this->page->set_title($title);
         $this->page->set_heading($this->page->course->fullname);
 
@@ -108,10 +108,10 @@ class mod_videofile_renderer extends plugin_renderer_base {
      * Utility function for getting a file URL
      *
      * @param stored_file $file
-     * @param string $area_name file area name (e.g. "videos")
+     * @param string $areaname file area name (e.g. "videos")
      * @return string file url
      */
-    private function util_get_file_url($file, $area_name) {
+    private function util_get_file_url($file, $areaname) {
         global $CFG;
 
         $wwwroot = $CFG->wwwroot;
@@ -122,21 +122,21 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $itemid = $file->get_itemid();
 
         return $wwwroot . '/pluginfile.php/' .  $contextid . '/mod_videofile/' .
-            $area_name . $filepath . $itemid . '/' . $filename;
+            $areaname . $filepath . $itemid . '/' . $filename;
     }
 
     /**
      * Utility function for getting area files
      *
      * @param int $contextid
-     * @param string $area_name file area name (e.g. "videos")
+     * @param string $areaname file area name (e.g. "videos")
      * @return array of stored_file objects
      */
-    private function util_get_area_files($contextid, $area_name) {
+    private function util_get_area_files($contextid, $areaname) {
         $fs = get_file_storage();
         return $fs->get_area_files($contextid,
                                    'mod_videofile',
-                                   $area_name,
+                                   $areaname,
                                    false,
                                    'itemid, filepath, filename',
                                    false);
@@ -154,18 +154,18 @@ class mod_videofile_renderer extends plugin_renderer_base {
 
         $contextid = $videofile->get_context()->id;
 
-        // Get poster image
-        $poster_url = null;
+        // Get poster image.
+        $posterurl = null;
         $posters = $this->util_get_area_files($contextid, 'posters');
         foreach ($posters as $file) {
-            $poster_url = $this->util_get_file_url($file, 'posters');
-            break; // Only one poster allowed
+            $posterurl = $this->util_get_file_url($file, 'posters');
+            break; // Only one poster allowed.
         }
-        if (!$poster_url) {
-            $poster_url = $this->pix_url('moodle-logo', 'videofile');
+        if (!$posterurl) {
+            $posterurl = $this->pix_url('moodle-logo', 'videofile');
         }
 
-        // Render video element
+        // Render video element.
         $output .= html_writer::start_tag(
             'video',
             array('id' => 'videofile-' . $videofile->get_instance()->id,
@@ -174,32 +174,32 @@ class mod_videofile_renderer extends plugin_renderer_base {
                   'preload' => 'auto',
                   'width' => $videofile->get_instance()->width,
                   'height' => $videofile->get_instance()->height,
-                  'poster' => $poster_url,
+                  'poster' => $posterurl,
                   'data-setup' => '{}')
         );
 
-        // Render video source elements
+        // Render video source elements.
         $videos = $this->util_get_area_files($contextid, 'videos');
         foreach ($videos as $file) {
             if ($mimetype = $file->get_mimetype()) {
-                $video_url = $this->util_get_file_url($file, 'videos');
+                $videourl = $this->util_get_file_url($file, 'videos');
 
                 $output .= html_writer::empty_tag(
                     'source',
-                    array('src' => $video_url,
+                    array('src' => $videourl,
                           'type' => $mimetype)
                 );
             }
         }
 
-        // Render caption tracks
+        // Render caption tracks.
         $first = true;
         $captions = $this->util_get_area_files($contextid, 'captions');
         foreach ($captions as $file) {
             if ($mimetype = $file->get_mimetype()) {
-                $caption_url = $this->util_get_file_url($file, 'captions');
+                $captionurl = $this->util_get_file_url($file, 'captions');
 
-                // Get or construct caption label for video.js player
+                // Get or construct caption label for video.js player.
                 $filename = $file->get_filename();
                 $dot = strrpos($filename, ".");
                 if ($dot) {
@@ -210,31 +210,31 @@ class mod_videofile_renderer extends plugin_renderer_base {
 
                 // Perhaps filename is a three letter ISO 6392 language code (e.g. eng, swe)?
                 if (preg_match('/^[a-z]{3}$/', $label)) {
-                    $maybe_label = get_string($label, 'core_iso6392');
+                    $maybelabel = get_string($label, 'core_iso6392');
 
-                    // Strings not in language files come back as [[string]], don't
-                    // use those for labels
-                    if (substr($maybe_label, 0, 2) !== '[[' ||
-                            substr($maybe_label, -2, 2) === ']]') {
-                        $label = $maybe_label;
+                    /* Strings not in language files come back as [[string]], don't
+                       use those for labels. */
+                    if (substr($maybelabel, 0, 2) !== '[[' ||
+                            substr($maybelabel, -2, 2) === ']]') {
+                        $label = $maybelabel;
                     }
                 }
 
                 $options = array('kind' => 'captions',
-                                 'src' => $caption_url,
+                                 'src' => $captionurl,
                                  'label' => $label);
                 if ($first) {
                     $options['default'] = 'default';
                     $first = false;
                 }
 
-                // Track seems to need closing tag in IE9 (!)
+                // Track seems to need closing tag in IE9 (!).
                 $output .= html_writer::tag('track', '', $options);
             }
         }
 
         $output .= html_writer::end_tag('video');
-        $output .= $this->output->container_end(); // end of videofile
+        $output .= $this->output->container_end(); // End of videofile.
 
         return $output;
     }

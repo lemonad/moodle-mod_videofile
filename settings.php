@@ -25,19 +25,19 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    require_once $CFG->libdir . '/resourcelib.php';
+    require_once($CFG->libdir . '/resourcelib.php');
 
     $displayoptions = resourcelib_get_displayoptions(
         array(RESOURCELIB_DISPLAY_OPEN, RESOURCELIB_DISPLAY_POPUP));
     $defaultdisplayoptions = array(RESOURCELIB_DISPLAY_OPEN);
 
-    // Heading
+    // Heading.
     $settings->add(
         new admin_setting_heading('videofile_defaults',
                                   get_string('videofile_defaults_heading', 'videofile'),
                                   get_string('videofile_defaults_text', 'videofile')));
 
-    // Default width
+    // Default width.
     $settings->add(
         new admin_setting_configtext('videofile/width',
                                      get_string('width', 'videofile'),
@@ -46,7 +46,7 @@ if ($ADMIN->fulltree) {
                                      PARAM_INT,
                                      7));
 
-    // Default height
+    // Default height.
     $settings->add(
         new admin_setting_configtext('videofile/height',
                                      get_string('height', 'videofile'),

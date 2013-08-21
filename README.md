@@ -11,9 +11,9 @@ image that displays before the video is started.
 
 Example screenshots
 -------------------
-![A screenshot](https://github.com/lemonad/moodle-videofile/raw/master/pix/screenshot-1.png)
+![A screenshot](https://raw.github.com/lemonad/moodle-mod_videofile/master/pix/screenshot-1.png)
 
-![Another screenshot](https://github.com/lemonad/moodle-videofile/raw/master/pix/screenshot-2.png)
+![Another screenshot](https://raw.github.com/lemonad/moodle-mod_videofile/master/pix/screenshot-2.png)
 
 Installation
 ------------

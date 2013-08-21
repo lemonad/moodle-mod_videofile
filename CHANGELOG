@@ -1,3 +1,7 @@
+0.24  -  Renamed Github repository to follow the Moodle naming
+         convention of "moodle-{type}_{name}", i.e.
+         "moodle-mod_videofile".
+
 0.23  -  Modified code and comments based on feedback from the Moodle
          Code Checker, which checks code against some aspects of the
          Moodle coding guidelines. Passes cleanly using the following

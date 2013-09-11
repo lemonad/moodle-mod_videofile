@@ -1,3 +1,5 @@
+HEAD  -  Updated video.js to version 4.2.1.
+
 0.30  -  Backups now working. Previous version caused problems
          with site backups so please upgrade to this version
          if you're running an older version!

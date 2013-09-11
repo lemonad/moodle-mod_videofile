@@ -55,3 +55,5 @@ $string['captions'] = 'Bildtexter';
 $string['captions_help'] = "Lägg till transkriptioner av dialogen i WebVTT-format här.\n\nDu kan lägga till flera filer för att tillhandahålla flerspråkiga bildtexter. Filnamnen, utan filtillägg, kommer användas som titel för valen av bildtext. Om filerna döps enligt ISO 6392 (t.ex. eng.vtt och swe.vtt) så kommer valen visas med motsvarande fullständiga språknamn enligt användarens språkinställningar (t.ex. Engelska och Svenska, förutsatt att användarens språkpreferens är satt till Svenska).";
 
 $string['err_positive'] = 'Du måste skriva in ett positivt värde här.';
+
+$string['video_not_playing'] = 'Spelas inte videon upp? Försök med {$a}.';

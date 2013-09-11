@@ -55,3 +55,5 @@ $string['captions'] = 'Captions';
 $string['captions_help'] = "Add transcriptions of the dialogue in WebVTT format here.\n\nYou can add several files in order to provide multilingual captions. The file names, without extensions, will be used for the video caption option titles. If the files are named according to ISO 6392 (e.g. eng.vtt and swe.vtt) the options will be shown as the corresponding full language names according to the user's language preferences (e.g. English and Swedish, assuming the user's preferred language is set to English).";
 
 $string['err_positive'] = 'You must enter a positive number here.';
+
+$string['video_not_playing'] = 'Video not playing? Try {$a}.';

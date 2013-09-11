@@ -234,6 +234,32 @@ class mod_videofile_renderer extends plugin_renderer_base {
         }
 
         $output .= html_writer::end_tag('video');
+
+        // Render alternative video links in case video isn't showing/playing properly.
+        $videooutput = '';
+        $first = true;
+        foreach ($videos as $file) {
+            if ($mimetype = $file->get_mimetype()) {
+                $videourl = $this->util_get_file_url($file, 'videos');
+
+                if ($first) {
+                    $first = false;
+                } else {
+                    $videooutput .= ', ';
+                }
+                $extension = pathinfo($file->get_filename(), PATHINFO_EXTENSION);
+                $videooutput .= html_writer::tag('a',
+                                                 $extension,
+                                                 array('href' => $videourl));
+            }
+        }
+
+        $output .= html_writer::tag('p',
+                                    get_string('video_not_playing',
+                                               'videofile',
+                                               $videooutput),
+                                    array('class' => 'not-playing-msg'));
+
         $output .= $this->output->container_end(); // End of videofile.
 
         return $output;

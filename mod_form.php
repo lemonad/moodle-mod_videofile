@@ -88,6 +88,15 @@ class mod_videofile_mod_form extends moodleform_mod {
         $mform->addRule('height', null, 'nonzero', null, 'client');
         $mform->setDefault('height', $config->height);
 
+        // Responsive.
+        $mform->addElement('advcheckbox',
+                           'responsive',
+                           get_string('responsive', 'videofile'),
+                           get_string('responsive_label', 'videofile'));
+        $mform->setType('responsive', PARAM_INT);
+        $mform->addHelpButton('responsive', 'responsive', 'videofile');
+        $mform->setDefault('responsive', $config->responsive);
+
         // Video file manager.
         $options = array('subdirs' => false,
                          'maxbytes' => 0,

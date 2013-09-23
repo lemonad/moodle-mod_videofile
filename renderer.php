@@ -45,21 +45,30 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $name = format_string($videofile->get_instance()->name,
                               true,
                               $videofile->get_course());
-        $title = $this->page->course->shortname . ": " . $name;
+        $title = $this->page->course->shortname . ': ' . $name;
 
         $coursemoduleid = $videofile->get_course_module()->id;
         $context = context_module::instance($coursemoduleid);
 
-        // Add video.js css and js files.
-        /* FIXME Needs dev-version of video.js for now, otherwise videojs doesn't
-            get defined and the below inline redefinition of videojs.options.flash.swf
-            fails. */
+        // Add videojs css and js files.
         $this->page->requires->css('/mod/videofile/video-js/video-js.min.css');
-        $this->page->requires->js('/mod/videofile/video-js/video.dev.js', true);
+        $this->page->requires->js('/mod/videofile/video-js/video.js');
+
+        // Set the videojs flash fallback url.
+        $swfurl = new moodle_url('/mod/videofile/video-js/video-js.swf');
         $this->page->requires->js_init_code(
-            'videojs.options.flash.swf = "' .
-            new moodle_url($CFG->wwwroot . '/mod/videofile/video-js/video-js.swf') .
-            '";');
+            'videojs.options.flash.swf = "' . $swfurl . '";');
+
+        // Yui module handles responsive mode video resizing.
+        if ($videofile->get_instance()->responsive) {
+            $this->page->requires->yui_module(
+                'moodle-mod_videofile-videojs',
+                'M.mod_videofile.videojs.init',
+                array($videofile->get_instance()->id,
+                      $swfurl,
+                      $videofile->get_instance()->width,
+                      $videofile->get_instance()->height));
+        }
 
         // Header setup.
         $this->page->set_title($title);
@@ -143,42 +152,63 @@ class mod_videofile_renderer extends plugin_renderer_base {
     }
 
     /**
-     * Renders videofile video
+     * Utility function for getting the video poster image
      *
-     * @param videofile $videofile
-     * @return string HTML
+     * @param int $contextid
+     * @return url to the poster image (or the default image)
      */
-    public function video(videofile $videofile) {
-        $output  = '';
-        $output .= $this->output->container_start('videofile');
-
-        $contextid = $videofile->get_context()->id;
-
-        // Get poster image.
+    private function get_poster_image($contextid) {
         $posterurl = null;
         $posters = $this->util_get_area_files($contextid, 'posters');
         foreach ($posters as $file) {
             $posterurl = $this->util_get_file_url($file, 'posters');
-            break; // Only one poster allowed.
+            break;  // Only one poster allowed.
         }
         if (!$posterurl) {
             $posterurl = $this->pix_url('moodle-logo', 'videofile');
         }
 
-        // Render video element.
-        $output .= html_writer::start_tag(
+        return $posterurl;
+    }
+
+    /**
+     * Utility function for creating the video element HTML.
+     *
+     * @param object $videofile
+     * @param url to the video poster image
+     * @return string the video element HTML
+     */
+    private function get_video_element_html($videofile, $posterurl) {
+        /* The width and height are set to auto if responsive flag is set
+           but is not ignored. They are still used to calculate proportions
+           in the javascript that handles video resizing. */
+        $width = ($videofile->get_instance()->responsive ?
+                  'auto' : $videofile->get_instance()->width);
+        $height = ($videofile->get_instance()->responsive ?
+                   'auto' : $videofile->get_instance()->height);
+
+        // Renders the video element.
+        return html_writer::start_tag(
             'video',
             array('id' => 'videofile-' . $videofile->get_instance()->id,
                   'class' => 'video-js vjs-default-skin',
                   'controls' => 'controls',
                   'preload' => 'auto',
-                  'width' => $videofile->get_instance()->width,
-                  'height' => $videofile->get_instance()->height,
+                  'width' => $width,
+                  'height' => $height,
                   'poster' => $posterurl,
                   'data-setup' => '{}')
         );
+    }
 
-        // Render video source elements.
+    /**
+     * Utility function for creating the video source elements HTML.
+     *
+     * @param int $contextid
+     * @return string HTML
+     */
+    private function get_video_source_elements_html($contextid) {
+        $output = '';
         $videos = $this->util_get_area_files($contextid, 'videos');
         foreach ($videos as $file) {
             if ($mimetype = $file->get_mimetype()) {
@@ -192,7 +222,18 @@ class mod_videofile_renderer extends plugin_renderer_base {
             }
         }
 
-        // Render caption tracks.
+        return $output;
+    }
+
+    /**
+     * Utility function for creating the video caption track elements
+     * HTML.
+     *
+     * @param int $contextid
+     * @return string HTML
+     */
+    private function get_video_caption_track_elements_html($contextid) {
+        $output = '';
         $first = true;
         $captions = $this->util_get_area_files($contextid, 'captions');
         foreach ($captions as $file) {
@@ -201,7 +242,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
 
                 // Get or construct caption label for video.js player.
                 $filename = $file->get_filename();
-                $dot = strrpos($filename, ".");
+                $dot = strrpos($filename, '.');
                 if ($dot) {
                     $label = substr($filename, 0, $dot);
                 } else {
@@ -233,11 +274,22 @@ class mod_videofile_renderer extends plugin_renderer_base {
             }
         }
 
-        $output .= html_writer::end_tag('video');
+        return $output;
+    }
 
-        // Render alternative video links in case video isn't showing/playing properly.
+    /**
+     * Utility function for getting the HTML for the alternative video
+     * links in case video isn't showing/playing properly.
+     *
+     * @param int $contextid
+     * @return string HTML
+     */
+    private function get_alternative_video_links_html($contextid) {
+        $output = '';
         $videooutput = '';
+
         $first = true;
+        $videos = $this->util_get_area_files($contextid, 'videos');
         foreach ($videos as $file) {
             if ($mimetype = $file->get_mimetype()) {
                 $videourl = $this->util_get_file_url($file, 'videos');
@@ -254,13 +306,46 @@ class mod_videofile_renderer extends plugin_renderer_base {
             }
         }
 
-        $output .= html_writer::tag('p',
-                                    get_string('video_not_playing',
-                                               'videofile',
-                                               $videooutput),
-                                    array('class' => 'not-playing-msg'));
+        return html_writer::tag('p',
+                                get_string('video_not_playing',
+                                           'videofile',
+                                           $videooutput),
+                                array('class' => 'not-playing-msg'));
+    }
 
-        $output .= $this->output->container_end(); // End of videofile.
+    /**
+     * Renders videofile video.
+     *
+     * @param videofile $videofile
+     * @return string HTML
+     */
+    public function video(videofile $videofile) {
+        $output  = '';
+        $contextid = $videofile->get_context()->id;
+
+        // Open videofile div.
+        $vclass = ($videofile->get_instance()->responsive ?
+                   'videofile videofile-responsive' : 'videofile');
+        $output .= $this->output->container_start($vclass);
+
+        // Open video tag.
+        $posterurl = $this->get_poster_image($contextid);
+        $output .= $this->get_video_element_html($videofile, $posterurl);
+
+        // Elements for video sources.
+        $output .= $this->get_video_source_elements_html($contextid);
+
+        // Elements for caption tracks.
+        $output .= $this->get_video_caption_track_elements_html($contextid);
+
+        // Close video tag.
+        $output .= html_writer::end_tag('video');
+
+        // Alternative video links in case video isn't showing/playing properly.
+        $output .= $this->get_alternative_video_links_html($contextid);
+
+        // Close videofile div.
+        $output .= $this->output->container_end();
 
         return $output;
     }

@@ -103,6 +103,7 @@ class videofile {
         $add->introformat = $formdata->introformat;
         $add->width = $formdata->width;
         $add->height = $formdata->height;
+        $add->responsive = $formdata->responsive;
 
         $returnid = $DB->insert_record('videofile', $add);
         $this->instance = $DB->get_record('videofile',
@@ -160,6 +161,7 @@ class videofile {
         $update->introformat = $formdata->introformat;
         $update->width = $formdata->width;
         $update->height = $formdata->height;
+        $update->responsive = $formdata->responsive;
 
         $result = $DB->update_record('videofile', $update);
         $this->instance = $DB->get_record('videofile',

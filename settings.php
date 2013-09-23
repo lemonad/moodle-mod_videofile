@@ -54,4 +54,11 @@ if ($ADMIN->fulltree) {
                                      500,
                                      PARAM_INT,
                                      7));
+
+    // Default responsive flag.
+    $settings->add(
+        new admin_setting_configcheckbox('videofile/responsive',
+                                         get_string('responsive', 'videofile'),
+                                         get_string('responsive_explain', 'videofile'),
+                                         0));
 }

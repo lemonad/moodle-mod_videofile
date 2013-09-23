@@ -1,4 +1,6 @@
 .videofile .not-playing-msg { margin-top: 1em; font-size: 120%; text-align: center; font-style: italic }
-.vjs-big-play-button { font-size: 175% }
-.vjs-poster { background-color: #ddd }
-.videofile .video-js { margin: 0 auto }
+.videofile .vjs-big-play-button { font-size: 175% }
+.videofile .vjs-poster { background-color: #ddd }
+
+.videofile.videofile-responsive .vjs-tech { margin: 0 auto }
+.videofile.videofile-responsive { width: 100%; height: auto }

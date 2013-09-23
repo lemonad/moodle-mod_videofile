@@ -3,6 +3,11 @@ HEAD  -  Updated video.js to version 4.2.1.
          Added alternative viewing links underneath player in case
          video isn't playing properly.
 
+         Added a responsive mode setting where videos are
+         automatically resized with the browser window size (width
+         and height fields are used to define the video
+         proportions).
+
 0.30  -  Backups now working. Previous version caused problems
          with site backups so please upgrade to this version
          if you're running an older version!

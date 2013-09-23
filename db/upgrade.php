@@ -78,6 +78,29 @@ function xmldb_videofile_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2013071701, 'videofile');
     }
 
+    // Added responsive flag field.
+    if ($oldversion < 2013092200) {
+        $table = new xmldb_table('videofile');
+        $responsivefield = new xmldb_field('responsive',
+                                           XMLDB_TYPE_INTEGER,
+                                           '4',
+                                           XMLDB_UNSIGNED,
+                                           XMLDB_NOTNULL,
+                                           null,
+                                           '0',
+                                           'height');
+
+        // Add field if it doesn't already exist.
+        if (!$dbman->field_exists($table, $responsivefield)) {
+            $dbman->add_field($table, $responsivefield);
+        }
+
+        /* Once we reach this point, we can store the new version and
+           consider the module upgraded to the version 2013092200 so the
+           next time this block is skipped. */
+        upgrade_mod_savepoint(true, 2013092200, 'videofile');
+    }
+
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }

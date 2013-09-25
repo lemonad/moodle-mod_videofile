@@ -306,11 +306,14 @@ class mod_videofile_renderer extends plugin_renderer_base {
             }
         }
 
-        return html_writer::tag('p',
-                                get_string('video_not_playing',
-                                           'videofile',
-                                           $videooutput),
-                                array('class' => 'not-playing-msg'));
+        $output = html_writer::tag('p',
+                                   get_string('video_not_playing',
+                                              'videofile',
+                                              $videooutput),
+                                   array());
+        return html_writer::tag('div',
+                                $output,
+                                array('class' => 'videofile-not-playing-msg'));
     }
 
     /**

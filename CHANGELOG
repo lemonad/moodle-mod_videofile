@@ -1,4 +1,13 @@
-HEAD  -  Updated video.js to version 4.2.1.
+HEAD  -
+
+1.00  -  Set version to stable.
+
+         Centered player horizontally in window.
+
+         CSS workaround for Videojs "Sorry, no compatible source and
+         playback technology..." message not showing properly.
+
+0.31  -  Updated video.js to version 4.2.1.
 
          Added alternative viewing links underneath player in case
          video isn't playing properly.

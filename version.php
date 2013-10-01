@@ -27,9 +27,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version  = 2013092500;
+$module->version  = 2013100100;
 $module->requires = 2013051400;
 $module->cron     = 0;
 $module->component = 'mod_videofile';
 $module->maturity = MATURITY_STABLE;
-$module->release  = '1.00';
+$module->release  = '1.01';

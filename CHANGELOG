@@ -1,4 +1,4 @@
-HEAD  -  Browsers still serving old videojs resources because the
+1.01  -  Browsers still serving old videojs resources because the
          url remained the same. Fixed it by changing the url.
 
          Videojs javascript should be in the html head.

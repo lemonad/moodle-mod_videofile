@@ -1,4 +1,7 @@
-HEAD  -  Videojs javascript should be in the html head.
+HEAD  -  Browsers still serving old videojs resources because the
+         url remained the same. Fixed it by changing the url.
+
+         Videojs javascript should be in the html head.
 
 1.00  -  Set version to stable.
 

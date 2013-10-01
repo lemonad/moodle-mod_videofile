@@ -52,7 +52,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
 
         // Add videojs css and js files.
         $this->page->requires->css('/mod/videofile/video-js/video-js.min.css');
-        $this->page->requires->js('/mod/videofile/video-js/video.js');
+        $this->page->requires->js('/mod/videofile/video-js/video.js', true);
 
         // Set the videojs flash fallback url.
         $swfurl = new moodle_url('/mod/videofile/video-js/video-js.swf');

@@ -28,6 +28,9 @@ $string['modulename'] = 'Videofil';
 $string['modulenameplural'] = 'Videofiler';
 $string['modulename_help'] = 'Använd videofil-modulen för att lägga till html5-videos med flash-fallback (via video.js). Den här modulen gör det också möjligt att lägga till flerspråkiga bildtexter.';
 
+$string['videofile:addinstance'] = 'Lägg till en ny videofil';
+$string['videofile:view'] = 'Visa videofil';
+
 $string['pluginadministration'] = 'Administration för videofil';
 $string['pluginname'] = 'Videofil';
 

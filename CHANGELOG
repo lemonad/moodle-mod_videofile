@@ -1,3 +1,5 @@
+HEAD  -  Added missing capability strings.
+
 1.01  -  Browsers still serving old videojs resources because the
          url remained the same. Fixed it by changing the url.
 

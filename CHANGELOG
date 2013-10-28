@@ -1,4 +1,8 @@
-HEAD  -  Added missing capability strings.
+HEAD  -  
+
+1.02  -  Added missing capability strings.
+
+         URLs are now generated correctly if addslashes is disabled.
 
 1.01  -  Browsers still serving old videojs resources because the
          url remained the same. Fixed it by changing the url.

@@ -117,21 +117,17 @@ class mod_videofile_renderer extends plugin_renderer_base {
      * Utility function for getting a file URL
      *
      * @param stored_file $file
-     * @param string $areaname file area name (e.g. "videos")
      * @return string file url
      */
-    private function util_get_file_url($file, $areaname) {
-        global $CFG;
-
-        $wwwroot = $CFG->wwwroot;
-
-        $contextid = $file->get_contextid();
-        $filename = $file->get_filename();
-        $filepath = $file->get_filepath();
-        $itemid = $file->get_itemid();
-
-        return $wwwroot . '/pluginfile.php/' .  $contextid . '/mod_videofile/' .
-            $areaname . $filepath . $itemid . '/' . $filename;
+    private function util_get_file_url($file) {
+        return moodle_url::make_pluginfile_url(
+            $file->get_contextid(),
+            $file->get_component(),
+            $file->get_filearea(),
+            $file->get_itemid(),
+            $file->get_filepath(),
+            $file->get_filename(),
+            false);
     }
 
     /**
@@ -161,7 +157,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $posterurl = null;
         $posters = $this->util_get_area_files($contextid, 'posters');
         foreach ($posters as $file) {
-            $posterurl = $this->util_get_file_url($file, 'posters');
+            $posterurl = $this->util_get_file_url($file);
             break;  // Only one poster allowed.
         }
         if (!$posterurl) {
@@ -212,7 +208,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $videos = $this->util_get_area_files($contextid, 'videos');
         foreach ($videos as $file) {
             if ($mimetype = $file->get_mimetype()) {
-                $videourl = $this->util_get_file_url($file, 'videos');
+                $videourl = $this->util_get_file_url($file);
 
                 $output .= html_writer::empty_tag(
                     'source',
@@ -238,7 +234,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $captions = $this->util_get_area_files($contextid, 'captions');
         foreach ($captions as $file) {
             if ($mimetype = $file->get_mimetype()) {
-                $captionurl = $this->util_get_file_url($file, 'captions');
+                $captionurl = $this->util_get_file_url($file);
 
                 // Get or construct caption label for video.js player.
                 $filename = $file->get_filename();
@@ -292,7 +288,7 @@ class mod_videofile_renderer extends plugin_renderer_base {
         $videos = $this->util_get_area_files($contextid, 'videos');
         foreach ($videos as $file) {
             if ($mimetype = $file->get_mimetype()) {
-                $videourl = $this->util_get_file_url($file, 'videos');
+                $videourl = $this->util_get_file_url($file);
 
                 if ($first) {
                     $first = false;

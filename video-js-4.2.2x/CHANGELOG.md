@@ -2,9 +2,16 @@ CHANGELOG
 =========
 
 ## Unreleased (HEAD)
-_(none)_
+* Added Karma for cross-browser unit testing ([view](https://github.com/videojs/video.js/pull/714))
+* Unmuting when the volume is changed ([view](https://github.com/videojs/video.js/pull/720))
+* Fixed an accessibility issue with the big play button ([view](https://github.com/videojs/video.js/pull/777))
+* Exported user activity methods ([view](https://github.com/videojs/video.js/pull/783))
+* Added a classname to center the play button and new spinner options ([view](https://github.com/videojs/video.js/pull/784))
 
 --------------------
+
+## 4.2.2 (2013-10-15)
+* Fixed a race condition that would cause videos to fail in Firefox ([view](https://github.com/videojs/video.js/pull/776))
 
 ## 4.2.1 (2013-09-09)
 * Fixed an infinite loop caused by loading the library asynchronously ([view](https://github.com/videojs/video.js/pull/727))

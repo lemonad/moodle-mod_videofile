@@ -1,5 +1,8 @@
 HEAD  -  
 
+1.03  -  Updated video.js from version 4.2.1 to 4.2.2+
+         (#9bfbceb04729f8fb3c250d9bb0bf072453facb82).
+
 1.02  -  Added missing capability strings.
 
          URLs are now generated correctly if addslashes is disabled.

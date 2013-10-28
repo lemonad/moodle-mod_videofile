@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $logs = array(
-    array('module'=>'videofile', 'action'=>'add', 'mtable'=>'videofile', 'field'=>'name'),
-    array('module'=>'videofile', 'action'=>'update', 'mtable'=>'videofile', 'field'=>'name'),
-    array('module'=>'videofile', 'action'=>'view', 'mtable'=>'videofile', 'field'=>'name'),
-    array('module'=>'videofile', 'action'=>'view all', 'mtable'=>'videofile', 'field'=>'name')
+    array('module' => 'videofile', 'action' => 'add', 'mtable' => 'videofile', 'field' => 'name'),
+    array('module' => 'videofile', 'action' => 'update', 'mtable' => 'videofile', 'field' => 'name'),
+    array('module' => 'videofile', 'action' => 'view', 'mtable' => 'videofile', 'field' => 'name'),
+    array('module' => 'videofile', 'action' => 'view all', 'mtable' => 'videofile', 'field' => 'name')
 );

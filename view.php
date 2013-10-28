@@ -41,7 +41,7 @@ $url = new moodle_url('/mod/videofile/view.php', array('id' => $id));
 $PAGE->set_url('/mod/videofile/view.php', array('id' => $cm->id));
 
 // Update 'viewed' state if required by completion system.
-$completion=new completion_info($course);
+$completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 // Log viewing.

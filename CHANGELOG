@@ -1,5 +1,7 @@
 HEAD  -  
 
+1.04  -  Now 2.4 compatible.
+
 1.03  -  Updated video.js from version 4.2.1 to 4.2.2+
          (#9bfbceb04729f8fb3c250d9bb0bf072453facb82).
 

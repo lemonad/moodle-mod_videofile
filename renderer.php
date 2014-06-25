@@ -61,13 +61,16 @@ class mod_videofile_renderer extends plugin_renderer_base {
 
         // Yui module handles responsive mode video resizing.
         if ($videofile->get_instance()->responsive) {
+            $config = get_config('videofile');
+
             $this->page->requires->yui_module(
                 'moodle-mod_videofile-videojs',
                 'M.mod_videofile.videojs.init',
                 array($videofile->get_instance()->id,
                       $swfurl,
                       $videofile->get_instance()->width,
-                      $videofile->get_instance()->height));
+                      $videofile->get_instance()->height,
+                      (boolean) $config->limitdimensions));
         }
 
         // Header setup.

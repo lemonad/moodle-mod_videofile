@@ -1,6 +1,9 @@
 HEAD  -  
 
-1.05  -  Updated video.js from version 4.2.2+ to 4.6.3+
+1.05  -  Added option for using width and height as maximum
+         size in responsive mode.
+
+         Updated video.js from version 4.2.2+ to 4.6.3+
          (#8a05aa11a13eeccffaff39d5579214c908b8aa13).
 
 1.04  -  Now 2.4 compatible.

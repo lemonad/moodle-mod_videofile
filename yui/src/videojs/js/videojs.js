@@ -1,15 +1,24 @@
 M.mod_videofile = M.mod_videofile || {};
 M.mod_videofile.videojs = {
-  init: function (video_id, swfpath, width, height) {
-    var myPlayer = videojs('videofile-' + video_id);
-    var aspectRatio = height / width;
+  init: function (videoId, swfPath, prefWidth, prefHeight, limitDimensions) {
+    var myPlayer = videojs('videofile-' + videoId);
+    var playerElement = document.getElementById(myPlayer.id());
+    var playerParent = playerElement.parentElement;
+    var aspectRatio = prefHeight / prefWidth;
+
+    if (limitDimensions) {
+      // The max and min limit is overriden using styles.css in full
+      // screen mode.
+      playerElement.style.maxWidth = prefWidth + 'px';
+      playerElement.style.maxHeight = prefHeight + 'px';
+    }
 
     function resizeVideoJS() {
-      // Get the parent element's actual width
-      var width = document.getElementById(myPlayer.id()).parentElement.offsetWidth;
+      // Get the parent element's actual width.
+      var parentWidth = playerParent.offsetWidth;
 
       // Set width to fill parent element, set height proportionally.
-      myPlayer.width(width).height(width * aspectRatio);
+      myPlayer.width(parentWidth).height(parentWidth * aspectRatio);
     }
 
     resizeVideoJS();

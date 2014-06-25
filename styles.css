@@ -1,10 +1,10 @@
-/* Center video player */
+/* Center video player. */
 .videofile .video-js { margin: 0 auto }
 
-/* Not playing message */
+/* Not playing message. */
 .videofile .videofile-not-playing-msg { margin-top: 1em; font-size: 120%; text-align: center; font-style: italic }
 
-/* Responsive mode */
+/* Responsive mode. */
 .videofile.videofile-responsive .vjs-tech { margin: 0 auto }
 .videofile.videofile-responsive { width: 100%; height: auto }
 
@@ -12,5 +12,8 @@
 .videofile .vjs-big-play-button { font-size: 175% }
 .videofile .vjs-poster { background-color: #ddd }
 
-/* Workaround for videojs "Sorry, no compatible source and playback technology..." message not showing properly */
+/* Prevent size limit in full screen mode. */
+.videofile .vjs-fullscreen { max-width: 100% !important; max-height: 100% !important }
+
+/* Workaround for videojs "Sorry, no compatible source and playback technology..." message not showing properly. */
 .videofile .video-js p { color: #000; background-color: #f00; position: absolute; z-index: 100; width: 100%; text-align: center }

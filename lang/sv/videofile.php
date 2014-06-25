@@ -38,7 +38,8 @@ $string['videofile_defaults_heading'] = 'Standardvärden för videofil-inställn
 $string['videofile_defaults_text'] = 'De värden du sätter här blir standardvärden som används i inställningsformuläret när du skapar en ny videofil.';
 $string['width_explain'] = 'Specificerar standardbredden på videospelaren.';
 $string['height_explain'] = 'Specificerar standardhöjden på videospelaren.';
-$string['responsive_explain'] = 'Specificerar om "responsive"-läget ska användas som standard för videospelaren eller ej.';
+$string['responsive_explain'] = 'Specificerar om responsivt läge ska användas som standard för videospelaren eller ej.';
+$string['limitdimensions_explain'] = 'Specificerar om höjd och bredd ska användas som maximal storlek i responsivt läge.';
 
 $string['filearea_captions'] = 'Bildtexter';
 $string['filearea_posters'] = 'Bilder';
@@ -50,9 +51,10 @@ $string['width'] = 'Bredd';
 $string['width_help'] = 'Skriv in bredden på videospelaren här (t.ex. 800 för en bredd av 800 pixlar).';
 $string['height'] = 'Höjd';
 $string['height_help'] = 'Skriv in höjden på videospelaren här (t.ex. 500 för en höjd av 500 pixlar).';
-$string['responsive'] = 'Responsive?';
+$string['responsive'] = 'Responsivt läge?';
 $string['responsive_help'] = "Kryssa i för att storleken på videospelaren ska anpassas automatiskt efter webbläsarens fönsterstorlek.\n\nAnvänd fälten för bredd och höjd till att definiera proportionerna (t.ex. 16/9 eller 800/450).";
 $string['responsive_label'] = '';
+$string['limitdimensions'] = 'Begränsa storlek i responsivt läge?';
 
 $string['videos'] = 'Videos';
 $string['videos_help'] = "Lägg till videofilen här.\n\nDu kan lägga till alternativa format för att vara säker på att videon går att spela upp oavsett vilken webbläsare som används (vanligtvis räcker det med .mp4, .ogv and .webm).";

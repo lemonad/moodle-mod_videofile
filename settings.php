@@ -61,4 +61,11 @@ if ($ADMIN->fulltree) {
                                          get_string('responsive', 'videofile'),
                                          get_string('responsive_explain', 'videofile'),
                                          0));
+
+    // Default use width/height as max-width/height when in responsive mode flag.
+    $settings->add(
+        new admin_setting_configcheckbox('videofile/limitdimensions',
+                                         get_string('limitdimensions', 'videofile'),
+                                         get_string('limitdimensions_explain', 'videofile'),
+                                         0));
 }

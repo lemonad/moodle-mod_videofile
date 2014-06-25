@@ -14,9 +14,10 @@ New release checklist
    click on the "Add a new version" link in the administration block
    bottom right.
    *  Add zip file.
+   *  Click "Show more..."
    *  Check "Rename root directory".
    *  Check "Auto remove system files".
-   *  Check "Rename README".
+   *  Check "Fix README file name".
    *  Select Moodle 2.4-2.7 in the select box.
    *  Click "Continue".
    *  Add change log to release notes (could be several versions).

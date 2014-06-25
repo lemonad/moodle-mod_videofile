@@ -14,7 +14,7 @@ New release checklist
    *  Check "Rename root directory".
    *  Check "Auto remove system files".
    *  Check "Rename README".
-   *  Select Moodle 2.5 in the select box.
+   *  Select Moodle 2.4-2.7 in the select box.
    *  Click "Continue".
    *  Add change log to release notes (could be several versions).
    *  Add "Change log URL" (click on the CHANGELOG in Github to get url).

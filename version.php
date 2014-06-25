@@ -27,9 +27,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version  = 2013112100;
+// TODO $module is deprecated for 2.7 and should be replaced with $plugin.
+// However, Moodle 2.4 still requires $module and it would not make sense
+// to break compatibility (yet).
+$module->version  = 2014062500;
 $module->requires = 2012120300;
 $module->cron     = 0;
 $module->component = 'mod_videofile';
 $module->maturity = MATURITY_STABLE;
-$module->release  = '1.04';
+$module->release  = '1.05';

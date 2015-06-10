@@ -1,6 +1,6 @@
 Videofile
 ---------
-Videofile is a Moodle 2.5+ resource plugin intended to provide teachers
+Videofile is a Moodle 2.4+ resource plugin intended to provide teachers
 with easy handling of cross-browser compatible videos using Video.js
 (http://videojs.com). In most cases it should be enough to add .mp4 video
 files which will then play in an html5 player on most browsers and in a

@@ -6,7 +6,7 @@ New release checklist
 *  Validate `styles.css` via <http://jigsaw.w3.org/css-validator/>
 *  `php -l` on all php files individually.
 *  Run the Code checker Moodle plugin on `mod/videofile` (exclude
-   `mod/videofile/video-js-4.6.3,mod/videofile/yui`).
+   `*/yui/*, */video-js-4.12.8/*`).
 *  Push to Github.
 *  Draft a new release on github (e.g. "v1.00").
 *  Download code (zip).

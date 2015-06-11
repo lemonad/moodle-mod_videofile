@@ -28,11 +28,15 @@
 defined('MOODLE_INTERNAL') || die();
 
 // TODO $module is deprecated for 2.7 and should be replaced with $plugin.
-// However, Moodle 2.4 still requires $module and it would not make sense
-// to break compatibility (yet).
-$module->version  = 2015061101;
-$module->requires = 2012120300;
-$module->cron     = 0;
-$module->component = 'mod_videofile';
-$module->maturity = MATURITY_STABLE;
-$module->release  = '1.06';
+// However, Moodle 2.4 still requires $module.
+if (isset($plugin)) {
+    $v = $plugin;
+} else {
+    $v = $module;
+}
+$v->version   = 2015061101;
+$v->requires  = 2012120300;
+$v->cron      = 0;
+$v->component = 'mod_videofile';
+$v->maturity  = MATURITY_STABLE;
+$v->release   = '1.06';

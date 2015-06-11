@@ -57,7 +57,13 @@ class mod_videofile_mod_form extends moodleform_mod {
                         'maxlength',
                         255,
                         'client');
-        $this->add_intro_editor(false);
+
+        // Function add_intro_editor() deprecated in 2.9.
+        if (method_exists($this, 'standard_intro_elements')) {
+            $this->standard_intro_elements();
+        } else {
+            $this->add_intro_editor(false);
+        }
 
         // Video fields.
         $mform->addElement('header',

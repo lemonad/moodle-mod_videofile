@@ -15,24 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the version of videofile.
- *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php.
+ * View event class for videofile
  *
  * @package    mod_videofile
- * @copyright  2013-2015 Jonas Nockert <jonasnockert@gmail.com>
+ * @copyright  2015 Jonas Nockert <jonasnockert@gmail.com>
+ * @since      Moodle 2.7
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace mod_videofile\event;
+
 defined('MOODLE_INTERNAL') || die();
 
-// TODO $module is deprecated for 2.7 and should be replaced with $plugin.
-// However, Moodle 2.4 still requires $module and it would not make sense
-// to break compatibility (yet).
-$module->version  = 2015061101;
-$module->requires = 2012120300;
-$module->cron     = 0;
-$module->component = 'mod_videofile';
-$module->maturity = MATURITY_STABLE;
-$module->release  = '1.06';
+class course_module_viewed extends \core\event\course_module_viewed {
+    protected function init() {
+        $this->data['objecttable'] = 'videofile';
+        parent::init();
+    }
+}

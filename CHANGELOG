@@ -1,6 +1,8 @@
 HEAD  -  
 
-1.06  -  Updated video.js from version 4.6.3 to 4.12.8.
+1.06  -  Now supports events for Moodle 2.7+.
+
+         Updated video.js from version 4.6.3 to 4.12.8.
          WARNING: video.js no longer supports .srt caption
          files. It's not likely that you are using that but
          in case you are -- it's easy to convert to .vtt by

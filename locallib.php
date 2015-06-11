@@ -301,32 +301,6 @@ class videofile {
     }
 
     /**
-     * Util function to add a message to the log.
-     *
-     * @param string $action The current action
-     * @param string $info A detailed description of the change.
-     *                     But no more than 255 characters.
-     * @param string $url The url to the videofile module instance.
-     * @return void
-     */
-    public function add_to_log($action = '', $info = '', $url='') {
-        global $USER;
-
-        $fullurl = 'view.php?id=' . $this->get_course_module()->id;
-        if ($url != '') {
-            $fullurl .= '&' . $url;
-        }
-
-        add_to_log($this->get_course()->id,
-                   'videofile',
-                   $action,
-                   $fullurl,
-                   $info,
-                   $this->get_course_module()->id,
-                   $USER->id);
-    }
-
-    /**
      * Lazy load the page renderer and expose the renderer to plugins.
      *
      * @return videofile_renderer

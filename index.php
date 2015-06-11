@@ -29,7 +29,16 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
-add_to_log($course->id, 'videofile', 'view all', "index.php?id=$course->id", '');
+// Log view all.
+if (class_exists('\core\event\course_module_viewed')) {
+    $event = \mod_videofile\event\course_module_instance_list_viewed::create(array(
+        'context' => context_course::instance($course->id)
+    ));
+    $event->trigger();
+} else {
+    // Legacy logging. Deprecated in Moodle 2.7.
+    add_to_log($course->id, 'videofile', 'view all', "index.php?id=$course->id", '');
+}
 
 $strvideofile    = get_string('modulename', 'videofile');
 $strvideofiles   = get_string('modulenameplural', 'videofile');

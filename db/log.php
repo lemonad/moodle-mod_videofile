@@ -17,16 +17,16 @@
 /**
  * Definition of log events
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia  <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $logs = array(
-    array('module' => 'videofile', 'action' => 'add', 'mtable' => 'videofile', 'field' => 'name'),
-    array('module' => 'videofile', 'action' => 'update', 'mtable' => 'videofile', 'field' => 'name'),
-    array('module' => 'videofile', 'action' => 'view', 'mtable' => 'videofile', 'field' => 'name'),
-    array('module' => 'videofile', 'action' => 'view all', 'mtable' => 'videofile', 'field' => 'name')
+    array('module' => 'ng_videofile', 'action' => 'add', 'mtable' => 'ng_videofile', 'field' => 'name'),
+    array('module' => 'ng_videofile', 'action' => 'update', 'mtable' => 'ng_videofile', 'field' => 'name'),
+    array('module' => 'ng_videofile', 'action' => 'view', 'mtable' => 'ng_videofile', 'field' => 'name'),
+    array('module' => 'ng_videofile', 'action' => 'view all', 'mtable' => 'ng_videofile', 'field' => 'name')
 );

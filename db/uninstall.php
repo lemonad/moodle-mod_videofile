@@ -17,14 +17,14 @@
 /**
  * @see uninstall_plugin()
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Custom uninstallation procedure
  */
-function xmldb_videofile_uninstall() {
+function xmldb_ng_videofile_uninstall() {
     return true;
 }

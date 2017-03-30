@@ -1,9 +1,0 @@
-{
-  "moodle-mod_videofile-videojs": {
-    "requires": [
-        "base",
-        "node",
-        "event"
-    ]
-  }
-}

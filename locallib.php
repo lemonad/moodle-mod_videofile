@@ -15,36 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This class provides functionality for the videofile module.
+ * This class provides functionality for the ng_videofile module.
  *
- * @package   mod_videofile
- * @copyright 2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package   mod_ng_videofile
+ * @copyright 2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Standard base class for mod_videofile.
+ * Standard base class for mod_ng_videofile.
  */
-class videofile {
-    /** @var stdClass The videofile record that contains the
-     *                global settings for this videofile instance.
+class ng_videofile {
+    /** @var stdClass The ng_videofile record that contains the
+     *                global settings for this ng_videofile instance.
      */
     private $instance;
 
-    /** @var context The context of the course module for this videofile instance
+    /** @var context The context of the course module for this ng_videofile instance
      *               (or just the course if we are creating a new one).
      */
     private $context;
 
-    /** @var stdClass The course this videofile instance belongs to */
+    /** @var stdClass The course this ng_videofile instance belongs to */
     private $course;
 
-    /** @var videofile_renderer The custom renderer for this module */
+    /** @var ng_videofile_renderer The custom renderer for this module */
     private $output;
 
-    /** @var stdClass The course module for this videofile instance */
+    /** @var stdClass The course module for this ng_videofile instance */
     private $coursemodule;
 
     /** @var string modulename Prevents excessive calls to get_string */
@@ -54,7 +54,7 @@ class videofile {
     private static $modulenameplural = null;
 
     /**
-     * Constructor for the base videofile class.
+     * Constructor for the base ng_videofile class.
      *
      * @param mixed $coursemodulecontext context|null The course module context
      *                                   (or the course context if the coursemodule
@@ -106,8 +106,8 @@ class videofile {
         $add->responsive = $formdata->responsive;
 	$add->videoid = $formdata->videoid;
 
-        $returnid = $DB->insert_record('videofile', $add);
-        $this->instance = $DB->get_record('videofile',
+        $returnid = $DB->insert_record('ng_videofile', $add);
+        $this->instance = $DB->get_record('ng_videofile',
                                           array('id' => $returnid),
                                           '*',
                                           MUST_EXIST);
@@ -130,7 +130,7 @@ class videofile {
         global $DB;
         $result = true;
 
-        // Delete files associated with this videofile.
+        // Delete files associated with this ng_videofile.
         $fs = get_file_storage();
         if (! $fs->delete_area_files($this->context->id) ) {
             $result = false;
@@ -138,7 +138,7 @@ class videofile {
 
         // Delete the instance.
         // Note: all context files are deleted automatically.
-        $DB->delete_records('videofile', array('id' => $this->get_instance()->id));
+        $DB->delete_records('ng_videofile', array('id' => $this->get_instance()->id));
 
         return $result;
     }
@@ -165,8 +165,8 @@ class videofile {
 	$update->videoid = $formdata->videoid;
 
 
-        $result = $DB->update_record('videofile', $update);
-        $this->instance = $DB->get_record('videofile',
+        $result = $DB->update_record('ng_videofile', $update);
+        $this->instance = $DB->get_record('ng_videofile',
                                           array('id' => $update->id),
                                           '*',
                                           MUST_EXIST);
@@ -177,31 +177,31 @@ class videofile {
     /**
      * Get the name of the current module.
      *
-     * @return string The module name (Videofile)
+     * @return string The module name (ng_videofile)
      */
     protected function get_module_name() {
         if (isset(self::$modulename)) {
             return self::$modulename;
         }
-        self::$modulename = get_string('modulename', 'videofile');
+        self::$modulename = get_string('modulename', 'ng_videofile');
         return self::$modulename;
     }
 
     /**
      * Get the plural name of the current module.
      *
-     * @return string The module name plural (Videofiles)
+     * @return string The module name plural (ng_videofiles)
      */
     protected function get_module_name_plural() {
         if (isset(self::$modulenameplural)) {
             return self::$modulenameplural;
         }
-        self::$modulenameplural = get_string('modulenameplural', 'videofile');
+        self::$modulenameplural = get_string('modulenameplural', 'ng_videofile');
         return self::$modulenameplural;
     }
 
     /**
-     * Has this videofile been constructed from an instance?
+     * Has this ng_videofile been constructed from an instance?
      *
      * @return bool
      */
@@ -210,7 +210,7 @@ class videofile {
     }
 
     /**
-     * Get the settings for the current instance of this videofile.
+     * Get the settings for the current instance of this ng_videofile.
      *
      * @return stdClass The settings
      */
@@ -221,11 +221,11 @@ class videofile {
         }
         if ($this->get_course_module()) {
             $params = array('id' => $this->get_course_module()->instance);
-            $this->instance = $DB->get_record('videofile', $params, '*', MUST_EXIST);
+            $this->instance = $DB->get_record('ng_videofile', $params, '*', MUST_EXIST);
         }
         if (!$this->instance) {
-            throw new coding_exception('Improper use of the videofile class. ' .
-                                       'Cannot load the videofile record.');
+            throw new coding_exception('Improper use of the ng_videofile class. ' .
+                                       'Cannot load the ng_videofile record.');
         }
         return $this->instance;
     }
@@ -237,7 +237,7 @@ class videofile {
      */
     public function get_course_context() {
         if (!$this->context && !$this->course) {
-            throw new coding_exception('Improper use of the videofile class. ' .
+            throw new coding_exception('Improper use of the ng_videofile class. ' .
                                        'Cannot load the course context.');
         }
         if ($this->context) {
@@ -261,7 +261,7 @@ class videofile {
         }
 
         if ($this->context->contextlevel == CONTEXT_MODULE) {
-            $this->coursemodule = get_coursemodule_from_id('videofile',
+            $this->coursemodule = get_coursemodule_from_id('ng_videofile',
                                                            $this->context->instanceid,
                                                            0,
                                                            false,
@@ -307,7 +307,7 @@ class videofile {
      * @param string $action The current action
      * @param string $info A detailed description of the change.
      *                     But no more than 255 characters.
-     * @param string $url The url to the videofile module instance.
+     * @param string $url The url to the ng_videofile module instance.
      * @return void
      */
     public function add_to_log($action = '', $info = '', $url='') {
@@ -319,7 +319,7 @@ class videofile {
         }
 
         add_to_log($this->get_course()->id,
-                   'videofile',
+                   'ng_videofile',
                    $action,
                    $fullurl,
                    $info,
@@ -330,7 +330,7 @@ class videofile {
     /**
      * Lazy load the page renderer and expose the renderer to plugins.
      *
-     * @return videofile_renderer
+     * @return ng_videofile_renderer
      */
     public function get_renderer() {
         global $PAGE;
@@ -338,7 +338,7 @@ class videofile {
         if ($this->output) {
             return $this->output;
         }
-        $this->output = $PAGE->get_renderer('mod_videofile');
+        $this->output = $PAGE->get_renderer('mod_ng_videofile');
         return $this->output;
     }
 

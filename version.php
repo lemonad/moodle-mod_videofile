@@ -14,25 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+ // original plugin by 2013 Jonas Nockert <jonasnockert@gmail.com>
+
+
 /**
  * Defines the version of videofile.
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php.
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il >
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// TODO $module is deprecated for 2.7 and should be replaced with $plugin.
-// However, Moodle 2.4 still requires $module and it would not make sense
-// to break compatibility (yet).
 $plugin->version  = 2017022001;
 $plugin->requires = 2012120300;
 $plugin->cron     = 0;
-$plugin->component = 'mod_videofile';
+$plugin->component = 'mod_ng_videofile';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release  = '1.05';
+$plugin->release  = '0.9';

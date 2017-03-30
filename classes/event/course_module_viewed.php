@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * View event class for videofile
+ * View event class for ng_videofile
  *
- * @package    mod_videofile
- * @copyright  2015 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @since      Moodle 2.7
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_videofile\event;
+namespace mod_ng_videofile\event;
 
 defined('MOODLE_INTERNAL') || die();
 
 class course_module_viewed extends \core\event\course_module_viewed {
     protected function init() {
-        $this->data['objecttable'] = 'videofile';
+        $this->data['objecttable'] = 'ng_videofile';
         parent::init();
     }
 }

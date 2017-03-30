@@ -15,27 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Swedish strings for videofile
+ * Swedish strings for ng_videofile
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'Videofil';
-$string['modulenameplural'] = 'Videofiler';
+$string['modulenameplural'] = 'ng_videofiler';
 $string['modulename_help'] = 'Använd videofil-modulen för att lägga till html5-videos med flash-fallback (via video.js). Den här modulen gör det också möjligt att lägga till flerspråkiga bildtexter.';
 
-$string['videofile:addinstance'] = 'Lägg till en ny videofil';
-$string['videofile:view'] = 'Visa videofil';
+$string['ng_videofile:addinstance'] = 'Lägg till en ny videofil';
+$string['ng_videofile:view'] = 'Visa videofil';
 
 $string['pluginadministration'] = 'Administration för videofil';
 $string['pluginname'] = 'Videofil';
 
-$string['videofile_defaults_heading'] = 'Standardvärden för videofil-inställningar';
-$string['videofile_defaults_text'] = 'De värden du sätter här blir standardvärden som används i inställningsformuläret när du skapar en ny videofil.';
+$string['ng_videofile_defaults_heading'] = 'Standardvärden för videofil-inställningar';
+$string['ng_videofile_defaults_text'] = 'De värden du sätter här blir standardvärden som används i inställningsformuläret när du skapar en ny videofil.';
 $string['width_explain'] = 'Specificerar standardbredden på videospelaren.';
 $string['height_explain'] = 'Specificerar standardhöjden på videospelaren.';
 $string['responsive_explain'] = 'Specificerar om responsivt läge ska användas som standard för videospelaren eller ej.';
@@ -57,7 +57,7 @@ $string['responsive_label'] = '';
 $string['limitdimensions'] = 'Begränsa storlek i responsivt läge?';
 
 $string['videos'] = 'Videos';
-$string['videos_help'] = "Lägg till videofilen här.\n\nDu kan lägga till alternativa format för att vara säker på att videon går att spela upp oavsett vilken webbläsare som används (vanligtvis räcker det med .mp4, .ogv and .webm).";
+$string['videos_help'] = "Lägg till ng_videofilen här.\n\nDu kan lägga till alternativa format för att vara säker på att videon går att spela upp oavsett vilken webbläsare som används (vanligtvis räcker det med .mp4, .ogv and .webm).";
 $string['posters'] = 'Bild';
 $string['posters_help'] = 'Lägg till en bild här som kommer visas innan videon börjar spelas upp.';
 $string['captions'] = 'Bildtexter';

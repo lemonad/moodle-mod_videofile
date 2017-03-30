@@ -15,8 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,23 +29,23 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
-add_to_log($course->id, 'videofile', 'view all', "index.php?id=$course->id", '');
+add_to_log($course->id, 'ng_videofile', 'view all', "index.php?id=$course->id", '');
 
-$strvideofile    = get_string('modulename', 'videofile');
-$strvideofiles   = get_string('modulenameplural', 'videofile');
+$strng_videofile    = get_string('modulename', 'ng_videofile');
+$strng_videofiles   = get_string('modulenameplural', 'ng_videofile');
 $strsectionname  = get_string('sectionname', 'format_'.$course->format);
 $strname         = get_string('name');
 $strintro        = get_string('moduleintro');
 $strlastmodified = get_string('lastmodified');
 
-$PAGE->set_url('/mod/videofile/index.php', array('id' => $course->id));
-$PAGE->set_title($course->shortname.': '.$strvideofiles);
+$PAGE->set_url('/mod/ng_videofile/index.php', array('id' => $course->id));
+$PAGE->set_title($course->shortname.': '.$strng_videofiles);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add($strvideofiles);
+$PAGE->navbar->add($strng_videofiles);
 echo $OUTPUT->header();
 
-if (!$videofiles = get_all_instances_in_course('videofile', $course)) {
-    notice(get_string('thereareno', 'moodle', $strvideofiles), "$CFG->wwwroot/course/view.php?id=$course->id");
+if (!$ng_videofiles = get_all_instances_in_course('ng_videofile', $course)) {
+    notice(get_string('thereareno', 'moodle', $strng_videofiles), "$CFG->wwwroot/course/view.php?id=$course->id");
     exit;
 }
 
@@ -64,38 +64,38 @@ if ($usesections) {
 
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
-foreach ($videofiles as $videofile) {
-    $cm = $modinfo->cms[$videofile->coursemodule];
+foreach ($ng_videofiles as $ng_videofile) {
+    $cm = $modinfo->cms[$ng_videofile->coursemodule];
     if ($usesections) {
         $printsection = '';
-        if ($videofile->section !== $currentsection) {
-            if ($videofile->section) {
-                $printsection = get_section_name($course, $videofile->section);
+        if ($ng_videofile->section !== $currentsection) {
+            if ($ng_videofile->section) {
+                $printsection = get_section_name($course, $ng_videofile->section);
             }
             if ($currentsection !== '') {
                 $table->data[] = 'hr';
             }
-            $currentsection = $videofile->section;
+            $currentsection = $ng_videofile->section;
         }
     } else {
-        $printsection = '<span class="smallinfo">'.userdate($videofile->timemodified)."</span>";
+        $printsection = '<span class="smallinfo">'.userdate($ng_videofile->timemodified)."</span>";
     }
 
     $extra = empty($cm->extra) ? '' : $cm->extra;
     $icon = '';
     if (!empty($cm->icon)) {
-        // Each videofile has an icon in 2.0.
+        // Each ng_videofile has an icon in 2.0.
         $icon = '<img src="' . $OUTPUT->pix_url($cm->icon) .
                 '" class="activityicon" alt="' .
                 get_string('modulename', $cm->modname) . '" /> ';
     }
     // Dim hidden modules.
-    $class = $videofile->visible ? '' : 'class="dimmed"';
+    $class = $ng_videofile->visible ? '' : 'class="dimmed"';
     $table->data[] = array (
         $printsection,
         "<a $class $extra href=\"view.php?id=$cm->id\">" .
-            $icon . format_string($videofile->name) . "</a>",
-        format_module_intro('videofile', $videofile, $cm->id));
+            $icon . format_string($ng_videofile->name) . "</a>",
+        format_module_intro('ng_videofile', $ng_videofile, $cm->id));
 }
 
 echo html_writer::table($table);

@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English strings for videofile.
+ * English strings for ng_videofile.
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,14 +28,14 @@ $string['modulename'] = 'שילוב סרטון';
 $string['modulenameplural'] = 'סרטונים';
 $string['modulename_help'] = 'רכיב זה מאפשר שילוב של סרטונים ממאגר הסרטים בתוך קורס';
 
-$string['videofile:addinstance'] = 'הוספת סרטון';
-$string['videofile:view'] = 'צפייה בסרטון';
+$string['ng_videofile:addinstance'] = 'הוספת סרטון';
+$string['ng_videofile:view'] = 'צפייה בסרטון';
 
 $string['pluginadministration'] = 'ניהול רכיב הצגת סרטונים';
 $string['pluginname'] = 'שילוב סרטון';
 
-$string['videofile_defaults_heading'] = 'ברירות מחדל להגדרות של הסרטון';
-$string['videofile_defaults_text'] = 'ההגדרות שיוגדרו פה תהיינה ברירות המחדל בסרטון חדש ';
+$string['ng_videofile_defaults_heading'] = 'ברירות מחדל להגדרות של הסרטון';
+$string['ng_videofile_defaults_text'] = 'ההגדרות שיוגדרו פה תהיינה ברירות המחדל בסרטון חדש ';
 $string['width_explain'] = 'הגדירו את ברירת המחדל של הרוחב';
 $string['height_explain'] = 'הגדירו את ברירת המחדל של הגובה';
 $string['responsive_explain'] = 'האם רספונסיביות מוגדרת כברירת מחדל';

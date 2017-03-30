@@ -16,39 +16,39 @@
 
 /**
  * Define all the backup steps that will be used by the
- * backup_videofile_activity_task.
+ * backup_ng_videofile_activity_task.
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 /**
- * Define the complete videofile structure for backup, with file and id annotations
+ * Define the complete ng_videofile structure for backup, with file and id annotations
  */
-class backup_videofile_activity_structure_step extends backup_activity_structure_step {
+class backup_ng_videofile_activity_structure_step extends backup_activity_structure_step {
 
     protected function define_structure() {
         // Define each element separated.
-        $videofile = new backup_nested_element('videofile', array('id'), array(
+        $ng_videofile = new backup_nested_element('ng_videofile', array('id'), array(
             'name', 'intro', 'introformat',
             'width', 'height','responsive','videoid',
             'timecreated', 'timemodified'));
 
         // Define sources.
-        $videofile->set_source_table('videofile',
+        $ng_videofile->set_source_table('ng_videofile',
                                      array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
-        //$videofile->annotate_files('mod_videofile', 'intro', null);
-        //$videofile->annotate_files('mod_videofile', 'videos', null);
-        //$videofile->annotate_files('mod_videofile', 'posters', null);
-        //$videofile->annotate_files('mod_videofile', 'captions', null);
+        //$ng_videofile->annotate_files('mod_ng_videofile', 'intro', null);
+        //$ng_videofile->annotate_files('mod_ng_videofile', 'videos', null);
+        //$ng_videofile->annotate_files('mod_ng_videofile', 'posters', null);
+        //$ng_videofile->annotate_files('mod_ng_videofile', 'captions', null);
 
-        // Return the root element (videofile), wrapped into standard
+        // Return the root element (ng_videofile), wrapped into standard
         // activity structure.
-        return $this->prepare_activity_structure($videofile);
+        return $this->prepare_activity_structure($ng_videofile);
     }
 }

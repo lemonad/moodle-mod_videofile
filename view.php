@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of videofile
+ * Prints a particular instance of ng_videofile
  *
- * @package    mod_videofile
- * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
+ * @package    mod_ng_videofile
+ * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,18 +27,18 @@ require_once(dirname(__FILE__) . '/locallib.php');
 
 $id = required_param('id', PARAM_INT);
 
-$cm = get_coursemodule_from_id('videofile', $id, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('ng_videofile', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
-$videofile = new videofile($context, $cm, $course);
+$ng_videofile = new ng_videofile($context, $cm, $course);
 
 require_login($course, true, $cm);
-require_capability('mod/videofile:view', $context);
+require_capability('mod/ng_videofile:view', $context);
 
 $PAGE->set_pagelayout('incourse');
 
-$url = new moodle_url('/mod/videofile/view.php', array('id' => $id));
-$PAGE->set_url('/mod/videofile/view.php', array('id' => $cm->id));
+$url = new moodle_url('/mod/ng_videofile/view.php', array('id' => $id));
+$PAGE->set_url('/mod/ng_videofile/view.php', array('id' => $cm->id));
 
 // Update 'viewed' state if required by completion system.
 $completion = new completion_info($course);
@@ -46,17 +46,17 @@ $completion->set_module_viewed($cm);
 
 // Log viewing.
 //add_to_log($course->id,
-//           'videofile',
+//           'ng_videofile',
 //           'view',
 //           'view.php?id=' . $cm->id,
-//           $videofile->get_instance()->id, $cm->id);
+//           $ng_videofile->get_instance()->id, $cm->id);
 
-$event = \mod_videofile\event\video_view::create(array(
-    'objectid' => $videofile->get_instance()->videoid,
+$event = \mod_ng_videofile\event\video_view::create(array(
+    'objectid' => $ng_videofile->get_instance()->videoid,
     'context' => context_module::instance($cm->id)
 ));
 $event->trigger();
 
 
-$renderer = $PAGE->get_renderer('mod_videofile');
-echo $renderer->video_page($videofile);
+$renderer = $PAGE->get_renderer('mod_ng_videofile');
+echo $renderer->video_page($ng_videofile);

@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2017022001;
+$plugin->version  = 2017033001;
 $plugin->requires = 2016120300;
 $plugin->cron     = 0;
 $plugin->component = 'mod_ng_videofile';

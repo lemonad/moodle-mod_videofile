@@ -57,15 +57,10 @@ class mod_videofile_mod_form extends moodleform_mod {
                         'maxlength',
                         255,
                         'client');
-
-        // Function add_intro_editor() deprecated in 2.9.
-        if (method_exists($this, 'standard_intro_elements')) {
-            $this->standard_intro_elements();
-        } else {
-            $this->add_intro_editor(false);
-        }
-
-        // Video fields.
+        //$this->add_intro_editor(false);
+	moodleform_mod::standard_intro_elements();
+        
+	// Video fields.
         $mform->addElement('header',
                            'video_fieldset',
                            get_string('video_fieldset', 'videofile'));
@@ -103,45 +98,33 @@ class mod_videofile_mod_form extends moodleform_mod {
         $mform->addHelpButton('responsive', 'responsive', 'videofile');
         $mform->setDefault('responsive', $config->responsive);
 
-        // Video file manager.
-        $options = array('subdirs' => false,
-                         'maxbytes' => 0,
-                         'maxfiles' => -1,
-                         'accepted_types' => array('.mp4', '.webm', '.ogv'));
-        $mform->addElement(
-            'filemanager',
-            'videos',
-            get_string('videos', 'videofile'),
-            null,
-            $options);
-        $mform->addHelpButton('videos', 'videos', 'videofile');
-        $mform->addRule('videos', null, 'required', null, 'client');
 
-        // Posters file manager.
-        $options = array('subdirs' => false,
-                         'maxbytes' => 0,
-                         'maxfiles' => 1,
-                         'accepted_types' => array('image'));
-        $mform->addElement(
-            'filemanager',
-            'posters',
-            get_string('posters', 'videofile'),
-            null,
-            $options);
-        $mform->addHelpButton('posters', 'posters', 'videofile');
+	// Video File from local_video
+	global $USER,$DB;
+	if (is_siteadmin($USER)) {
+		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
+						FROM {local_video} v 
+						LEFT JOIN {user} u on v.owner_id = u.id 
+						GROUP by id');
+	} else {
+		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
+						FROM {local_video} v 
+						LEFT JOIN {user} u on v.owner_id = u.id 
+						WHERE (owner_id ='.$USER->id.' OR (private IS NULL OR private = 0))
+						GROUP by id');
+	}
 
-        // Captions file manager.
-        $options = array('subdirs' => false,
-                         'maxbytes' => 0,
-                         'maxfiles' => -1,
-                         'accepted_types' => array('.vtt'));
-        $mform->addElement(
-            'filemanager',
-            'captions',
-            get_string('captions', 'videofile'),
-            null,
-            $options);
-        $mform->addHelpButton('captions', 'captions', 'videofile');
+	foreach ($videos as $video) {
+		$video_list[$video->id]=$video->orig_filename;
+	}
+
+	//$list = array(1,2,3);
+	$options = array('multiple' => false);
+
+//    'noselectionstring' => get_string('video', 'videofile'),
+         
+	$mform->addElement('autocomplete', 'videoid', get_string('video', 'videofile'), $video_list, $options);
+
 
         // Standard elements, common to all modules.
         $this->standard_coursemodule_elements();
@@ -158,41 +141,6 @@ class mod_videofile_mod_form extends moodleform_mod {
      */
     public function data_preprocessing(&$defaultvalues) {
         if ($this->current->instance) {
-            $options = array('subdirs' => false,
-                             'maxbytes' => 0,
-                             'maxfiles' => -1);
-            $draftitemid = file_get_submitted_draft_itemid('videos');
-            file_prepare_draft_area($draftitemid,
-                                    $this->context->id,
-                                    'mod_videofile',
-                                    'videos',
-                                    0,
-                                    $options);
-            $defaultvalues['videos'] = $draftitemid;
-
-            $options = array('subdirs' => false,
-                             'maxbytes' => 0,
-                             'maxfiles' => 1);
-            $draftitemid = file_get_submitted_draft_itemid('posters');
-            file_prepare_draft_area($draftitemid,
-                                    $this->context->id,
-                                    'mod_videofile',
-                                    'posters',
-                                    0,
-                                    $options);
-            $defaultvalues['posters'] = $draftitemid;
-
-            $options = array('subdirs' => false,
-                             'maxbytes' => 0,
-                             'maxfiles' => -1);
-            $draftitemid = file_get_submitted_draft_itemid('captions');
-            file_prepare_draft_area($draftitemid,
-                                    $this->context->id,
-                                    'mod_videofile',
-                                    'captions',
-                                    0,
-                                    $options);
-            $defaultvalues['captions'] = $draftitemid;
 
             if (empty($defaultvalues['width'])) {
                 $defaultvalues['width'] = 800;

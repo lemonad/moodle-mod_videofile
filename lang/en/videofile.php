@@ -56,6 +56,7 @@ $string['responsive_help'] = "Check to make the video automatically resize with 
 $string['responsive_label'] = '';
 $string['limitdimensions'] = 'Limit size in responsive mode?';
 
+$string['video'] = 'Video';
 $string['videos'] = 'Videos';
 $string['videos_help'] = "Add the video file here.\n\nYou can add alternative formats in order to be sure it can play regardless of which browser is being used (usually .mp4, .ogv and .webm covers it.)";
 $string['posters'] = 'Poster Image';
@@ -66,3 +67,14 @@ $string['captions_help'] = "Add transcriptions of the dialogue in WebVTT format 
 $string['err_positive'] = 'You must enter a positive number here.';
 
 $string['video_not_playing'] = 'Video not playing? Try {$a}.';
+
+$string['eventvideo_view'] = 'Video Viewed';
+$string['playback_rate'] = "Playback Rate";
+
+$string['streaming_protocol'] = "Streaming Protocol";
+
+$string['dash_base_url'] = "Dash base streaming URL";
+$string['dash_base_url_explain'] = "Enter here dash base streaming URL, something like http://streaming.company.com/dash/";
+
+$string['hls_base_url'] = "HLS base streaming URL";
+$string['hls_base_url_explain'] = "Enter here HLS base streaming URL, something like http://streaming.company.com/hls/";

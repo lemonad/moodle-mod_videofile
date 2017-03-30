@@ -68,4 +68,27 @@ if ($ADMIN->fulltree) {
                                          get_string('limitdimensions', 'videofile'),
                                          get_string('limitdimensions_explain', 'videofile'),
                                          0));
+										 
+	// dash or hls
+	$settings->add(
+		new admin_setting_configselect('videofile/streaming',
+        get_string('streaming_protocol', 'videofile'), '', '', array("dash"=>"dash","hls"=>"hls")));
+		
+	// Dash base URL
+    $settings->add(
+        new admin_setting_configtext('videofile/dash_base_url',
+                                     get_string('dash_base_url', 'videofile'),
+                                     get_string('dash_base_url_explain', 'videofile'),
+                                     "",
+                                     PARAM_RAW
+                                     ));
+	
+	// HLS base URL
+    $settings->add(
+        new admin_setting_configtext('videofile/hls_base_url',
+                                     get_string('hls_base_url', 'videofile'),
+                                     get_string('hls_base_url_explain', 'videofile'),
+                                     "",
+                                     PARAM_RAW
+                                     ));
 }

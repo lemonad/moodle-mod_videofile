@@ -13,7 +13,8 @@
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="width"/>
         <FIELD NAME="width" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="800" SEQUENCE="false" COMMENT="Width of the video in pixels" PREVIOUS="introformat" NEXT="height"/>
         <FIELD NAME="height" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="500" SEQUENCE="false" COMMENT="Height of the video in pixels" PREVIOUS="width" NEXT="responsive"/>
-        <FIELD NAME="responsive" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Nonzero if video should adapt to window size with width and height used as a proportions" PREVIOUS="height" NEXT="timecreated"/>
+        <FIELD NAME="responsive" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Nonzero if video should adapt to window size with width and height used as a proportions" PREVIOUS="height" NEXT="videoid"/>
+	<FIELD NAME="videoid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" NEXT="timecreated"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="responsive" NEXT="timemodified"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated"/>
       </FIELDS>

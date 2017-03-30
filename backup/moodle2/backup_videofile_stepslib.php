@@ -34,7 +34,7 @@ class backup_videofile_activity_structure_step extends backup_activity_structure
         // Define each element separated.
         $videofile = new backup_nested_element('videofile', array('id'), array(
             'name', 'intro', 'introformat',
-            'width', 'height',
+            'width', 'height','responsive','videoid',
             'timecreated', 'timemodified'));
 
         // Define sources.
@@ -42,10 +42,10 @@ class backup_videofile_activity_structure_step extends backup_activity_structure
                                      array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
-        $videofile->annotate_files('mod_videofile', 'intro', null);
-        $videofile->annotate_files('mod_videofile', 'videos', null);
-        $videofile->annotate_files('mod_videofile', 'posters', null);
-        $videofile->annotate_files('mod_videofile', 'captions', null);
+        //$videofile->annotate_files('mod_videofile', 'intro', null);
+        //$videofile->annotate_files('mod_videofile', 'videos', null);
+        //$videofile->annotate_files('mod_videofile', 'posters', null);
+        //$videofile->annotate_files('mod_videofile', 'captions', null);
 
         // Return the root element (videofile), wrapped into standard
         // activity structure.

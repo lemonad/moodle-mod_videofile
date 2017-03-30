@@ -104,13 +104,13 @@ class videofile {
         $add->width = $formdata->width;
         $add->height = $formdata->height;
         $add->responsive = $formdata->responsive;
+	$add->videoid = $formdata->videoid;
 
         $returnid = $DB->insert_record('videofile', $add);
         $this->instance = $DB->get_record('videofile',
                                           array('id' => $returnid),
                                           '*',
                                           MUST_EXIST);
-        $this->save_files($formdata);
 
         // Cache the course record.
         $this->course = $DB->get_record('course',
@@ -162,13 +162,14 @@ class videofile {
         $update->width = $formdata->width;
         $update->height = $formdata->height;
         $update->responsive = $formdata->responsive;
+	$update->videoid = $formdata->videoid;
+
 
         $result = $DB->update_record('videofile', $update);
         $this->instance = $DB->get_record('videofile',
                                           array('id' => $update->id),
                                           '*',
                                           MUST_EXIST);
-        $this->save_files($formdata);
 
         return $result;
     }
@@ -301,6 +302,32 @@ class videofile {
     }
 
     /**
+     * Util function to add a message to the log.
+     *
+     * @param string $action The current action
+     * @param string $info A detailed description of the change.
+     *                     But no more than 255 characters.
+     * @param string $url The url to the videofile module instance.
+     * @return void
+     */
+    public function add_to_log($action = '', $info = '', $url='') {
+        global $USER;
+
+        $fullurl = 'view.php?id=' . $this->get_course_module()->id;
+        if ($url != '') {
+            $fullurl .= '&' . $url;
+        }
+
+        add_to_log($this->get_course()->id,
+                   'videofile',
+                   $action,
+                   $fullurl,
+                   $info,
+                   $this->get_course_module()->id,
+                   $USER->id);
+    }
+
+    /**
      * Lazy load the page renderer and expose the renderer to plugins.
      *
      * @return videofile_renderer
@@ -315,49 +342,4 @@ class videofile {
         return $this->output;
     }
 
-    /**
-     * Save draft files.
-     *
-     * @param stdClass $formdata
-     * @return void
-     */
-    protected function save_files($formdata) {
-        global $DB;
-
-        // Storage of files from the filemanager (videos).
-        $draftitemid = $formdata->videos;
-        if ($draftitemid) {
-            file_save_draft_area_files(
-                $draftitemid,
-                $this->context->id,
-                'mod_videofile',
-                'videos',
-                0
-            );
-        }
-
-        // Storage of files from the filemanager (captions).
-        $draftitemid = $formdata->captions;
-        if ($draftitemid) {
-            file_save_draft_area_files(
-                $draftitemid,
-                $this->context->id,
-                'mod_videofile',
-                'captions',
-                0
-            );
-        }
-
-        // Storage of files from the filemanager (posters).
-        $draftitemid = $formdata->posters;
-        if ($draftitemid) {
-            file_save_draft_area_files(
-                $draftitemid,
-                $this->context->id,
-                'mod_videofile',
-                'posters',
-                0
-            );
-        }
-    }
 }

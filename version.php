@@ -21,22 +21,18 @@
  * /admin/index.php.
  *
  * @package    mod_videofile
- * @copyright  2013-2015 Jonas Nockert <jonasnockert@gmail.com>
+ * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 // TODO $module is deprecated for 2.7 and should be replaced with $plugin.
-// However, Moodle 2.4 still requires $module.
-if (isset($plugin)) {
-    $v = $plugin;
-} else {
-    $v = $module;
-}
-$v->version   = 2015061101;
-$v->requires  = 2012120300;
-$v->cron      = 0;
-$v->component = 'mod_videofile';
-$v->maturity  = MATURITY_STABLE;
-$v->release   = '1.06';
+// However, Moodle 2.4 still requires $module and it would not make sense
+// to break compatibility (yet).
+$plugin->version  = 2017022001;
+$plugin->requires = 2012120300;
+$plugin->cron     = 0;
+$plugin->component = 'mod_videofile';
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release  = '1.05';

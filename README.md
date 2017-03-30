@@ -1,16 +1,13 @@
-Videofile
+NG_Videofile
 ---------
-Videofile is a Moodle 2.4+ resource plugin intended to provide teachers
-with easy handling of cross-browser compatible videos using Video.js
-(http://videojs.com). In most cases it should be enough to add .mp4 video
-files which will then play in an html5 player on most browsers and in a
-flash player in older browsers.
+New NG_Videofile module is based on the great original videofile module by : Jonas Nockert <jonasnockert@gmail.com>
+Thank you Jonas !!
 
-Videofile and Video.js also supports WebVTT captions as well as a poster
-image that displays before the video is started.
+This module work with local_video_directory, and has the ability to stream in DASH,HLS and plain PHP.
+DASH & HLS works using Nginx Kaltura Streaming module.
 
-Example screenshots
--------------------
+Example screenshots (of originla plugin)
+----------------------------------------
 ![A screenshot](https://raw.github.com/lemonad/moodle-mod_videofile/master/pix/screenshot-1.png)
 
 ![Another screenshot](https://raw.github.com/lemonad/moodle-mod_videofile/master/pix/screenshot-2.png)
@@ -18,7 +15,7 @@ Example screenshots
 Installation
 ------------
 Unzip the zip file in the `mod` folder of the Moodle directory and, if
-necessary, rename the folder to "videofile".
+necessary, rename the folder to "ng_videofile".
 -- OR --
 Go to Administration > Site Administration > Install add-ons to install
 the Videofile module directly from your Moodle installation.

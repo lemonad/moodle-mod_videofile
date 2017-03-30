@@ -18,7 +18,7 @@
  * Prints a particular instance of videofile
  *
  * @package    mod_videofile
- * @copyright  2015 Jonas Nockert <jonasnockert@gmail.com>
+ * @copyright  2013 Jonas Nockert <jonasnockert@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -45,22 +45,18 @@ $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 // Log viewing.
-if (class_exists('\core\event\course_module_viewed')) {
-    $event = \mod_videofile\event\course_module_viewed::create(array(
-        'objectid' => $cm->instance,
-        'context' => $PAGE->context,
-    ));
-    $event->add_record_snapshot('course', $course);
-    $event->add_record_snapshot($cm->modname, $videofile->get_instance());
-    $event->trigger();
-} else {
-    // Legacy logging. Deprecated in Moodle 2.7.
-    add_to_log($course->id,
-               'videofile',
-               'view',
-               'view.php?id=' . $cm->id,
-               $videofile->get_instance()->id, $cm->id);
-}
+//add_to_log($course->id,
+//           'videofile',
+//           'view',
+//           'view.php?id=' . $cm->id,
+//           $videofile->get_instance()->id, $cm->id);
+
+$event = \mod_videofile\event\video_view::create(array(
+    'objectid' => $videofile->get_instance()->videoid,
+    'context' => context_module::instance($cm->id)
+));
+$event->trigger();
+
 
 $renderer = $PAGE->get_renderer('mod_videofile');
 echo $renderer->video_page($videofile);

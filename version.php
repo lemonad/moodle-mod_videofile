@@ -18,7 +18,7 @@
 
 
 /**
- * Defines the version of videofile.
+ * Defines the version of ng_videofile.
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php.

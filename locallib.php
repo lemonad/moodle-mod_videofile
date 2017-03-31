@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This class provides functionality for the ng_videofile module.
+ * This class provides functionality for the videostream module.
  *
- * @package   mod_ng_videofile
+ * @package   mod_videostream
  * @copyright 2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,26 +25,26 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Standard base class for mod_ng_videofile.
+ * Standard base class for mod_videostream.
  */
-class ng_videofile {
-    /** @var stdClass The ng_videofile record that contains the
-     *                global settings for this ng_videofile instance.
+class videostream {
+    /** @var stdClass The videostream record that contains the
+     *                global settings for this videostream instance.
      */
     private $instance;
 
-    /** @var context The context of the course module for this ng_videofile instance
+    /** @var context The context of the course module for this videostream instance
      *               (or just the course if we are creating a new one).
      */
     private $context;
 
-    /** @var stdClass The course this ng_videofile instance belongs to */
+    /** @var stdClass The course this videostream instance belongs to */
     private $course;
 
-    /** @var ng_videofile_renderer The custom renderer for this module */
+    /** @var videostream_renderer The custom renderer for this module */
     private $output;
 
-    /** @var stdClass The course module for this ng_videofile instance */
+    /** @var stdClass The course module for this videostream instance */
     private $coursemodule;
 
     /** @var string modulename Prevents excessive calls to get_string */
@@ -54,7 +54,7 @@ class ng_videofile {
     private static $modulenameplural = null;
 
     /**
-     * Constructor for the base ng_videofile class.
+     * Constructor for the base videostream class.
      *
      * @param mixed $coursemodulecontext context|null The course module context
      *                                   (or the course context if the coursemodule
@@ -106,8 +106,8 @@ class ng_videofile {
         $add->responsive = $formdata->responsive;
 	$add->videoid = $formdata->videoid;
 
-        $returnid = $DB->insert_record('ng_videofile', $add);
-        $this->instance = $DB->get_record('ng_videofile',
+        $returnid = $DB->insert_record('videostream', $add);
+        $this->instance = $DB->get_record('videostream',
                                           array('id' => $returnid),
                                           '*',
                                           MUST_EXIST);
@@ -130,7 +130,7 @@ class ng_videofile {
         global $DB;
         $result = true;
 
-        // Delete files associated with this ng_videofile.
+        // Delete files associated with this videostream.
         $fs = get_file_storage();
         if (! $fs->delete_area_files($this->context->id) ) {
             $result = false;
@@ -138,7 +138,7 @@ class ng_videofile {
 
         // Delete the instance.
         // Note: all context files are deleted automatically.
-        $DB->delete_records('ng_videofile', array('id' => $this->get_instance()->id));
+        $DB->delete_records('videostream', array('id' => $this->get_instance()->id));
 
         return $result;
     }
@@ -165,8 +165,8 @@ class ng_videofile {
 	$update->videoid = $formdata->videoid;
 
 
-        $result = $DB->update_record('ng_videofile', $update);
-        $this->instance = $DB->get_record('ng_videofile',
+        $result = $DB->update_record('videostream', $update);
+        $this->instance = $DB->get_record('videostream',
                                           array('id' => $update->id),
                                           '*',
                                           MUST_EXIST);
@@ -177,31 +177,31 @@ class ng_videofile {
     /**
      * Get the name of the current module.
      *
-     * @return string The module name (ng_videofile)
+     * @return string The module name (videostream)
      */
     protected function get_module_name() {
         if (isset(self::$modulename)) {
             return self::$modulename;
         }
-        self::$modulename = get_string('modulename', 'ng_videofile');
+        self::$modulename = get_string('modulename', 'videostream');
         return self::$modulename;
     }
 
     /**
      * Get the plural name of the current module.
      *
-     * @return string The module name plural (ng_videofiles)
+     * @return string The module name plural (videostreams)
      */
     protected function get_module_name_plural() {
         if (isset(self::$modulenameplural)) {
             return self::$modulenameplural;
         }
-        self::$modulenameplural = get_string('modulenameplural', 'ng_videofile');
+        self::$modulenameplural = get_string('modulenameplural', 'videostream');
         return self::$modulenameplural;
     }
 
     /**
-     * Has this ng_videofile been constructed from an instance?
+     * Has this videostream been constructed from an instance?
      *
      * @return bool
      */
@@ -210,7 +210,7 @@ class ng_videofile {
     }
 
     /**
-     * Get the settings for the current instance of this ng_videofile.
+     * Get the settings for the current instance of this videostream.
      *
      * @return stdClass The settings
      */
@@ -221,11 +221,11 @@ class ng_videofile {
         }
         if ($this->get_course_module()) {
             $params = array('id' => $this->get_course_module()->instance);
-            $this->instance = $DB->get_record('ng_videofile', $params, '*', MUST_EXIST);
+            $this->instance = $DB->get_record('videostream', $params, '*', MUST_EXIST);
         }
         if (!$this->instance) {
-            throw new coding_exception('Improper use of the ng_videofile class. ' .
-                                       'Cannot load the ng_videofile record.');
+            throw new coding_exception('Improper use of the videostream class. ' .
+                                       'Cannot load the videostream record.');
         }
         return $this->instance;
     }
@@ -237,7 +237,7 @@ class ng_videofile {
      */
     public function get_course_context() {
         if (!$this->context && !$this->course) {
-            throw new coding_exception('Improper use of the ng_videofile class. ' .
+            throw new coding_exception('Improper use of the videostream class. ' .
                                        'Cannot load the course context.');
         }
         if ($this->context) {
@@ -261,7 +261,7 @@ class ng_videofile {
         }
 
         if ($this->context->contextlevel == CONTEXT_MODULE) {
-            $this->coursemodule = get_coursemodule_from_id('ng_videofile',
+            $this->coursemodule = get_coursemodule_from_id('videostream',
                                                            $this->context->instanceid,
                                                            0,
                                                            false,
@@ -307,7 +307,7 @@ class ng_videofile {
      * @param string $action The current action
      * @param string $info A detailed description of the change.
      *                     But no more than 255 characters.
-     * @param string $url The url to the ng_videofile module instance.
+     * @param string $url The url to the videostream module instance.
      * @return void
      */
     public function add_to_log($action = '', $info = '', $url='') {
@@ -319,7 +319,7 @@ class ng_videofile {
         }
 
         add_to_log($this->get_course()->id,
-                   'ng_videofile',
+                   'videostream',
                    $action,
                    $fullurl,
                    $info,
@@ -330,7 +330,7 @@ class ng_videofile {
     /**
      * Lazy load the page renderer and expose the renderer to plugins.
      *
-     * @return ng_videofile_renderer
+     * @return videostream_renderer
      */
     public function get_renderer() {
         global $PAGE;
@@ -338,7 +338,7 @@ class ng_videofile {
         if ($this->output) {
             return $this->output;
         }
-        $this->output = $PAGE->get_renderer('mod_ng_videofile');
+        $this->output = $PAGE->get_renderer('mod_videostream');
         return $this->output;
     }
 

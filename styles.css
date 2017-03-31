@@ -1,22 +1,22 @@
 /* Center video player. */
-.ng_videofile .video-js { margin: 0 auto }
+.videostream .video-js { margin: 0 auto }
 
 /* Not playing message. */
-.ng_videofile .ng_videofile-not-playing-msg { margin-top: 1em; font-size: 120%; text-align: center; font-style: italic }
+.videostream .videostream-not-playing-msg { margin-top: 1em; font-size: 120%; text-align: center; font-style: italic }
 
 /* Responsive mode. */
-.ng_videofile.ng_videofile-responsive .vjs-tech { margin: 0 auto }
-.ng_videofile.ng_videofile-responsive { width: 100%; height: auto }
+.videostream.videostream-responsive .vjs-tech { margin: 0 auto }
+.videostream.videostream-responsive { width: 100%; height: auto }
 
 /* Override videojs styles. */
-.ng_videofile .vjs-big-play-button { font-size: 175% }
-.ng_videofile .vjs-poster { background-color: #ddd }
+.videostream .vjs-big-play-button { font-size: 175% }
+.videostream .vjs-poster { background-color: #ddd }
 
 /* Prevent size limit in full screen mode. */
-.ng_videofile .vjs-fullscreen { max-width: 100% !important; max-height: 100% !important }
+.videostream .vjs-fullscreen { max-width: 100% !important; max-height: 100% !important }
 
 /* Workaround for videojs "Sorry, no compatible source and playback technology..." message not showing properly. */
-.ng_videofile .video-js p { color: #000; background-color: #f00; position: absolute; z-index: 100; width: 100%; text-align: center }
+.videostream .video-js p { color: #000; background-color: #f00; position: absolute; z-index: 100; width: 100%; text-align: center }
 
 .rates {
 	text-align: center;

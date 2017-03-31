@@ -15,39 +15,39 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * ng_videofile module renderering methods are defined here.
+ * videostream module renderering methods are defined here.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/ng_videofile/locallib.php');
+require_once($CFG->dirroot . '/mod/videostream/locallib.php');
 
 /**
- * ng_videofile module renderer class
+ * videostream module renderer class
  */
-class mod_ng_videofile_renderer extends plugin_renderer_base {
+class mod_videostream_renderer extends plugin_renderer_base {
 
     /**
-     * Renders the ng_videofile page header.
+     * Renders the videostream page header.
      *
-     * @param ng_videofile ng_videofile
+     * @param videostream videostream
      * @return string
      */
-    public function video_header($ng_videofile) {
+    public function video_header($videostream) {
         global $CFG;
 
         $output = '';
 
-        $name = format_string($ng_videofile->get_instance()->name,
+        $name = format_string($videostream->get_instance()->name,
                               true,
-                              $ng_videofile->get_course());
+                              $videostream->get_course());
         $title = $this->page->course->shortname . ': ' . $name;
 
-        $coursemoduleid = $ng_videofile->get_course_module()->id;
+        $coursemoduleid = $videostream->get_course_module()->id;
         $context = context_module::instance($coursemoduleid);
 
 
@@ -58,10 +58,10 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
         $output .= $this->output->header();
         $output .= $this->output->heading($name, 3);
 
-        if (!empty($ng_videofile->get_instance()->intro)) {
+        if (!empty($videostream->get_instance()->intro)) {
             $output .= $this->output->box_start('generalbox boxaligncenter', 'intro');
-            $output .= format_module_intro('ng_videofile',
-                                           $ng_videofile->get_instance(),
+            $output .= format_module_intro('videostream',
+                                           $videostream->get_instance(),
                                            $coursemoduleid);
             $output .= $this->output->box_end();
         }
@@ -79,15 +79,15 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
     }
 
     /**
-     * Render the ng_videofile page
+     * Render the videostream page
      *
-     * @param ng_videofile ng_videofile
+     * @param videostream videostream
      * @return string The page output.
      */
-    public function video_page($ng_videofile) {
+    public function video_page($videostream) {
         $output = '';
-        $output .= $this->video_header($ng_videofile);
-        $output .= $this->video($ng_videofile);
+        $output .= $this->video_header($videostream);
+        $output .= $this->video($videostream);
         $output .= $this->video_footer();
 
         return $output;
@@ -100,12 +100,12 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
      * @param int $contextid
      * @return string HTML
      */
-    private function get_video_source_elements_hls($ng_videofile) {
+    private function get_video_source_elements_hls($videostream) {
 
-		$width = ($ng_videofile->get_instance()->responsive ?
-                  '100%' : $ng_videofile->get_instance()->width);
-        $height = ($ng_videofile->get_instance()->responsive ?
-                   '100%' : $ng_videofile->get_instance()->height);
+		$width = ($videostream->get_instance()->responsive ?
+                  '100%' : $videostream->get_instance()->width);
+        $height = ($videostream->get_instance()->responsive ?
+                   '100%' : $videostream->get_instance()->height);
 		 
 		$output = '<script src="hls.js/hls.min.js"></script>
 					<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'></video>
@@ -113,7 +113,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
   						if(Hls.isSupported()) {
     						var video = document.getElementById(\'video\');
     						var hls = new Hls();
-    						hls.loadSource(\'' . $this->createHLS($ng_videofile->get_instance()->videoid) .'\');
+    						hls.loadSource(\'' . $this->createHLS($videostream->get_instance()->videoid) .'\');
     						hls.attachMedia(video);
     						hls.on(Hls.Events.MANIFEST_PARSED,function() {
       							video.play();
@@ -130,12 +130,12 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
      * @param int $contextid
      * @return string HTML
      */
-    private function get_video_source_elements_dash($ng_videofile) {
+    private function get_video_source_elements_dash($videostream) {
 
-		$width = ($ng_videofile->get_instance()->responsive ?
-                  '100%' : $ng_videofile->get_instance()->width);
-        $height = ($ng_videofile->get_instance()->responsive ?
-                   '100%' : $ng_videofile->get_instance()->height);
+		$width = ($videostream->get_instance()->responsive ?
+                  '100%' : $videostream->get_instance()->width);
+        $height = ($videostream->get_instance()->responsive ?
+                   '100%' : $videostream->get_instance()->height);
 		 
 		 
 		$output = '<script src="dash/jquery-1.10.2.min.js"></script><script src="dash/dash.all.min.js"></script><script src="dash/ControlBar.js"></script>';
@@ -182,7 +182,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
             </div>';
 		
 		$output .= '<script>
-        var url=\'' . $this->createDASH($ng_videofile->get_instance()->videoid) . '\';
+        var url=\'' . $this->createDASH($videostream->get_instance()->videoid) . '\';
 		var element = document.querySelector("#videoplayer")
 		var player = dashjs.MediaPlayer().create();
 		player.initialize(element, url, true);
@@ -200,33 +200,33 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
 
 
     /**
-     * Renders ng_videofile video.
+     * Renders videostream video.
      *
-     * @param ng_videofile $ng_videofile
+     * @param videostream $videostream
      * @return string HTML
      */
-    public function video(ng_videofile $ng_videofile) {
+    public function video(videostream $videostream) {
         $output  = '';
-        $contextid = $ng_videofile->get_context()->id;
+        $contextid = $videostream->get_context()->id;
 
-        // Open ng_videofile div.
-        $vclass = ($ng_videofile->get_instance()->responsive ?
-                   'ng_videofile ng_videofile-responsive' : 'ng_videofile');
+        // Open videostream div.
+        $vclass = ($videostream->get_instance()->responsive ?
+                   'videostream videostream-responsive' : 'videostream');
         $output .= $this->output->container_start($vclass);
 
         // Open video tag.
         //$posterurl = $this->get_poster_image($contextid);
-        //$output .= $this->get_video_element_html($ng_videofile, $posterurl);
-		$config = get_config('ng_videofile');
+        //$output .= $this->get_video_element_html($videostream, $posterurl);
+		$config = get_config('videostream');
 
 		if ($config->streaming == "hls") {
         	// Elements for video sources. (here we get the hls video)
-        	$output .= $this->get_video_source_elements_hls($ng_videofile);
+        	$output .= $this->get_video_source_elements_hls($videostream);
         	// video speed buttons
 			$output .= $this->get_rate_buttons();
 		} else {
 			//Dash video
-			$output .= $this->get_video_source_elements_dash($ng_videofile);
+			$output .= $this->get_video_source_elements_dash($videostream);
 		}
         // Elements for caption tracks.
         //$output .= $this->get_video_caption_track_elements_html($contextid);
@@ -237,7 +237,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
         // Alternative video links in case video isn't showing/playing properly.
         //$output .= $this->get_alternative_video_links_html($contextid);
 
-        // Close ng_videofile div.
+        // Close videostream div.
         $output .= $this->output->container_end();
 
         return $output;
@@ -246,7 +246,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
 	public function createHLS($videoid) {
 		global $DB;
 		
-		$config = get_config('ng_videofile');
+		$config = get_config('videostream');
  
 		$hls_streaming = $config->hls_base_url;
 
@@ -274,7 +274,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
 		global $DB;
 
 		
-		$config = get_config('ng_videofile');
+		$config = get_config('videostream');
  
 		$dash_streaming = $config->dash_base_url;
 		
@@ -301,7 +301,7 @@ class mod_ng_videofile_renderer extends plugin_renderer_base {
 	
 	public function get_rate_buttons() {
 		$speeds = array(0.5,1,1.5,2,2.5,3);
-		$output = "<div class='rates'>".get_string('playback_rate','ng_videofile').": ";
+		$output = "<div class='rates'>".get_string('playback_rate','videostream').": ";
 		foreach ($speeds as $value) { 
 			$output .= '<a class="playrate" onclick="document.getElementById(\'video\').playbackRate='.$value.'">X'.$value.'</a> ';	
 		}

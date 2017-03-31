@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main ng_videofile configuration form.
+ * The main videostream configuration form.
  *
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,16 +31,16 @@ require_once($CFG->dirroot . '/course/moodleform_mod.php');
 require_once(dirname(__FILE__) . '/locallib.php');
 require_once($CFG->libdir . '/filelib.php');
 
-class mod_ng_videofile_mod_form extends moodleform_mod {
+class mod_videostream_mod_form extends moodleform_mod {
     /**
-     * Defines the ng_videofile instance configuration form.
+     * Defines the videostream instance configuration form.
      *
      * @return void
      */
     public function definition() {
         global $CFG;
 
-        $config = get_config('ng_videofile');
+        $config = get_config('videostream');
         $mform =& $this->_form;
 
         // Name and description fields.
@@ -63,15 +63,15 @@ class mod_ng_videofile_mod_form extends moodleform_mod {
 	// Video fields.
         $mform->addElement('header',
                            'video_fieldset',
-                           get_string('video_fieldset', 'ng_videofile'));
+                           get_string('video_fieldset', 'videostream'));
 
         // Width.
         $mform->addElement('text',
                            'width',
-                           get_string('width', 'ng_videofile'),
+                           get_string('width', 'videostream'),
                            array('size' => 4));
         $mform->setType('width', PARAM_INT);
-        $mform->addHelpButton('width', 'width', 'ng_videofile');
+        $mform->addHelpButton('width', 'width', 'videostream');
         $mform->addRule('width', null, 'required', null, 'client');
         $mform->addRule('width', null, 'numeric', null, 'client');
         $mform->addRule('width', null, 'nonzero', null, 'client');
@@ -80,10 +80,10 @@ class mod_ng_videofile_mod_form extends moodleform_mod {
         // Height.
         $mform->addElement('text',
                            'height',
-                           get_string('height', 'ng_videofile'),
+                           get_string('height', 'videostream'),
                            array('size' => 4));
         $mform->setType('height', PARAM_INT);
-        $mform->addHelpButton('height', 'height', 'ng_videofile');
+        $mform->addHelpButton('height', 'height', 'videostream');
         $mform->addRule('height', null, 'required', null, 'client');
         $mform->addRule('height', null, 'numeric', null, 'client');
         $mform->addRule('height', null, 'nonzero', null, 'client');
@@ -92,10 +92,10 @@ class mod_ng_videofile_mod_form extends moodleform_mod {
         // Responsive.
         $mform->addElement('advcheckbox',
                            'responsive',
-                           get_string('responsive', 'ng_videofile'),
-                           get_string('responsive_label', 'ng_videofile'));
+                           get_string('responsive', 'videostream'),
+                           get_string('responsive_label', 'videostream'));
         $mform->setType('responsive', PARAM_INT);
-        $mform->addHelpButton('responsive', 'responsive', 'ng_videofile');
+        $mform->addHelpButton('responsive', 'responsive', 'videostream');
         $mform->setDefault('responsive', $config->responsive);
 
 
@@ -121,9 +121,9 @@ class mod_ng_videofile_mod_form extends moodleform_mod {
 	//$list = array(1,2,3);
 	$options = array('multiple' => false);
 
-//    'noselectionstring' => get_string('video', 'ng_videofile'),
+//    'noselectionstring' => get_string('video', 'videostream'),
          
-	$mform->addElement('autocomplete', 'videoid', get_string('video', 'ng_videofile'), $video_list, $options);
+	$mform->addElement('autocomplete', 'videoid', get_string('video', 'videostream'), $video_list, $options);
 
 
         // Standard elements, common to all modules.
@@ -163,11 +163,11 @@ class mod_ng_videofile_mod_form extends moodleform_mod {
         $errors = array();
 
         if ($data['width'] <= 0) {
-            $errors['width'] = get_string('err_positive', 'ng_videofile');
+            $errors['width'] = get_string('err_positive', 'videostream');
         }
 
         if ($data['height'] <= 0) {
-            $errors['height'] = get_string('err_positive', 'ng_videofile');
+            $errors['height'] = get_string('err_positive', 'videostream');
         }
 
         return $errors;

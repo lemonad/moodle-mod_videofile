@@ -1,6 +1,6 @@
-NG_Videofile
+videostream
 ---------
-New NG_Videofile module is based on the great original videofile module by : Jonas Nockert <jonasnockert@gmail.com>
+New videostream module is based on the great original videofile module by : Jonas Nockert <jonasnockert@gmail.com>
 Thank you Jonas !!
 
 This module work with local_video_directory, and has the ability to stream in DASH,HLS and plain PHP.
@@ -15,7 +15,7 @@ Example screenshots (of originla plugin)
 Installation
 ------------
 Unzip the zip file in the `mod` folder of the Moodle directory and, if
-necessary, rename the folder to "ng_videofile".
+necessary, rename the folder to "videostream".
 -- OR --
 Go to Administration > Site Administration > Install add-ons to install
 the Videofile module directly from your Moodle installation.

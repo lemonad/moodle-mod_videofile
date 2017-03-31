@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants for module ng_videofile
+ * Library of interface functions and constants for module videostream
  *
  * All the core Moodle functions, neeeded to allow the module to work
  * integrated in Moodle should be placed here.
  *
- * All the ng_videofile specific functions, needed to implement all the module
+ * All the videostream specific functions, needed to implement all the module
  * logic, should go to locallib.php. This will help to save some memory when
  * Moodle is performing actions across all modules.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -38,7 +38,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param string $feature FEATURE_xx constant for requested feature
  * @return mixed True if feature is supported, null if unknown
  */
-function ng_videofile_supports($feature) {
+function videostream_supports($feature) {
     switch ($feature) {
         case FEATURE_GRADE_HAS_GRADE:
             return false;
@@ -67,45 +67,45 @@ function ng_videofile_supports($feature) {
 }
 
 /**
- * Adds a ng_videofile instance
+ * Adds a videostream instance
  *
  * @param stdClass $data
- * @param mod_ng_videofile_mod_form $form
- * @return int The instance id of the new ng_videofile instance
+ * @param mod_videostream_mod_form $form
+ * @return int The instance id of the new videostream instance
  */
-function ng_videofile_add_instance(stdClass $data,
-                                mod_ng_videofile_mod_form $form = null) {
+function videostream_add_instance(stdClass $data,
+                                mod_videostream_mod_form $form = null) {
     require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
-    $ng_videofile = new ng_videofile($context, null, null);
+    $videostream = new videostream($context, null, null);
 
-    return $ng_videofile->add_instance($data);
+    return $videostream->add_instance($data);
 }
 
 /**
- * Updates an instance of the ng_videofile in the database
+ * Updates an instance of the videostream in the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
  * @param stdClass $data
- * @param mod_ng_videofile_mod_form $form
+ * @param mod_videostream_mod_form $form
  * @return boolean
  */
-function ng_videofile_update_instance(stdClass $data,
-                                   mod_ng_videofile_mod_form $form = null) {
+function videostream_update_instance(stdClass $data,
+                                   mod_videostream_mod_form $form = null) {
     require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
-    $ng_videofile = new ng_videofile($context, null, null);
+    $videostream = new videostream($context, null, null);
 
-    return $ng_videofile->update_instance($data);
+    return $videostream->update_instance($data);
 }
 
 /**
- * Deletes an instance of the ng_videofile from the database
+ * Deletes an instance of the videostream from the database
  *
  * Given an ID of an instance of this module,
  * this function will permanently delete the instance
@@ -114,13 +114,13 @@ function ng_videofile_update_instance(stdClass $data,
  * @param int $id Id of the module instance
  * @return boolean
  */
-function ng_videofile_delete_instance($id) {
+function videostream_delete_instance($id) {
     require_once(dirname(__FILE__) . '/locallib.php');
 
-    $cm = get_coursemodule_from_instance('ng_videofile', $id, 0, false, MUST_EXIST);
+    $cm = get_coursemodule_from_instance('videostream', $id, 0, false, MUST_EXIST);
     $context = context_module::instance($cm->id);
-    $ng_videofile = new ng_videofile($context, null, null);
-    return $ng_videofile->delete_instance();
+    $videostream = new videostream($context, null, null);
+    return $videostream->delete_instance();
 }
 
 /**
@@ -132,18 +132,18 @@ function ng_videofile_delete_instance($id) {
  * @param stdClass $course
  * @param stdClass $user
  * @param stdClass $coursemodule
- * @param stdClass $ng_videofile
+ * @param stdClass $videostream
  * @return stdClass|null [->time and ->info: short text description]
  */
-function ng_videofile_user_outline($course, $user, $mod, $ng_videofile) {
+function videostream_user_outline($course, $user, $mod, $videostream) {
     global $DB;
 
     $logs = $DB->get_records(
         'log',
         array('userid' => $user->id,
-              'module' => 'ng_videofile',
+              'module' => 'videostream',
               'action' => 'view',
-              'info' => $ng_videofile->id),
+              'info' => $videostream->id),
         'time ASC');
     if ($logs) {
         $numviews = count($logs);
@@ -165,18 +165,18 @@ function ng_videofile_user_outline($course, $user, $mod, $ng_videofile) {
  * @param stdClass $course The current course record
  * @param stdClass $user The record of the user we are generating report for
  * @param cm_info $mod Course module info
- * @param stdClass $ng_videofile The module instance record
+ * @param stdClass $videostream The module instance record
  * @return void Is supposed to echo directly
  */
-function ng_videofile_user_complete($course, $user, $mod, $ng_videofile) {
+function videostream_user_complete($course, $user, $mod, $videostream) {
     global $DB;
 
     $logs = $DB->get_records(
         'log',
         array('userid' => $user->id,
-              'module' => 'ng_videofile',
+              'module' => 'videostream',
               'action' => 'view',
-              'info' => $ng_videofile->id),
+              'info' => $videostream->id),
         'time ASC');
 
     if ($logs) {
@@ -188,7 +188,7 @@ function ng_videofile_user_complete($course, $user, $mod, $ng_videofile) {
 
         echo "$strnumviews - $strmostrecently ".userdate($lastlog->time);
     } else {
-        print_string('neverseen', 'ng_videofile');
+        print_string('neverseen', 'videostream');
     }
 }
 
@@ -197,7 +197,7 @@ function ng_videofile_user_complete($course, $user, $mod, $ng_videofile) {
  *
  * @return array Array of capability strings
  */
-function ng_videofile_get_extra_capabilities() {
+function videostream_get_extra_capabilities() {
     return array('moodle/site:accessallgroups');
 }
 
@@ -212,23 +212,23 @@ function ng_videofile_get_extra_capabilities() {
  * @return cached_cm_info An object on information that the courses
  *                        will know about (most noticeably, an icon).
  */
-function ng_videofile_get_coursemodule_info($coursemodule) {
+function videostream_get_coursemodule_info($coursemodule) {
     global $DB;
 
     $dbparams = array('id' => $coursemodule->instance);
     $fields = 'id, name, intro, introformat';
 
-    if (!$ng_videofile = $DB->get_record('ng_videofile', $dbparams, $fields)) {
+    if (!$videostream = $DB->get_record('videostream', $dbparams, $fields)) {
         return false;
     }
 
     $result = new cached_cm_info();
-    $result->name = $ng_videofile->name;
+    $result->name = $videostream->name;
     if ($coursemodule->showdescription) {
         // Convert intro to html.
         // Do not filter cached version, filters run at display time.
-        $result->content = format_module_intro('ng_videofile',
-                                               $ng_videofile,
+        $result->content = format_module_intro('videostream',
+                                               $videostream,
                                                $coursemodule->id,
                                                false);
     }
@@ -245,7 +245,7 @@ function ng_videofile_get_coursemodule_info($coursemodule) {
  *
  * @since   0.0.1
  */
-function ng_videofile_get_view_actions() {
+function videostream_get_view_actions() {
     return array('view', 'view help');
 }
 
@@ -253,7 +253,7 @@ function ng_videofile_get_view_actions() {
  * List of update style log actions
  * @return array
  */
-function ng_videofile_get_post_actions() {
+function videostream_get_post_actions() {
     return array('update', 'add');
 }
 
@@ -268,16 +268,16 @@ function ng_videofile_get_post_actions() {
  * @param stdClass $context
  * @return array Array of [(string)filearea] => (string)description]
  */
-function ng_videofile_get_file_areas($course, $cm, $context) {
+function videostream_get_file_areas($course, $cm, $context) {
     return array(
-        'captions' => get_string('filearea_captions', 'ng_videofile'),
-        'posters' => get_string('filearea_posters', 'ng_videofile'),
-        'videos' => get_string('filearea_videos', 'ng_videofile'),
+        'captions' => get_string('filearea_captions', 'videostream'),
+        'posters' => get_string('filearea_posters', 'videostream'),
+        'videos' => get_string('filearea_videos', 'videostream'),
     );
 }
 
 /**
- * File browsing support for ng_videofile file areas.
+ * File browsing support for videostream file areas.
  *
  * @param file_browser $browser File browser object
  * @param array $areas File areas
@@ -290,7 +290,7 @@ function ng_videofile_get_file_areas($course, $cm, $context) {
  * @param string $filename File name
  * @return file_info Instance or null if not found
  */
-function ng_videofile_get_file_info($browser,
+function videostream_get_file_info($browser,
                                  $areas,
                                  $course,
                                  $cm,
@@ -321,7 +321,7 @@ function ng_videofile_get_file_info($browser,
         $filename = is_null($filename) ? '.' : $filename;
 
         if (!$storedfile = $fs->get_file($context->id,
-                                         'mod_ng_videofile',
+                                         'mod_videostream',
                                          $filearea,
                                          0,
                                          $filepath,
@@ -348,11 +348,11 @@ function ng_videofile_get_file_info($browser,
 }
 
 /**
- * Serves the files from the ng_videofile file areas.
+ * Serves the files from the videostream file areas.
  *
  * @param stdClass $course The course object
  * @param stdClass $cm The course module object
- * @param stdClass $context The ng_videofile's context
+ * @param stdClass $context The videostream's context
  * @param string $filearea The name of the file area
  * @param array $args Extra arguments (itemid, path)
  * @param bool $forcedownload Whether or not force download
@@ -360,7 +360,7 @@ function ng_videofile_get_file_info($browser,
  * @return bool False if file not found, does not return if found -
  *              just sends the file
  */
-function ng_videofile_pluginfile($course,
+function videostream_pluginfile($course,
                               $cm,
                               $context,
                               $filearea,
@@ -377,7 +377,7 @@ function ng_videofile_pluginfile($course,
 
     require_login($course, true, $cm);
 
-    if (!has_capability('mod/ng_videofile:view', $context)) {
+    if (!has_capability('mod/videostream:view', $context)) {
         return false;
     }
 
@@ -388,7 +388,7 @@ function ng_videofile_pluginfile($course,
 
     $fs = get_file_storage();
     $relativepath = implode('/', $args);
-    $fullpath = rtrim('/' . $context->id . '/mod_ng_videofile/' . $filearea . '/' .
+    $fullpath = rtrim('/' . $context->id . '/mod_videostream/' . $filearea . '/' .
                       $relativepath, '/');
     $file = $fs->get_file_by_hash(sha1($fullpath));
 
@@ -406,6 +406,6 @@ function ng_videofile_pluginfile($course,
  * @param $data The data submitted from the reset course.
  * @return array Status array
  */
-function ng_videofile_reset_userdata($data) {
+function videostream_reset_userdata($data) {
     return array();
 }

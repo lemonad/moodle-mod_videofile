@@ -18,12 +18,12 @@
 
 
 /**
- * Defines the version of ng_videofile.
+ * Defines the version of videostream.
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il >
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,6 +33,6 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->version  = 2017033001;
 $plugin->requires = 2016120300;
 $plugin->cron     = 0;
-$plugin->component = 'mod_ng_videofile';
+$plugin->component = 'mod_videostream';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release  = '0.9';

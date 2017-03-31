@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file keeps track of upgrades to the ng_videofile module.
+ * This file keeps track of upgrades to the videostream module.
  *
  * Sometimes, changes between versions involve alterations to database
  * structures and other major things that may break installations. The upgrade
@@ -24,7 +24,7 @@
  * it cannot do itself, it will tell you what you need to do.  The commands in
  * here will all be database-neutral, using the functions defined in DLL libraries.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,19 +32,19 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Execute ng_videofile upgrade from the given old version
+ * Execute videostream upgrade from the given old version
  *
  * @param int $oldversion
  * @return bool
  */
-function xmldb_ng_videofile_upgrade($oldversion) {
+function xmldb_videostream_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
     // Added width and height fields.
     if ($oldversion < 2013071701) {
-        $table = new xmldb_table('ng_videofile');
+        $table = new xmldb_table('videostream');
         $widthfield = new xmldb_field('width',
                                       XMLDB_TYPE_INTEGER,
                                       '4',
@@ -75,12 +75,12 @@ function xmldb_ng_videofile_upgrade($oldversion) {
         /* Once we reach this point, we can store the new version and
            consider the module upgraded to the version 2013071701 so the
            next time this block is skipped. */
-        upgrade_mod_savepoint(true, 2013071701, 'ng_videofile');
+        upgrade_mod_savepoint(true, 2013071701, 'videostream');
     }
 
     // Added responsive flag field.
     if ($oldversion < 2013092200) {
-        $table = new xmldb_table('ng_videofile');
+        $table = new xmldb_table('videostream');
         $responsivefield = new xmldb_field('responsive',
                                            XMLDB_TYPE_INTEGER,
                                            '4',
@@ -98,7 +98,7 @@ function xmldb_ng_videofile_upgrade($oldversion) {
         /* Once we reach this point, we can store the new version and
            consider the module upgraded to the version 2013092200 so the
            next time this block is skipped. */
-        upgrade_mod_savepoint(true, 2013092200, 'ng_videofile');
+        upgrade_mod_savepoint(true, 2013092200, 'videostream');
     }
 
     // Final return of upgrade result (true, all went good) to Moodle.

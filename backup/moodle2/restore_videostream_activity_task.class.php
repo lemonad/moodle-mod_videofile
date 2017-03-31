@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * ng_videofile restore task that provides all the settings and steps to
+ * videostream restore task that provides all the settings and steps to
  * perform one complete restore of the activity.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot .
-             '/mod/ng_videofile/backup/moodle2/restore_ng_videofile_stepslib.php');
+             '/mod/videostream/backup/moodle2/restore_videostream_stepslib.php');
 
-class restore_ng_videofile_activity_task extends restore_activity_task {
+class restore_videostream_activity_task extends restore_activity_task {
     /**
      * Define (add) particular settings this activity can have.
      */
@@ -41,8 +41,8 @@ class restore_ng_videofile_activity_task extends restore_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(
-            new restore_ng_videofile_activity_structure_step('ng_videofile_structure',
-                                                          'ng_videofile.xml'));
+            new restore_videostream_activity_structure_step('videostream_structure',
+                                                          'videostream.xml'));
     }
 
     /**
@@ -53,9 +53,9 @@ class restore_ng_videofile_activity_task extends restore_activity_task {
      */
     static public function define_decode_contents() {
         $contents = array();
-        $contents[] = new restore_decode_content('ng_videofile',
+        $contents[] = new restore_decode_content('videostream',
                                                  array('intro'),
-                                                 'ng_videofile');
+                                                 'videostream');
         return $contents;
     }
 
@@ -67,36 +67,36 @@ class restore_ng_videofile_activity_task extends restore_activity_task {
      */
     static public function define_decode_rules() {
         $rules = array();
-        $rules[] = new restore_decode_rule('ng_videofileVIEWBYID',
-                                           '/mod/ng_videofile/view.php?id=$1',
+        $rules[] = new restore_decode_rule('videostreamVIEWBYID',
+                                           '/mod/videostream/view.php?id=$1',
                                            'course_module');
-        $rules[] = new restore_decode_rule('ng_videofileINDEX',
-                                           '/mod/ng_videofile/index.php?id=$1',
+        $rules[] = new restore_decode_rule('videostreamINDEX',
+                                           '/mod/videostream/index.php?id=$1',
                                            'course');
         return $rules;
     }
 
     /**
      * Define the restore log rules that will be applied by the
-     * {@link restore_logs_processor} when restoring ng_videofile logs.
+     * {@link restore_logs_processor} when restoring videostream logs.
      * It must return one array of {@link restore_log_rule} objects.
      *
      * @return array
      */
     static public function define_restore_log_rules() {
         $rules = array();
-        $rules[] = new restore_log_rule('ng_videofile',
+        $rules[] = new restore_log_rule('videostream',
                                         'add',
                                         'view.php?id={course_module}',
-                                        '{ng_videofile}');
-        $rules[] = new restore_log_rule('ng_videofile',
+                                        '{videostream}');
+        $rules[] = new restore_log_rule('videostream',
                                         'update',
                                         'view.php?id={course_module}',
-                                        '{ng_videofile}');
-        $rules[] = new restore_log_rule('ng_videofile',
+                                        '{videostream}');
+        $rules[] = new restore_log_rule('videostream',
                                         'view',
                                         'view.php?id={course_module}',
-                                        '{ng_videofile}');
+                                        '{videostream}');
         return $rules;
     }
 
@@ -113,7 +113,7 @@ class restore_ng_videofile_activity_task extends restore_activity_task {
      */
     static public function define_restore_log_rules_for_course() {
         $rules = array();
-        $rules[] = new restore_log_rule('ng_videofile',
+        $rules[] = new restore_log_rule('videostream',
                                         'view all',
                                         'index.php?id={course}',
                                         null);

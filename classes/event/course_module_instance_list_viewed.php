@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * View all event class for ng_videofile
+ * View all event class for videostream
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @since      Moodle 3.1
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_ng_videofile\event;
+namespace mod_videostream\event;
 
 defined('MOODLE_INTERNAL') || die();
 

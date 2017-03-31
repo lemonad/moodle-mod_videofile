@@ -15,27 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English strings for ng_videofile.
+ * English strings for videostream.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['modulename'] = 'ng_videofile';
-$string['modulenameplural'] = 'ng_videofiles';
-$string['modulename_help'] = 'Use the ng_videofile module for adding html5 videos with flash fallback (using video.js). This module also allows for multi-language captions.';
+$string['modulename'] = 'videostream';
+$string['modulenameplural'] = 'videostreams';
+$string['modulename_help'] = 'Use the videostream module for adding html5 videos with flash fallback (using video.js). This module also allows for multi-language captions.';
 
-$string['ng_videofile:addinstance'] = 'Add a new ng_videofile';
-$string['ng_videofile:view'] = 'View ng_videofile';
+$string['videostream:addinstance'] = 'Add a new videostream';
+$string['videostream:view'] = 'View videostream';
 
-$string['pluginadministration'] = 'ng_videofile administration';
-$string['pluginname'] = 'ng_videofile';
+$string['pluginadministration'] = 'videostream administration';
+$string['pluginname'] = 'videostream';
 
-$string['ng_videofile_defaults_heading'] = 'Default values for ng_videofile settings';
-$string['ng_videofile_defaults_text'] = 'The values you set here define the default values that are used in the ng_videofile settings form when you create a new ng_videofile.';
+$string['videostream_defaults_heading'] = 'Default values for videostream settings';
+$string['videostream_defaults_text'] = 'The values you set here define the default values that are used in the videostream settings form when you create a new videostream.';
 $string['width_explain'] = 'Specifies the default width of the video player.';
 $string['height_explain'] = 'Specifies the default height of the video player.';
 $string['responsive_explain'] = 'Specifies if responsive mode should be set as default or not.';

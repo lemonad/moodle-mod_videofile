@@ -17,7 +17,7 @@
 /**
  * Definition of log events
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia  <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $logs = array(
-    array('module' => 'ng_videofile', 'action' => 'add', 'mtable' => 'ng_videofile', 'field' => 'name'),
-    array('module' => 'ng_videofile', 'action' => 'update', 'mtable' => 'ng_videofile', 'field' => 'name'),
-    array('module' => 'ng_videofile', 'action' => 'view', 'mtable' => 'ng_videofile', 'field' => 'name'),
-    array('module' => 'ng_videofile', 'action' => 'view all', 'mtable' => 'ng_videofile', 'field' => 'name')
+    array('module' => 'videostream', 'action' => 'add', 'mtable' => 'videostream', 'field' => 'name'),
+    array('module' => 'videostream', 'action' => 'update', 'mtable' => 'videostream', 'field' => 'name'),
+    array('module' => 'videostream', 'action' => 'view', 'mtable' => 'videostream', 'field' => 'name'),
+    array('module' => 'videostream', 'action' => 'view all', 'mtable' => 'videostream', 'field' => 'name')
 );

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_ng_videofile_activity_task class
+ * Defines backup_videostream_activity_task class
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,12 +25,12 @@
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot .
-             '/mod/ng_videofile/backup/moodle2/backup_ng_videofile_stepslib.php');
+             '/mod/videostream/backup/moodle2/backup_videostream_stepslib.php');
 
 /**
- * Provides the steps to perform one complete backup of the ng_videofile instance
+ * Provides the steps to perform one complete backup of the videostream instance
  */
-class backup_ng_videofile_activity_task extends backup_activity_task {
+class backup_videostream_activity_task extends backup_activity_task {
 
     /**
      * Define (add) particular settings this activity can have
@@ -42,12 +42,12 @@ class backup_ng_videofile_activity_task extends backup_activity_task {
     /**
      * Define (add) particular steps this activity can have
      *
-     * Defines a backup step to store the instance data in the ng_videofile.xml file
+     * Defines a backup step to store the instance data in the videostream.xml file
      */
     protected function define_my_steps() {
         $this->add_step(
-            new backup_ng_videofile_activity_structure_step('ng_videofile_structure',
-                                                         'ng_videofile.xml'));
+            new backup_videostream_activity_structure_step('videostream_structure',
+                                                         'videostream.xml'));
     }
 
     /**
@@ -64,13 +64,13 @@ class backup_ng_videofile_activity_task extends backup_activity_task {
 
         $base = preg_quote($CFG->wwwroot, "/");
 
-        // Link to the list of ng_videofiles.
-        $search = "/(" . $base . "\/mod\/ng_videofile\/index.php\?id\=)([0-9]+)/";
-        $content = preg_replace($search, '$@ng_videofileINDEX*$2@$', $content);
+        // Link to the list of videostreams.
+        $search = "/(" . $base . "\/mod\/videostream\/index.php\?id\=)([0-9]+)/";
+        $content = preg_replace($search, '$@videostreamINDEX*$2@$', $content);
 
-        // Link to ng_videofile view by moduleid.
-        $search = "/(" . $base . "\/mod\/ng_videofile\/view.php\?id\=)([0-9]+)/";
-        $content = preg_replace($search, '$@ng_videofileVIEWBYID*$2@$', $content);
+        // Link to videostream view by moduleid.
+        $search = "/(" . $base . "\/mod\/videostream\/view.php\?id\=)([0-9]+)/";
+        $content = preg_replace($search, '$@videostreamVIEWBYID*$2@$', $content);
 
         return $content;
     }

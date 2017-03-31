@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Define all the restore steps that will be used by the
- * restore_ng_videofile_activity_task.
+ * restore_videostream_activity_task.
  */
 
 /**
- * Structure step to restore one ng_videofile activity.
+ * Structure step to restore one videostream activity.
  */
-class restore_ng_videofile_activity_structure_step extends restore_activity_structure_step {
+class restore_videostream_activity_structure_step extends restore_activity_structure_step {
 
     /**
      * Defines the backup structure.
@@ -37,16 +37,16 @@ class restore_ng_videofile_activity_structure_step extends restore_activity_stru
      */
     protected function define_structure() {
         $paths = array();
-        $paths[] = new restore_path_element('ng_videofile', '/activity/ng_videofile');
+        $paths[] = new restore_path_element('videostream', '/activity/videostream');
 
         // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);
     }
 
     /**
-     * Restore ng_videofile.
+     * Restore videostream.
      */
-    protected function process_ng_videofile($data) {
+    protected function process_videostream($data) {
         global $DB;
 
         $data = (object)$data;
@@ -56,8 +56,8 @@ class restore_ng_videofile_activity_structure_step extends restore_activity_stru
         $data->timecreated = $this->apply_date_offset($data->timecreated);
         $data->timemodified = $this->apply_date_offset($data->timemodified);
 
-        // Insert the ng_videofile record.
-        $newitemid = $DB->insert_record('ng_videofile', $data);
+        // Insert the videostream record.
+        $newitemid = $DB->insert_record('videostream', $data);
 
         // Immediately after inserting "activity" record, call this.
         $this->apply_activity_instance($newitemid);
@@ -69,9 +69,9 @@ class restore_ng_videofile_activity_structure_step extends restore_activity_stru
     protected function after_execute() {
         // Add related files, no need to match by itemname (just
         // internally handled context).
-        $this->add_related_files('mod_ng_videofile', 'intro', null);
-        $this->add_related_files('mod_ng_videofile', 'videos', null);
-        $this->add_related_files('mod_ng_videofile', 'posters', null);
-        $this->add_related_files('mod_ng_videofile', 'captions', null);
+        $this->add_related_files('mod_videostream', 'intro', null);
+        $this->add_related_files('mod_videostream', 'videos', null);
+        $this->add_related_files('mod_videostream', 'posters', null);
+        $this->add_related_files('mod_videostream', 'captions', null);
     }
 }

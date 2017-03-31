@@ -17,7 +17,7 @@
 /**
  * @see uninstall_plugin()
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,6 +25,6 @@
 /**
  * Custom uninstallation procedure
  */
-function xmldb_ng_videofile_uninstall() {
+function xmldb_videostream_uninstall() {
     return true;
 }

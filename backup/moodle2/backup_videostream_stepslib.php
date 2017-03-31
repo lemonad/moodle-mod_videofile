@@ -16,9 +16,9 @@
 
 /**
  * Define all the backup steps that will be used by the
- * backup_ng_videofile_activity_task.
+ * backup_videostream_activity_task.
  *
- * @package    mod_ng_videofile
+ * @package    mod_videostream
  * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,29 +26,29 @@
 defined('MOODLE_INTERNAL') || die;
 
 /**
- * Define the complete ng_videofile structure for backup, with file and id annotations
+ * Define the complete videostream structure for backup, with file and id annotations
  */
-class backup_ng_videofile_activity_structure_step extends backup_activity_structure_step {
+class backup_videostream_activity_structure_step extends backup_activity_structure_step {
 
     protected function define_structure() {
         // Define each element separated.
-        $ng_videofile = new backup_nested_element('ng_videofile', array('id'), array(
+        $videostream = new backup_nested_element('videostream', array('id'), array(
             'name', 'intro', 'introformat',
             'width', 'height','responsive','videoid',
             'timecreated', 'timemodified'));
 
         // Define sources.
-        $ng_videofile->set_source_table('ng_videofile',
+        $videostream->set_source_table('videostream',
                                      array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
-        //$ng_videofile->annotate_files('mod_ng_videofile', 'intro', null);
-        //$ng_videofile->annotate_files('mod_ng_videofile', 'videos', null);
-        //$ng_videofile->annotate_files('mod_ng_videofile', 'posters', null);
-        //$ng_videofile->annotate_files('mod_ng_videofile', 'captions', null);
+        //$videostream->annotate_files('mod_videostream', 'intro', null);
+        //$videostream->annotate_files('mod_videostream', 'videos', null);
+        //$videostream->annotate_files('mod_videostream', 'posters', null);
+        //$videostream->annotate_files('mod_videostream', 'captions', null);
 
-        // Return the root element (ng_videofile), wrapped into standard
+        // Return the root element (videostream), wrapped into standard
         // activity structure.
-        return $this->prepare_activity_structure($ng_videofile);
+        return $this->prepare_activity_structure($videostream);
     }
 }

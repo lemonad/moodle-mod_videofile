@@ -72,7 +72,7 @@ if ($ADMIN->fulltree) {
 	// dash or hls
 	$settings->add(
 		new admin_setting_configselect('videostream/streaming',
-        get_string('streaming_protocol', 'videostream'), '', '', array("PHP"=>"php","dash"=>"dash","hls"=>"hls")));
+        get_string('streaming_protocol', 'videostream'), '', '', array("php"=>"php","dash"=>"dash","hls"=>"hls")));
 		
 	// Dash base URL
     $settings->add(

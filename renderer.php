@@ -97,7 +97,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
     /**
      * Utility function for creating the video source elements HTML.
      *
-     * @param int $contextid
+     * @param obj $videostream
      * @return string HTML
      */
     private function get_video_source_elements_hls($videostream) {
@@ -125,9 +125,30 @@ class mod_videostream_renderer extends plugin_renderer_base {
     }
 
     /**
-     * Utility function for creating the video source elements HTML.
+     * Utility function for creating the php video source elements HTML.
      *
-     * @param int $contextid
+     * @param obj $videostream
+     * @return string HTML
+     */
+    private function get_video_source_elements_php($videostream) {
+        global $CFG;
+		$width = ($videostream->get_instance()->responsive ?
+                  '100%' : $videostream->get_instance()->width);
+        $height = ($videostream->get_instance()->responsive ?
+                   '100%' : $videostream->get_instance()->height);
+		 
+		$output = '<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'>
+                    <source src='.$CFG->wwwroot.'/local/video_directory/play.php?video_id='.$videostream->get_instance()->videoid.'>'
+                    .'</video>';
+
+        return $output;
+    }
+
+
+    /**
+     * Utility function for creating the dash video source elements HTML.
+     *
+     * @param obj $videostream
      * @return string HTML
      */
     private function get_video_source_elements_dash($videostream) {
@@ -224,7 +245,12 @@ class mod_videostream_renderer extends plugin_renderer_base {
         	$output .= $this->get_video_source_elements_hls($videostream);
         	// video speed buttons
 			$output .= $this->get_rate_buttons();
-		} else {
+		} elseif  ($config->streaming == "php") {
+           	// Elements for video sources. (here we get the php video)
+        	$output .= $this->get_video_source_elements_php($videostream);
+        	// video speed buttons
+			$output .= $this->get_rate_buttons();
+        } else {
 			//Dash video
 			$output .= $this->get_video_source_elements_dash($videostream);
 		}

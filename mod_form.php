@@ -99,16 +99,16 @@ class mod_videostream_mod_form extends moodleform_mod {
         $mform->setDefault('responsive', $config->responsive);
 
 
-	// Video File from local_video
+	// Video File from local_video_directory
 	global $USER,$DB;
 	if (is_siteadmin($USER)) {
 		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
-						FROM {local_video} v 
+						FROM {local_video_directory} v 
 						LEFT JOIN {user} u on v.owner_id = u.id 
 						GROUP by id');
 	} else {
 		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
-						FROM {local_video} v 
+						FROM {local_video_directory} v 
 						LEFT JOIN {user} u on v.owner_id = u.id 
 						WHERE (owner_id ='.$USER->id.' OR (private IS NULL OR private = 0))
 						GROUP by id');

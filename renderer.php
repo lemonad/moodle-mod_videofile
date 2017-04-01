@@ -251,7 +251,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		$hls_streaming = $config->hls_base_url;
 
 		$id = $videoid;
-		$streams = $DB->get_records("local_video_dash",array("video_id" => $id));
+		$streams = $DB->get_records("local_video_directory_dash",array("video_id" => $id));
 		foreach ($streams as $stream) {
 			$files[]=$stream->filename;
 		}
@@ -279,7 +279,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		$dash_streaming = $config->dash_base_url;
 		
 		$id = $videoid;
-		$streams = $DB->get_records("local_video_dash",array("video_id" => $id));
+		$streams = $DB->get_records("local_video_directory_dash",array("video_id" => $id));
 		foreach ($streams as $stream) {
 			$files[]=$stream->filename;
 		}

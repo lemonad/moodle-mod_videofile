@@ -32,6 +32,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version  = 2017040101;
 $plugin->requires = 2016120300;
+$plugin->dependencies = array('local_video_directory' => 2017032701);
 $plugin->cron     = 0;
 $plugin->component = 'mod_videostream';
 $plugin->maturity = MATURITY_STABLE;

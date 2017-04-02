@@ -291,7 +291,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		foreach ($parts as $key => $value) {
 			$hls_url .= "," . $value[1];
 		}
-		$hls_url .= "," . ".mp4multiuri/master.m3u8";
+		$hls_url .= "," . ".mp4".$config->nginx_multi."/master.m3u8";
 
 		return $hls_url;			
 	}
@@ -319,7 +319,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		foreach ($parts as $key => $value) {
 			$dash_url .= "," . $value[1];
 		}
-		$dash_url .= "," . ".mp4multiuri/manifest.mpd";
+		$dash_url .= "," . ".mp4".$config->nginx_multi."/manifest.mpd";
 
 		return $dash_url;			
 	}

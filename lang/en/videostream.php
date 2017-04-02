@@ -78,3 +78,6 @@ $string['dash_base_url_explain'] = "Enter here dash base streaming URL, somethin
 
 $string['hls_base_url'] = "HLS base streaming URL";
 $string['hls_base_url_explain'] = "Enter here HLS base streaming URL, something like http://streaming.company.com/hls/";
+
+$string['nginx_multi'] = "NGINX multi URL string";
+$string['nginx_multi_explain'] = "NGINX multi URL string, known as vod_multi_uri_suffix in nginx conf";

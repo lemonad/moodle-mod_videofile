@@ -91,4 +91,13 @@ if ($ADMIN->fulltree) {
                                      "",
                                      PARAM_RAW
                                      ));
+
+    // NGINX Multi file URL string
+    $settings->add(
+        new admin_setting_configtext('videostream/nginx_multi',
+                                     get_string('nginx_multi', 'videostream'),
+                                     get_string('nginx_multi_explain', 'videostream'),
+                                     "",
+                                     PARAM_RAW
+                                     ));
 }

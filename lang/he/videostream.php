@@ -73,3 +73,6 @@ $string['dash_base_url_explain'] = "הכנס נתיב Dash, למשל http://stre
 
 $string['hls_base_url'] = "HLS נתיב";
 $string['hls_base_url_explain'] = "הכנס נתיב HLS, למשל http://streaming.company.com/hls/";
+
+$string['nginx_multi'] = "מחזרוזת לסיום MultiURI ב-NGINX";
+$string['nginx_multi_explain'] = "מחרוזת עבור NGINX multi URI, ידוע כ- vod_multi_uri_suffix בקובץ nginx conf";

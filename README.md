@@ -18,10 +18,18 @@ Unzip the zip file in the `mod` folder of the Moodle directory and, if
 necessary, rename the folder to "videostream".
 -- OR --
 Go to Administration > Site Administration > Install add-ons to install
-the Videofile module directly from your Moodle installation.
+the Videostream module directly from your Moodle installation.
 
 Default settings can be set by going to Administration > Site
-Administration > Plugins > Activity Modules > Videofile.
+Administration > Plugins > Activity Modules > Videostream.
+
+NGINX Configuration
+-------------------
+
+Get latest nginx source from :
+Get latest Kaltura Streaming Module from :
+Compile...
+Configure...
 
 Use
 ---

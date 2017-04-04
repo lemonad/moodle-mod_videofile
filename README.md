@@ -1,6 +1,6 @@
 videostream
 ---------
-New videostream module is based on the great original videofile module by : Jonas Nockert <jonasnockert@gmail.com>
+New videostream module is based on the great original videofile module by : Jonas Nockert <jonasnockert AT gmail>
 Thank you Jonas !!
 
 This module work with local_video_directory, and has the ability to stream in DASH,HLS and plain PHP.

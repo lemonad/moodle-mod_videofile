@@ -26,10 +26,17 @@ Administration > Plugins > Activity Modules > Videostream.
 NGINX Configuration
 -------------------
 
-Get latest nginx source from :
-Get latest Kaltura Streaming Module from :
-Compile...
-Configure...
+Get latest nginx stable source from : http://nginx.org/en/download.html
+
+Get latest Kaltura VOD Module from : https://github.com/kaltura/nginx-vod-module
+
+Assuming you downloaded and extracted these files in same directory, get into nginx source directory and type:
+
+./configure --add-module= ../nginx-vod-module --with-cc-opt="-O3" --with-file-aio --with-threads
+
+Then after confiiguration success type:
+
+make
 
 Use
 ---

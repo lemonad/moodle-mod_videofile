@@ -32,11 +32,14 @@ Get latest Kaltura VOD Module from : https://github.com/kaltura/nginx-vod-module
 
 Assuming you downloaded and extracted these files in same directory, get into nginx source directory and type:
 
-./configure --add-module= ../nginx-vod-module --with-cc-opt="-O3" --with-file-aio --with-threads
+./configure --add-module=../nginx-vod-module --with-cc-opt="-O3" --with-file-aio --with-threads
 
-Then after confiiguration success type:
+Then after configuration success type:
 
 make
+
+make install
+
 
 Use
 ---

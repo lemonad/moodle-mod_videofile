@@ -57,6 +57,9 @@ $event = \mod_videostream\event\video_view::create(array(
 ));
 $event->trigger();
 
+//add view to video table.
+$query = 'UPDATE {local_video_directory} SET views = (views + 1) WHERE id = ?';
+$result = $DB->execute($query,array($videostream->get_instance()->videoid));
 
 $renderer = $PAGE->get_renderer('mod_videostream');
 echo $renderer->video_page($videostream);

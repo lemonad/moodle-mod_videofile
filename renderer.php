@@ -101,14 +101,17 @@ class mod_videostream_renderer extends plugin_renderer_base {
      * @return string HTML
      */
     private function get_video_source_elements_hls($videostream) {
-
+        global $CFG;
 		$width = ($videostream->get_instance()->responsive ?
                   '100%' : $videostream->get_instance()->width);
         $height = ($videostream->get_instance()->responsive ?
                    '100%' : $videostream->get_instance()->height);
 		 
 		$output = '<script src="hls.js/hls.min.js"></script>
-					<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'></video>
+					<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'>
+                    <track label="English" kind="subtitles" srclang="en" 
+                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
+                    </video>
 					<script>
   						if(Hls.isSupported()) {
     						var video = document.getElementById(\'video\');
@@ -139,6 +142,8 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		 
 		$output = '<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'>
                     <source src='.$CFG->wwwroot.'/local/video_directory/play.php?video_id='.$videostream->get_instance()->videoid.'>'
+                    .'<track label="English" kind="subtitles" srclang="en" 
+                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>'
                     .'</video>';
 
         return $output;
@@ -152,7 +157,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
      * @return string HTML
      */
     private function get_video_source_elements_dash($videostream) {
-
+        global $CFG;
 		$width = ($videostream->get_instance()->responsive ?
                   '100%' : $videostream->get_instance()->width);
         $height = ($videostream->get_instance()->responsive ?
@@ -165,7 +170,10 @@ class mod_videostream_renderer extends plugin_renderer_base {
         <div class="row">
             <div class="dash-video-player" width=\'' . $width .'\' height=\''. $height .'\'>
             	<div id="videoContainer">
-		    		<video id="videoplayer" width=\'' . $width .'\' height=\''. $height .'\'></video>
+		    		<video id="videoplayer" width=\'' . $width .'\' height=\''. $height .'\'>
+                    <track label="Default" kind="subtitles" srclang="en" 
+                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
+                    </video>
                     <div id="video-caption"></div>
                     <div id="videoController" class="video-controller unselectable">
                         <div id="playPauseBtn" class="btn-play-pause" data-toggle="tooltip" data-placement="bottom" title="Play/Pause">

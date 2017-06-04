@@ -341,5 +341,49 @@ class videostream {
         $this->output = $PAGE->get_renderer('mod_videostream');
         return $this->output;
     }
+}
 
+function mod_videostream_get_tagged_pages($tag, $exclusivemode = false, $fromctx = 0, $ctx = 0, $rec = 1, $page = 0) {
+    // Find items.
+    // Please refer to existing callbacks in core for examples.
+ 
+    // ...
+ 
+    // Use core_tag_index_builder to build and filter the list of items. 
+    // Notice how we search for 6 items when we need to display 5 - this way we will know that we need to display a link to the next page.
+    $builder = new core_tag_index_builder('local_video_directory', 'local_video_directory', $query, $params, $page * $perpage, $perpage + 1);
+ 
+    // ...
+ 
+    $items = $builder->get_items();
+    if (count($items) > $perpage) {
+        $totalpages = $page + 2; // We don't need exact page count, just indicate that the next page exists.
+        array_pop($items);
+    }
+echo "kuku";
+print_r($items); 
+    // Build the display contents.
+    if ($items) {
+        $tagfeed = new core_tag\output\tagfeed();
+        foreach ($items as $item) {
+            context_helper::preload_from_record($item);
+            $modinfo = get_fast_modinfo($item->courseid);
+            $cm = $modinfo->get_cm($item->cmid);
+            $pageurl = new moodle_url('/mod/wiki/view.php', array('pageid' => $item->id));
+            $pagename = format_string($item->title, true, array('context' => context_module::instance($item->cmid)));
+            $pagename = html_writer::link($pageurl, $pagename);
+            $courseurl = course_get_url($item->courseid, $cm->sectionnum);
+            $cmname = html_writer::link($cm->url, $cm->get_formatted_name());
+            $coursename = format_string($item->fullname, true, array('context' => context_course::instance($item->courseid)));
+            $coursename = html_writer::link($courseurl, $coursename);
+            $icon = html_writer::link($pageurl, html_writer::empty_tag('img', array('src' => $cm->get_icon_url())));
+            $tagfeed->add($icon, $pagename, $cmname.'<br>'.$coursename);
+
+        }
+ 
+        $content = $OUTPUT->render_from_template('core_tag/tagfeed', $tagfeed->export_for_template($OUTPUT));
+ 
+        return new core_tag\output\tagindex($tag, 'local_video_directory', 'local_video_directory', $content,
+                $exclusivemode, $fromctx, $ctx, $rec, $page, $totalpages);
+    }
 }

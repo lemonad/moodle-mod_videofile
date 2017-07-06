@@ -66,11 +66,11 @@ class backup_videostream_activity_task extends backup_activity_task {
 
         // Link to the list of videostreams.
         $search = "/(" . $base . "\/mod\/videostream\/index.php\?id\=)([0-9]+)/";
-        $content = preg_replace($search, '$@videostreamINDEX*$2@$', $content);
+        $content = preg_replace($search, '$@VIDEOSTREAMINDEX*$2@$', $content);
 
         // Link to videostream view by moduleid.
         $search = "/(" . $base . "\/mod\/videostream\/view.php\?id\=)([0-9]+)/";
-        $content = preg_replace($search, '$@videostreamVIEWBYID*$2@$', $content);
+        $content = preg_replace($search, '$@VIDEOSTREAMVIEWBYID*$2@$', $content);
 
         return $content;
     }

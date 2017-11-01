@@ -159,9 +159,9 @@ class mod_videostream_renderer extends plugin_renderer_base {
     private function get_video_source_elements_dash($videostream) {
         global $CFG;
 		$width = ($videostream->get_instance()->responsive ?
-                  '100%' : $videostream->get_instance()->width);
+                  '100%' : $videostream->get_instance()->width . "px");
         $height = ($videostream->get_instance()->responsive ?
-                   '100%' : $videostream->get_instance()->height);
+                   '100%' : $videostream->get_instance()->height . "px");
 		 
 		 
 		$output = '<script src="dash/jquery-1.10.2.min.js"></script><script src="dash/dash.all.min.js"></script><script src="dash/ControlBar.js"></script>';

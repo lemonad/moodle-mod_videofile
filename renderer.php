@@ -175,7 +175,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
                     src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
                     </video>
                     <div id="video-caption"></div>
-                    <div id="videoController" class="video-controller unselectable">
+                    <div id="videoController" class="video-controller unselectable" style="width: ' . $width . '">
                         <div id="playPauseBtn" class="btn-play-pause" data-toggle="tooltip" data-placement="bottom" title="Play/Pause">
                             <span id="iconPlayPause" class="icon-play"></span>
                         </div>

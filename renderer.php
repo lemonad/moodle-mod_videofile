@@ -161,68 +161,23 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		$width = ($videostream->get_instance()->responsive ?
                   '100%' : $videostream->get_instance()->width . "px");
         $height = ($videostream->get_instance()->responsive ?
-                   '100%' : $videostream->get_instance()->height . "px");
-		 
-		 
-		$output = '<script src="dash/jquery-1.10.2.min.js"></script><script src="dash/dash.all.min.js"></script><script src="dash/ControlBar.js"></script>';
-		$output .= '
-		<!--VIDEO PLAYER / CONTROLS -->
-        <div class="row">
-            <div class="dash-video-player" width=\'' . $width .'\' height=\''. $height .'\'>
-            	<div id="videoContainer">
-		    		<video id="videoplayer" width=\'' . $width .'\' height=\''. $height .'\'>
-                    <track label="Default" kind="subtitles" srclang="en" 
-                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
-                    </video>
-                    <div id="video-caption"></div>
-                    <div id="videoController" class="video-controller unselectable" style="width: ' . $width . '">
-                        <div id="playPauseBtn" class="btn-play-pause" data-toggle="tooltip" data-placement="bottom" title="Play/Pause">
-                            <span id="iconPlayPause" class="icon-play"></span>
-                        </div>
-                        <span id="videoTime" class="time-display">00:00:00</span>
-                        <div id="fullscreenBtn" class="btn-fullscreen control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Fullscreen">
-                            <span class="icon-fullscreen-enter"></span>
-                        </div>
-                        <div id="bitrateListBtn" class="btn-bitrate control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Bitrate List">
-                            <span class="icon-bitrate"></span>
-                        </div>
+                   'auto' : $videostream->get_instance()->height . "px");
 
-						<div id="playrateListBtn" class="btn-playrate control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Playrate List">
-                            <span class="icon-playrate"></span>
-                        </div>
-
-
-                        <input type="range" id="volumebar" class="volumebar" value="1" min="0" max="1" step=".01"/>
-                        <div id="muteBtn" class="btn-mute control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Mute">
-                            <span id="iconMute" class="icon-mute-off"></span>
-                        </div>
-                        <div id="trackSwitchBtn" class="btn-track-switch control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Track List">
-                            <span class="icon-tracks"></span>
-                        </div>
-                        <div id="captionBtn" class="btn-caption control-icon-layout" data-toggle="tooltip" data-placement="bottom" title="Closed Caption / Subtitles">
-                            <span class="icon-caption"></span>
-                        </div>
-                        <span id="videoDuration" class="duration-display">00:00:00</span>
-                        <div class="seekContainer">
-                            <input type="range" id="seekbar" value="0" class="seekbar" min="0" step="0.01"/>
-                        </div>
-                    </div>
-                </div>
-            </div>';
-		
-		$output .= '<script>
-        var url=\'' . $this->createDASH($videostream->get_instance()->videoid) . '\';
-		var element = document.querySelector("#videoplayer")
-		var player = dashjs.MediaPlayer().create();
-		player.initialize(element, url, true);
-		player.setFastSwitchEnabled(true);
-		player.attachVideoContainer(document.getElementById("videoContainer"));
-		player.attachTTMLRenderingDiv($("#video-caption")[0]);
-		controlbar = new ControlBar(player);
-		controlbar.initialize();
-		controlbar.enable();
-		</script>';
-		
+        $output = '<video id=videostream class="video-js vjs-default-skin" data-setup=\'{}\' 
+                    style="position: relative !important; width: ' . $width . ' !important; height: '. $height .' !important;" 
+                    controls> </video>
+                        <script src="dash/video.js"></script>
+                        <script src="dash/dash.all.min.js"></script>
+                        <script src="dash/videojs-dash.min.js"></script>
+                    <script>
+                        var player = videojs("videostream",{      
+                            playbackRates: [0.5, 1, 1.5, 2, 3]
+                        });';
+        $output .= 'player.src({ src: \'';
+        $output .=  $this->createDASH($videostream->get_instance()->videoid);
+        $output .= '\', type: \'application/dash+xml\'});
+                            player.play();
+                        </script>';
 
         return $output;
     }

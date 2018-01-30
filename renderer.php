@@ -301,11 +301,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
 	}
 
     public function createSYMLINK($videoid) {
-		global $DB;
-
-		
 		$config = get_config('local_video_directory');
- 
 		return $config->streaming . "/" . $videoid . ".mp4";			
 	}
 

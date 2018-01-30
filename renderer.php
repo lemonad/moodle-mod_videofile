@@ -127,28 +127,6 @@ class mod_videostream_renderer extends plugin_renderer_base {
         return $output;
     }
 
-    /**
-     * Utility function for creating the php video source elements HTML.
-     *
-     * @param obj $videostream
-     * @return string HTML
-     */
-    private function get_video_source_elements_php($videostream) {
-        global $CFG;
-		$width = ($videostream->get_instance()->responsive ?
-                  '100%' : $videostream->get_instance()->width);
-        $height = ($videostream->get_instance()->responsive ?
-                   '100%' : $videostream->get_instance()->height);
-		 
-		$output = '<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'>
-                    <source src='.$CFG->wwwroot.'/local/video_directory/play.php?video_id='.$videostream->get_instance()->videoid.'>'
-                    .'<track label="English" kind="subtitles" srclang="en" 
-                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>'
-                    .'</video>';
-
-        return $output;
-    }
-
 
     /**
      * Utility function for creating the dash video source elements HTML.
@@ -165,7 +143,10 @@ class mod_videostream_renderer extends plugin_renderer_base {
 
         $output = '<video id=videostream class="video-js vjs-default-skin" data-setup=\'{}\' 
                     style="position: relative !important; width: ' . $width . ' !important; height: '. $height .' !important;" 
-                    controls> </video>
+                    controls> 
+                    <track label="English" kind="subtitles" srclang="en" 
+                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
+                    </video>
                         <script src="dash/video.js"></script>
                         <script src="dash/dash.all.min.js"></script>
                         <script src="dash/videojs-dash.min.js"></script>
@@ -176,6 +157,45 @@ class mod_videostream_renderer extends plugin_renderer_base {
         $output .= 'player.src({ src: \'';
         $output .=  $this->createDASH($videostream->get_instance()->videoid);
         $output .= '\', type: \'application/dash+xml\'});
+                            player.play();
+                        </script>';
+
+        return $output;
+    }
+
+
+    /**
+     * Utility function for creating the symlink/php video source elements HTML. return a basic videojs player for php/symlink pseudo streaming
+     *
+     * @param obj $videostream
+     *        string $type 
+     * @return string HTML
+     */
+    private function get_video_source_elements_videojs($videostream,$type) {
+        global $CFG;
+		$width = ($videostream->get_instance()->responsive ?
+                  '100%' : $videostream->get_instance()->width . "px");
+        $height = ($videostream->get_instance()->responsive ?
+                   'auto' : $videostream->get_instance()->height . "px");
+
+        $output = '<video id=videostream class="video-js vjs-default-skin" data-setup=\'{}\' 
+                    style="position: relative !important; width: ' . $width . ' !important; height: '. $height .' !important;" 
+                    controls> 
+                    <track label="English" kind="subtitles" srclang="en" 
+                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
+                    </video>
+                        <script src="dash/video.js"></script>
+                    <script>
+                        var player = videojs("videostream",{      
+                            playbackRates: [0.5, 1, 1.5, 2, 3]
+                        });';
+        $output .= 'player.src({ src: \'';
+        if ($type == "symlink") {
+            $output .=  $this->createSYMLINK($videostream->get_instance()->videoid);
+        } else { //php
+            $output .=  $CFG->wwwroot.'/local/video_directory/play.php?video_id='.$videostream->get_instance()->videoid;
+        }
+            $output .= '\', type: \'video/mp4\'});
                             player.play();
                         </script>';
 
@@ -203,28 +223,21 @@ class mod_videostream_renderer extends plugin_renderer_base {
         //$output .= $this->get_video_element_html($videostream, $posterurl);
 		$config = get_config('videostream');
 
-		if ($config->streaming == "hls") {
+        if (($config->streaming == "symlink") || ($config->streaming == "php")) {
+        	// Elements for video sources. (here we get the symlink and php video)
+        	$output .= $this->get_video_source_elements_videojs($videostream,$config->streaming);
+		} elseif ($config->streaming == "hls") {
         	// Elements for video sources. (here we get the hls video)
         	$output .= $this->get_video_source_elements_hls($videostream);
-        	// video speed buttons
-			$output .= $this->get_rate_buttons();
-		} elseif  ($config->streaming == "php") {
-           	// Elements for video sources. (here we get the php video)
-        	$output .= $this->get_video_source_elements_php($videostream);
         	// video speed buttons
 			$output .= $this->get_rate_buttons();
         } else {
 			//Dash video
 			$output .= $this->get_video_source_elements_dash($videostream);
 		}
-        // Elements for caption tracks.
-        //$output .= $this->get_video_caption_track_elements_html($contextid);
 
         // Close video tag.
         $output .= html_writer::end_tag('video');
-
-        // Alternative video links in case video isn't showing/playing properly.
-        //$output .= $this->get_alternative_video_links_html($contextid);
 
         // Close videostream div.
         $output .= $this->output->container_end();
@@ -285,6 +298,15 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		$dash_url .= "," . ".mp4".$config->nginx_multi."/manifest.mpd";
 
 		return $dash_url;			
+	}
+
+    public function createSYMLINK($videoid) {
+		global $DB;
+
+		
+		$config = get_config('local_video_directory');
+ 
+		return $config->streaming . "/" . $videoid . ".mp4";			
 	}
 
 	

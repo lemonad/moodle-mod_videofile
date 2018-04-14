@@ -64,6 +64,7 @@ $string['err_positive'] = 'חובה להכניס כאן מספר חיובי';
 
 
 $string['eventvideo_view'] = 'סרטון נצפה';
+$string['eventvideo_seek'] = 'סרטון דולג';
 $string['playback_rate'] = "מהירות הסרטון";
 
 $string['streaming_protocol'] = "שיטת הזרמה";

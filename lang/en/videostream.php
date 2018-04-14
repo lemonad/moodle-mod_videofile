@@ -69,6 +69,7 @@ $string['err_positive'] = 'You must enter a positive number here.';
 $string['video_not_playing'] = 'Video not playing? Try {$a}.';
 
 $string['eventvideo_view'] = 'Video Viewed';
+$string['eventvideo_seek'] = 'Video Seeked';
 $string['playback_rate'] = "Playback Rate";
 
 $string['streaming_protocol'] = "Streaming Protocol";

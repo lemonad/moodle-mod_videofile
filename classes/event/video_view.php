@@ -44,11 +44,19 @@ class video_view extends \core\event\base {
     }
  
     public static function get_name() {
-        return get_string('eventvideo_view', 'videostream');
+//        if ($this->other != "") {
+//            return get_string('eventvideo_'.$this->other, 'videostream');
+//        } else { 
+            return get_string('eventvideo_view', 'videostream');
+//        }
     }
  
     public function get_description() {
-        return "The user with id {$this->userid} viewed video id {$this->objectid}.";
+        if ($this->other != "") {
+            return "The user with id {$this->userid} Did this action : <b>{$this->other}</b> on video id {$this->objectid}.";            
+        } else {
+            return "The user with id {$this->userid} viewed video id {$this->objectid}.";
+        }
     }
  
     public function get_url() {

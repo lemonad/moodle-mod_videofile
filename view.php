@@ -63,3 +63,4 @@ $result = $DB->execute($query,array($videostream->get_instance()->videoid));
 
 $renderer = $PAGE->get_renderer('mod_videostream');
 echo $renderer->video_page($videostream);
+//echo sesskey();

@@ -94,6 +94,39 @@ class mod_videostream_renderer extends plugin_renderer_base {
     }
 
 
+
+
+    /**
+     * Utility function for creating the JS of video events.
+     *
+     * @param obj $videostream
+     * @return string JS
+     */
+    private function video_events($videostream) {
+        global $CFG;
+        $sesskey = sesskey();
+        $jsmediaevent="<script language='JavaScript'>
+            var v = document.getElementsByTagName('video')[0];
+    
+            v.addEventListener('seeked', function() { sendEvent('seeked'); }, true);
+            v.addEventListener('play', function() { sendEvent('play'); }, true);
+            v.addEventListener('stop', function() { sendEvent('stop'); }, true);
+            v.addEventListener('pause', function() { sendEvent('pause'); }, true);
+            v.addEventListener('ended', function() { sendEvent('ended'); }, true);
+            v.addEventListener('ratechange', function() { sendEvent('ratechange'); }, true);
+    
+            function sendEvent(event) {
+                console.log(event);
+                require(['jquery'], function($) {
+                    $.post('".$CFG->wwwroot."/mod/videostream/ajax.php',{ mid: ".$videostream->get_course_module()->id.",videoid: ".$videostream->get_instance()->videoid.",action: event,sesskey: '".$sesskey."' } );
+                });
+            }
+    
+        </script>";
+        return $jsmediaevent;
+    }
+
+
     /**
      * Utility function for creating the video source elements HTML.
      *
@@ -123,7 +156,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
   							});
  						}
 					</script>';
-
+        $output .= $this->video_events($videostream);
         return $output;
     }
 
@@ -159,7 +192,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
         $output .= '\', type: \'application/dash+xml\'});
                             player.play();
                         </script>';
-
+        $output .= $this->video_events($videostream);
         return $output;
     }
 
@@ -198,6 +231,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
             $output .= '\', type: \'video/mp4\'});
                             player.play();
                         </script>';
+        $output .= $this->video_events($videostream);
 
         return $output;
     }

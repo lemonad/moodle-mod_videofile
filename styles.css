@@ -299,3 +299,11 @@ div#videoController input[type="range"]{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.video-js .vjs-progress-holder .vjs-play-progress, .video-js .vjs-progress-holder .vjs-load-progress, .video-js .vjs-progress-holder .vjs-load-progress div {
+    left: auto !important;
+}
+
+.video-js .vjs-play-progress::before {
+display: none !important;
+}

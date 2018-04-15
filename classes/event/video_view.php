@@ -44,11 +44,7 @@ class video_view extends \core\event\base {
     }
  
     public static function get_name() {
-//        if ($this->other != "") {
-//            return get_string('eventvideo_'.$this->other, 'videostream');
-//        } else { 
             return get_string('eventvideo_view', 'videostream');
-//        }
     }
  
     public function get_description() {
@@ -60,7 +56,7 @@ class video_view extends \core\event\base {
     }
  
     public function get_url() {
-        return new \moodle_url('mod/videostream/view.php', array('id' => 'value'));
+        return new \moodle_url('/mod/videostream/view.php', array('id' => $this->contextinstanceid));
     }
  
     public function get_legacy_logdata() {

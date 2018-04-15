@@ -65,7 +65,6 @@ class mod_videostream_renderer extends plugin_renderer_base {
                                            $coursemoduleid);
             $output .= $this->output->box_end();
         }
-
         return $output;
     }
 

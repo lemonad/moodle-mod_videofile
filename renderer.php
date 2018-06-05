@@ -133,28 +133,16 @@ class mod_videostream_renderer extends plugin_renderer_base {
      * @return string HTML
      */
     private function get_video_source_elements_hls($videostream) {
-        global $CFG;
+        global $CFG, $OUTPUT;
 		$width = ($videostream->get_instance()->responsive ?
-                  '100%' : $videostream->get_instance()->width);
+                  '100%' : $videostream->get_instance()->width . 'px');
         $height = ($videostream->get_instance()->responsive ?
-                   '100%' : $videostream->get_instance()->height);
-		 
-		$output = '<script src="hls.js/hls.min.js"></script>
-					<video controls id="video" width=\'' . $width .'\' height=\''. $height .'\'>
-                    <track label="English" kind="subtitles" srclang="en" 
-                    src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
-                    </video>
-					<script>
-  						if(Hls.isSupported()) {
-    						var video = document.getElementById(\'video\');
-    						var hls = new Hls();
-    						hls.loadSource(\'' . $this->createHLS($videostream->get_instance()->videoid) .'\');
-    						hls.attachMedia(video);
-    						hls.on(Hls.Events.MANIFEST_PARSED,function() {
-      							video.play();
-  							});
- 						}
-					</script>';
+                   '100%' : $videostream->get_instance()->height . 'px');
+        
+        $data = array('width' => $width,
+                      'height' => $height,
+                      'hlsstream' => $this->createHLS($videostream->get_instance()->videoid));           
+        $output = $OUTPUT->render_from_template("mod_videostream/hls", $data);           
         $output .= $this->video_events($videostream);
         return $output;
     }
@@ -179,7 +167,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
                     <track label="English" kind="subtitles" srclang="en" 
                     src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
                     </video>
-                        <script src="dash/video.js"></script>
+                        <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
                         <script src="dash/dash.all.min.js"></script>
                         <script src="dash/videojs-dash.min.js"></script>
                     <script>
@@ -216,7 +204,7 @@ class mod_videostream_renderer extends plugin_renderer_base {
                     <track label="English" kind="subtitles" srclang="en" 
                     src="'.$CFG->wwwroot.'/local/video_directory/subs.php?video_id='.$videostream->get_instance()->videoid.'" default>
                     </video>
-                        <script src="dash/video.js"></script>
+                        <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
                     <script>
                         var player = videojs("videostream",{      
                             playbackRates: [0.5, 1, 1.5, 2, 3]
@@ -262,8 +250,6 @@ class mod_videostream_renderer extends plugin_renderer_base {
 		} elseif ($config->streaming == "hls") {
         	// Elements for video sources. (here we get the hls video)
         	$output .= $this->get_video_source_elements_hls($videostream);
-        	// video speed buttons
-			$output .= $this->get_rate_buttons();
         } else {
 			//Dash video
 			$output .= $this->get_video_source_elements_dash($videostream);

@@ -213,10 +213,10 @@ function videostream_get_extra_capabilities() {
  *                        will know about (most noticeably, an icon).
  */
 function videostream_get_coursemodule_info($coursemodule) {
-    global $DB;
+    global $DB, $OUTPUT, $CFG;
 
     $dbparams = array('id' => $coursemodule->instance);
-    $fields = 'id, name, intro, introformat';
+    $fields = 'id, name, intro, introformat, inline';
 
     if (!$videostream = $DB->get_record('videostream', $dbparams, $fields)) {
         return false;
@@ -224,6 +224,8 @@ function videostream_get_coursemodule_info($coursemodule) {
 
     $result = new cached_cm_info();
     $result->name = $videostream->name;
+	$result->content = '';
+	
     if ($coursemodule->showdescription) {
         // Convert intro to html.
         // Do not filter cached version, filters run at display time.
@@ -232,6 +234,10 @@ function videostream_get_coursemodule_info($coursemodule) {
                                                $coursemodule->id,
                                                false);
     }
+	
+	if ($videostream->inline) {
+		$result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideo', array('id' => $coursemodule->instance, 'wwwroot' => $CFG->wwwroot));
+	}
 
     return $result;
 }

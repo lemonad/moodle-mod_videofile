@@ -104,6 +104,7 @@ class videostream {
         $add->width = $formdata->width;
         $add->height = $formdata->height;
         $add->responsive = $formdata->responsive;
+        $add->inline = $formdata->inline;
 	$add->videoid = $formdata->videoid;
 
         $returnid = $DB->insert_record('videostream', $add);
@@ -162,6 +163,7 @@ class videostream {
         $update->width = $formdata->width;
         $update->height = $formdata->height;
         $update->responsive = $formdata->responsive;
+        $update->inline = $formdata->inline;
 	$update->videoid = $formdata->videoid;
 
 

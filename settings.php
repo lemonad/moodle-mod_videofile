@@ -69,6 +69,13 @@ if ($ADMIN->fulltree) {
                                          get_string('limitdimensions_explain', 'videostream'),
                                          0));
 										 
+    // Display inline in course listing.
+    $settings->add(
+        new admin_setting_configcheckbox('videostream/inline',
+                                         get_string('inline', 'videostream'),
+                                         get_string('inline', 'videostream'),
+                                         0));
+
 	// dash or hls
 	$settings->add(
 		new admin_setting_configselect('videostream/streaming',

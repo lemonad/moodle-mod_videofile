@@ -1,17 +1,17 @@
 <script src="https://vjs.zencdn.net/6.6.3/video.js"></script>
 <script src="hls.js/videojs-contrib-hls.js"></script>
-<video id=videostream class="video-js vjs-default-skin" data-setup='{}' 
+<video id="videostream{{uiniqid}}" class="video-js vjs-default-skin" data-setup='{}' 
                     style="position: relative !important; width: {{width}} !important; height: {{height}} !important;" 
                     controls> 
 </video>
 
 <script>
-    var player = videojs('videostream',{      
+    var player = videojs('videostream{{uiniqid}}', {      
         playbackRates: [0.5, 1, 1.5, 2, 3]
     });
     player.src({
-      src: '{{hlsstream}}',
-      type: 'application/x-mpegURL'
+		src: '{{hlsstream}}',
+		type: 'application/x-mpegURL'
     });
 	player.play();
 </script>

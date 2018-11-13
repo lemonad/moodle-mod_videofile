@@ -38,7 +38,7 @@ class mod_videostream_mod_form extends moodleform_mod {
      * @return void
      */
     public function definition() {
-        global $CFG;
+        global $CFG, $USER, $DB;
 
         $config = get_config('videostream');
         $mform =& $this->_form;
@@ -58,9 +58,9 @@ class mod_videostream_mod_form extends moodleform_mod {
                         255,
                         'client');
         //$this->add_intro_editor(false);
-	moodleform_mod::standard_intro_elements();
-        
-	// Video fields.
+		moodleform_mod::standard_intro_elements();
+			
+		// Video fields.
         $mform->addElement('header',
                            'video_fieldset',
                            get_string('video_fieldset', 'videostream'));
@@ -98,33 +98,28 @@ class mod_videostream_mod_form extends moodleform_mod {
         $mform->addHelpButton('responsive', 'responsive', 'videostream');
         $mform->setDefault('responsive', $config->responsive);
 
+        // Show video on main coursepage.
+        $mform->addElement('advcheckbox',
+                           'inline',
+                           get_string('inline', 'videostream'),
+                           get_string('inline', 'videostream'));
+        $mform->setType('inline', PARAM_INT);
+        $mform->setDefault('inline', $config->inline);
 
-	// Video File from local_video_directory
-	global $USER,$DB;
-	if (is_siteadmin($USER)) {
-		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
-						FROM {local_video_directory} v 
-						LEFT JOIN {user} u on v.owner_id = u.id 
-						GROUP by id');
-	} else {
-		$videos = $DB->get_records_sql('SELECT v.*, CONCAT(firstname," ",lastname) as name 
-						FROM {local_video_directory} v 
-						LEFT JOIN {user} u on v.owner_id = u.id 
-						WHERE (owner_id ='.$USER->id.' OR (private IS NULL OR private = 0))
-						GROUP by id');
-	}
+		// Video File from local_video_directory
+		if (is_siteadmin()) {
+			$video_list = $DB->get_records_sql_menu('SELECT id, orig_filename FROM {local_video_directory}');
+		} else {
+			$video_list = $DB->get_records_sql_menu('
+				SELECT id, orig_filename
+				FROM {local_video_directory} 
+				WHERE
+					owner_id = ?
+					OR private <> 1',
+				[$USER->id]);
+		}
 
-	foreach ($videos as $video) {
-		$video_list[$video->id]=$video->orig_filename;
-	}
-
-	//$list = array(1,2,3);
-	$options = array('multiple' => false);
-
-//    'noselectionstring' => get_string('video', 'videostream'),
-         
-	$mform->addElement('autocomplete', 'videoid', get_string('video', 'videostream'), $video_list, $options);
-
+		$mform->addElement('autocomplete', 'videoid', get_string('video', 'videostream'), $video_list);
 
         // Standard elements, common to all modules.
         $this->standard_coursemodule_elements();

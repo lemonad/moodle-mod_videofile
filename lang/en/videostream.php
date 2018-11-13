@@ -40,6 +40,8 @@ $string['width_explain'] = 'Specifies the default width of the video player.';
 $string['height_explain'] = 'Specifies the default height of the video player.';
 $string['responsive_explain'] = 'Specifies if responsive mode should be set as default or not.';
 $string['limitdimensions_explain'] = 'Specifies if width and height should be used as maximum size during responsive mode.';
+$string['inline'] = 'Display inline on main course page?';
+$string['inline_help'] = 'Display inline on main course page?';
 
 $string['filearea_captions'] = 'Captions';
 $string['filearea_posters'] = 'Posters';

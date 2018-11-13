@@ -101,6 +101,29 @@ function xmldb_videostream_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2013092200, 'videostream');
     }
 
+    // Added responsive flag field.
+    if ($oldversion < 2017060403) {
+        $table = new xmldb_table('videostream');
+        $responsivefield = new xmldb_field('inline',
+                                           XMLDB_TYPE_INTEGER,
+                                           '1',
+                                           null,
+                                           null,
+                                           null,
+                                           null,
+                                           'height');
+
+        // Add field if it doesn't already exist.
+        if (!$dbman->field_exists($table, $responsivefield)) {
+            $dbman->add_field($table, $responsivefield);
+        }
+
+        /* Once we reach this point, we can store the new version and
+           consider the module upgraded to the version 2013092200 so the
+           next time this block is skipped. */
+        upgrade_mod_savepoint(true, 2017060403, 'videostream');
+    }
+
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }

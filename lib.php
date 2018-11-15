@@ -216,7 +216,7 @@ function videostream_get_coursemodule_info($coursemodule) {
     global $DB, $OUTPUT, $CFG;
 
     $dbparams = array('id' => $coursemodule->instance);
-    $fields = 'id, name, intro, introformat, inline';
+    $fields = 'id, name, intro, introformat, inline, videoid';
 
     if (!$videostream = $DB->get_record('videostream', $dbparams, $fields)) {
         return false;
@@ -236,7 +236,7 @@ function videostream_get_coursemodule_info($coursemodule) {
     }
 	
 	if ($videostream->inline) {
-		$result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideo', array('id' => $coursemodule->instance, 'wwwroot' => $CFG->wwwroot));
+		$result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideo', array('id' => $videostream->videoid, 'wwwroot' => $CFG->wwwroot));
 	}
 
     return $result;

@@ -6,7 +6,7 @@ Thank you Jonas !!
 This module work with local_video_directory, and has the ability to stream in DASH,HLS and plain PHP.
 DASH & HLS works using Nginx Kaltura Streaming module.
 
-Example screenshots (of originla plugin)
+Example screenshots (of original plugin)
 ----------------------------------------
 ![A screenshot](https://raw.github.com/lemonad/moodle-mod_videofile/master/pix/screenshot-1.png)
 

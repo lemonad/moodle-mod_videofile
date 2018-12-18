@@ -79,3 +79,8 @@ $string['hls_base_url_explain'] = "הכנס נתיב HLS, למשל http://stream
 
 $string['nginx_multi'] = "מחזרוזת לסיום MultiURI ב-NGINX";
 $string['nginx_multi_explain'] = "מחרוזת עבור NGINX multi URI, ידוע כ- vod_multi_uri_suffix בקובץ nginx conf";
+
+$string['addsmartbookmark'] = 'הוסף סימניה חכמה';
+$string['time'] = 'זמן';
+$string['bookmarkname'] = 'סימנייה';
+$string['deletebookmark'] = 'האם למחוק סימניה זו?';

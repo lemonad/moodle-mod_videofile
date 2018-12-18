@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/videostream/db" VERSION="20130717" COMMENT="XMLDB file for Moodle mod/videostream"
+<XMLDB PATH="mod/videostream/db" VERSION="20181218" COMMENT="XMLDB file for Moodle mod/videostream"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
     <TABLE NAME="videostream" COMMENT="Default comment for videostream, please edit me">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="course"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course videostream activity belongs to" PREVIOUS="id" NEXT="name"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="intro"/>
-        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the videostream activity" PREVIOUS="name" NEXT="introformat"/>
-        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="width"/>
-        <FIELD NAME="width" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="800" SEQUENCE="false" COMMENT="Width of the video in pixels" PREVIOUS="introformat" NEXT="height"/>
-        <FIELD NAME="height" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="500" SEQUENCE="false" COMMENT="Height of the video in pixels" PREVIOUS="width" NEXT="responsive"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course videostream activity belongs to"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the videostream activity"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
+        <FIELD NAME="width" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="800" SEQUENCE="false" COMMENT="Width of the video in pixels"/>
+        <FIELD NAME="height" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="500" SEQUENCE="false" COMMENT="Height of the video in pixels"/>
         <FIELD NAME="inline" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="responsive" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Nonzero if video should adapt to window size with width and height used as a proportions" PREVIOUS="height" NEXT="videoid"/>
-		<FIELD NAME="videoid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" NEXT="timecreated"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="responsive" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated"/>
+        <FIELD NAME="responsive" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Nonzero if video should adapt to window size with width and height used as a proportions"/>
+        <FIELD NAME="videoid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -25,6 +25,19 @@
       <INDEXES>
         <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
       </INDEXES>
+    </TABLE>
+    <TABLE NAME="videostreambookmarks" COMMENT="videostream bookmarks">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="module id"/>
+        <FIELD NAME="bookmarkposition" TYPE="number" LENGTH="12" NOTNULL="false" SEQUENCE="false" DECIMALS="6" COMMENT="bookmark position"/>
+        <FIELD NAME="bookmarkname" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="bookmark name"/>
+        <FIELD NAME="bookmarkflag" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" COMMENT="bookmark flag"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
     </TABLE>
   </TABLES>
 </XMLDB>

@@ -307,3 +307,35 @@ div#videoController input[type="range"]{
 .video-js .vjs-play-progress::before {
 display: none !important;
 }
+.bookmarkform {
+	text-align: center;
+	padding-top: 1rem;
+}
+.bookmarkform > div.form-inline,
+.bookmarkform > div.form-inline label{
+    display: inline-block;
+}
+.bookmarkform .flagged{
+    background: #4ea4f6;
+    color: white;
+}
+.bookmarkform input[name="bookmarkpositionvisible"] {
+    width: 79px;
+    border: 0;
+    background: 0;
+	cursor: pointer;
+}
+#videobookmarklist .deletebookmark{
+    background: red;
+    display: inline-block;
+    line-height: 10px;
+    color: white;
+    padding: 1px 2px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid #ec9898;
+}
+#videobookmarklist .deletebookmark:hover{
+    background: #a00000;
+}

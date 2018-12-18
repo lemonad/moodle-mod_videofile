@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2017060403;
+$plugin->version  = 2017060405;
 $plugin->requires = 2016052301;
 $plugin->dependencies = array('local_video_directory' => 2017032701);
 $plugin->cron     = 0;

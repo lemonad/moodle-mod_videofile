@@ -257,11 +257,24 @@ class mod_videostream_renderer extends plugin_renderer_base {
 
         // Close video tag.
         $output .= html_writer::end_tag('video');
+        $output .= $this->get_bookmark_controls($videostream->get_course_module()->id);
 
         // Close videostream div.
         $output .= $this->output->container_end();
 
         return $output;
+    }
+
+	public function get_bookmark_controls($moduleid) {
+		global $DB, $USER;
+		$output = '';
+		$bookmarks = $DB->get_records('videostreambookmarks', ['userid' => $USER->id, 'moduleid' => $moduleid]);
+		$bookmarks = array_values(array_map(function($a) {
+			$a->bookmarkpositionvisible = gmdate("H:i:s", (int)$a->bookmarkposition);
+			return $a;
+		}, $bookmarks));
+		$output .= $this->output->render_from_template('mod_videostream/bookmark_controls', ['bookmarks' => $bookmarks, 'moduleid' => $moduleid]);
+		return $output;
     }
 
 	public function createHLS($videoid) {

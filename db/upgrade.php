@@ -124,6 +124,45 @@ function xmldb_videostream_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2017060403, 'videostream');
     }
 
+	if ($oldversion < 2017060404) {
+
+        // Define table videostreambookmarks to be created.
+        $table = new xmldb_table('videostreambookmarks');
+
+        // Adding fields to table videostreambookmarks.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+        $table->add_field('bookmarkposition', XMLDB_TYPE_NUMBER, '12, 6', null, null, null, null);
+        $table->add_field('bookmarkname', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('bookmarkflag', XMLDB_TYPE_INTEGER, '1', null, null, null, null);
+
+        // Adding keys to table videostreambookmarks.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Conditionally launch create table for videostreambookmarks.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Videostream savepoint reached.
+        upgrade_mod_savepoint(true, 2017060404, 'videostream');
+    }
+
+    if ($oldversion < 2017060405) {
+
+        // Define field moduleid to be added to videostreambookmarks.
+        $table = new xmldb_table('videostreambookmarks');
+        $field = new xmldb_field('moduleid', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'userid');
+
+        // Conditionally launch add field moduleid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Videostream savepoint reached.
+        upgrade_mod_savepoint(true, 2017060405, 'videostream');
+    }
+
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }

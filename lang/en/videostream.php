@@ -84,3 +84,8 @@ $string['hls_base_url_explain'] = "Enter here HLS base streaming URL, something 
 
 $string['nginx_multi'] = "NGINX multi URL string";
 $string['nginx_multi_explain'] = "NGINX multi URL string, known as vod_multi_uri_suffix in nginx conf";
+
+$string['addsmartbookmark'] = 'Add smart bookmark';
+$string['time'] = 'Time';
+$string['bookmarkname'] = 'Bookmark';
+$string['deletebookmark'] = 'Delete this bookmark?';

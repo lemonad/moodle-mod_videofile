@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+// defined('MOODLE_INTERNAL') || die();
 
 /**
  * Standard base class for mod_videostream.
@@ -89,6 +89,7 @@ class videostream {
      * @param stdClass $formdata The data submitted from the form
      * @return mixed False if an error occurs or the int id of the new instance
      */
+
     public function add_instance(stdClass $formdata) {
         global $DB;
 
@@ -104,8 +105,9 @@ class videostream {
         $add->width = $formdata->width;
         $add->height = $formdata->height;
         $add->responsive = $formdata->responsive;
+        $add->disableseek = $formdata->disableseek;
         $add->inline = $formdata->inline;
-	$add->videoid = $formdata->videoid;
+	    $add->videoid = $formdata->videoid;
 
         $returnid = $DB->insert_record('videostream', $add);
         $this->instance = $DB->get_record('videostream',
@@ -163,8 +165,9 @@ class videostream {
         $update->width = $formdata->width;
         $update->height = $formdata->height;
         $update->responsive = $formdata->responsive;
+        $update->disableseek = $formdata->disableseek;
         $update->inline = $formdata->inline;
-	$update->videoid = $formdata->videoid;
+	    $update->videoid = $formdata->videoid;
 
 
         $result = $DB->update_record('videostream', $update);

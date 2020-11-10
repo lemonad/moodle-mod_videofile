@@ -31,6 +31,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/config.php');
+require_once($CFG->dirroot . '/mod/videostream/locallib.php');
+// $cc = $CFG->dirroot . '/mod/videostream/locallib.php';
+
+require_once($CFG->dirroot . '/mod/videostream/renderer.php');
+require_login();
 /**
  * Returns whether the module supports a feature or not.
  *
@@ -79,7 +85,6 @@ function videostream_add_instance(stdClass $data,
 
     $context = context_module::instance($data->coursemodule);
     $videostream = new videostream($context, null, null);
-
     return $videostream->add_instance($data);
 }
 
@@ -213,7 +218,11 @@ function videostream_get_extra_capabilities() {
  *                        will know about (most noticeably, an icon).
  */
 function videostream_get_coursemodule_info($coursemodule) {
-    global $DB, $OUTPUT, $CFG;
+    global $DB, $OUTPUT, $CFG, $PAGE;
+
+    require_once($CFG->dirroot . '/local/video_directory/locallib.php');
+    require_once($CFG->dirroot . '/mod/videostream/renderer.php');
+    require_once($CFG->dirroot . '/mod/videostream/locallib.php');
 
     $dbparams = array('id' => $coursemodule->instance);
     $fields = 'id, name, intro, introformat, inline, videoid';
@@ -224,8 +233,8 @@ function videostream_get_coursemodule_info($coursemodule) {
 
     $result = new cached_cm_info();
     $result->name = $videostream->name;
-	$result->content = '';
-	
+    $result->content = '';
+
     if ($coursemodule->showdescription) {
         // Convert intro to html.
         // Do not filter cached version, filters run at display time.
@@ -234,11 +243,36 @@ function videostream_get_coursemodule_info($coursemodule) {
                                                $coursemodule->id,
                                                false);
     }
-	
-	if ($videostream->inline) {
-		$result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideo', array('id' => $videostream->videoid, 'wwwroot' => $CFG->wwwroot));
-	}
 
+    $context = context_module::instance($coursemodule->id);
+    $videostreamclass = new videostream($context, null, null);
+
+    $sesskey = sesskey();
+
+    if ($videostream->inline) {
+        if (get_config('videostream', 'streaming' ) == 'hls') {
+            $videostreamrendere = $PAGE->get_renderer('mod_videostream');
+            $result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideohls', array(
+                'streaming' => get_streaming_server_url() . '/' . local_video_directory_get_filename($videostream->videoid) . '.mp4',
+                'wwwroot' => $CFG->wwwroot,
+                'cmid' => $coursemodule->id,
+                'id' => $videostream->videoid,
+                'hlsstream' => $videostreamrendere->createHLS($videostream->videoid),
+                'value' => $videostreamclass->get_instance()->disableseek ? true : false,
+                'width' => 400,
+                'height' => 200,
+                'sesskey' => $sesskey
+            ));
+        } else {
+            $result->content .= $OUTPUT->render_from_template('mod_videostream/inlinevideo', array(
+                'streaming' => get_streaming_server_url() . '/' . local_video_directory_get_filename($videostream->videoid) . '.mp4',
+                'wwwroot' => $CFG->wwwroot,
+                'cmid' => $coursemodule->id,
+                'id' => $videostream->videoid,
+                'sesskey' => $sesskey
+            ));
+        }
+    }
     return $result;
 }
 

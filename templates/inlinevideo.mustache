@@ -1,5 +1,27 @@
 <span>
-	<video controls="true" width="400" preload="metadata" title="{{id}}.mp4" style="position: relative !important; width: {{width}}; height: {{height}} !important;">
-		<source src="{{wwwroot}}/streaming/{{id}}.mp4" type="video/mp4">
+	<video controls="true" width="400" preload="metadata" title="{{cmid}}" style="width: {{width}}; height: {{height}} !important;">
+		<source src="{{streaming}}" type="video/mp4">
 	</video>
 </span>
+
+
+<script language='JavaScript'>
+    //var v = document.getElementsByTagName('video');
+    var v = document.querySelector('video[title="{{cmid}}"]');console.log(v);
+    
+    
+    v.addEventListener('seeked', function() { sendEvent_{{cmid}}('seeked'); }, true);
+    v.addEventListener('play', function() { sendEvent_{{cmid}}('play'); }, true);
+    v.addEventListener('stop', function() { sendEvent_{{cmid}}('stop'); }, true);
+    v.addEventListener('pause', function() { sendEvent_{{cmid}}('pause'); }, true);
+    v.addEventListener('ended', function() { sendEvent_{{cmid}}('ended'); }, true);
+    v.addEventListener('ratechange', function() { sendEvent_{{cmid}}('ratechange'); }, true);
+    
+    function sendEvent_{{cmid}}(event) {
+        console.log(event);
+		console.log(v);
+        require(['jquery'], function($) {
+            $.post( '{{wwwroot}}/mod/videostream/ajax.php',{ mid: {{cmid}}, videoid: {{id}}, action: event, sesskey: '{{sesskey}}' } );
+        });
+    }
+</script>

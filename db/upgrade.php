@@ -162,6 +162,40 @@ function xmldb_videostream_upgrade($oldversion) {
         // Videostream savepoint reached.
         upgrade_mod_savepoint(true, 2017060405, 'videostream');
     }
+// Tovi.
+    if ($oldversion < 2020070600) {
+
+        // update table videostreambookmarks to be created.
+        $table = new xmldb_table('videostreambookmarks');
+
+        // Adding fields to table videostreambookmarks.
+        $field = new xmldb_field('teacherid', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'userid');
+
+        // Conditionally launch add field moduleid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        // Videostream savepoint reached.
+        upgrade_mod_savepoint(true, 2020070600, 'videostream');
+    }
+
+    // Added disableseek flag field.
+    if ($oldversion < 2020070601) {
+        $table = new xmldb_table('videostream');
+        $disableseekfield = new xmldb_field('disableseek',
+                                           XMLDB_TYPE_INTEGER,
+                                           '4',
+                                           null,
+                                           null,
+                                           null,
+                                           '0');
+
+        // Add field if it doesn't already exist.
+        if (!$dbman->field_exists($table, $disableseekfield)) {
+            $dbman->add_field($table, $disableseekfield);
+        }
+        upgrade_mod_savepoint(true, 2020070601, 'videostream');
+    }
 
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;

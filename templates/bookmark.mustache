@@ -1,4 +1,14 @@
 <div>
-	<span class="deletebookmark" data-id="{{id}}">&times;</span>
+{{#isteacher}}
+		<span class="deletebookmark" data-id="{{id}}">&times;</span>	
+{{/isteacher}}
+{{^isteacher}}
+	{{#teacherid}} 	
+		<span style="visibility: hidden" class="deletebookmark" data-id="{{id}}">&times;</span> 
+	{{/teacherid}}
+	{{^teacherid}} 
+		<span class="deletebookmark" data-id="{{id}}">&times;</span> 
+	{{/teacherid}}
+{{/isteacher}}
 	<a href="#t={{bookmarkposition}}" data-position="{{bookmarkposition}}">{{bookmarkpositionvisible}}, {{bookmarkname}} {{#bookmarkflag}}<i class="fa fa-flag"></i>{{/bookmarkflag}}</a>
 </div>

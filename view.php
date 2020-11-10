@@ -40,9 +40,17 @@ $PAGE->set_pagelayout('incourse');
 $url = new moodle_url('/mod/videostream/view.php', array('id' => $id));
 $PAGE->set_url('/mod/videostream/view.php', array('id' => $cm->id));
 
+// HLS css.
+$PAGE->requires->css('/mod/videostream/hls/videojs-seek-buttons/videojs-seek-buttons.css');
+$PAGE->requires->css('/mod/videostream/hls/videojs-hls-quality-selector/videojs-hls-quality-selector.css');
+$PAGE->requires->css('/mod/videostream/hls/videojs-resume/videojs-resume.min.css');
+$PAGE->requires->css('/mod/videostream/hls/video-js.css');
+
+// Completion only in ended view
 // Update 'viewed' state if required by completion system.
-$completion = new completion_info($course);
-$completion->set_module_viewed($cm);
+//$completion = new completion_info($course);
+//$completion->set_module_viewed($cm);
+
 
 // Log viewing.
 //add_to_log($course->id,
@@ -63,4 +71,3 @@ $result = $DB->execute($query,array($videostream->get_instance()->videoid));
 
 $renderer = $PAGE->get_renderer('mod_videostream');
 echo $renderer->video_page($videostream);
-//echo sesskey();

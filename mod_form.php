@@ -59,7 +59,7 @@ class mod_videostream_mod_form extends moodleform_mod {
                         'client');
         //$this->add_intro_editor(false);
 		moodleform_mod::standard_intro_elements();
-			
+	
 		// Video fields.
         $mform->addElement('header',
                            'video_fieldset',
@@ -106,21 +106,41 @@ class mod_videostream_mod_form extends moodleform_mod {
         $mform->setType('inline', PARAM_INT);
         $mform->setDefault('inline', $config->inline);
 
-		// Video File from local_video_directory
-		if (is_siteadmin()) {
-			$video_list = $DB->get_records_sql_menu('SELECT id, orig_filename FROM {local_video_directory}');
-		} else {
-			$video_list = $DB->get_records_sql_menu('
+		// // Video File from local_video_directory
+		// if (is_siteadmin()) {
+		// 	$video_list = $DB->get_records_sql_menu('SELECT id, concat(orig_filename," :", id ) FROM {local_video_directory}');
+		// } else {
+		// 	$video_list = $DB->get_records_sql_menu('
+		// 		SELECT id, concat(orig_filename," :", id )
+		// 		FROM {local_video_directory} 
+		// 		WHERE
+		// 			owner_id = ?
+		// 			OR private <> 1',
+		// 		[$USER->id]);
+        // }
+        
+        // Disable users to seek forwards.
+        $mform->addElement('advcheckbox',
+                            'disableseek',
+                            get_string('disableseek', 'videostream'),
+                            get_string('disableseek', 'videostream'));
+                      $mform->setType('disableseek', PARAM_INT);
+                      $mform->setDefault('disableseek', $config->disableseek);
+
+        // Video File from local_video_directory.
+        if (is_siteadmin()) {
+            $video_list = $DB->get_records_sql_menu('SELECT id, orig_filename FROM {local_video_directory}');
+        } else {
+            $video_list = $DB->get_records_sql_menu('
 				SELECT id, orig_filename
-				FROM {local_video_directory} 
+				FROM {local_video_directory}
 				WHERE
 					owner_id = ?
 					OR private <> 1',
 				[$USER->id]);
 		}
 
-		$mform->addElement('autocomplete', 'videoid', get_string('video', 'videostream'), $video_list);
-
+        $mform->addElement('autocomplete', 'videoid', get_string('video', 'videostream'), $video_list);
         // Standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 

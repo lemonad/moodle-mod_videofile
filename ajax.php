@@ -26,7 +26,15 @@ if (!defined('AJAX_SCRIPT')) {
     define('AJAX_SCRIPT', true);
 }
 
-require(__DIR__.'/../../config.php');
+//<tovi
+global $CFG, $DB;
+require_once(__DIR__.'/../../config.php');
+require_once($CFG->libdir.'/completionlib.php');
+//tovi>
+
+//require(__DIR__.'/../../config.php');
+global $CFG;
+require_once($CFG->dirroot . '/lib/completionlib.php');
 
 $mid = required_param('mid', PARAM_INT);
 $videoid = required_param('videoid', PARAM_INT);
@@ -38,7 +46,13 @@ $cm = get_coursemodule_from_id('videostream', $mid); //, 0, false, MUST_EXIST);
 require_sesskey();
 
 $context = context_module::instance($cm->id);
-
+//Tovi
+if ($action == 'ended') {
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $completion = new completion_info($course);
+    $completion->set_module_viewed($cm);
+}
+//Tovi>
 $return = false;
 
 // log it.

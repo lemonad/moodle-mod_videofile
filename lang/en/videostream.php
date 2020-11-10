@@ -57,7 +57,7 @@ $string['responsive'] = 'Responsive?';
 $string['responsive_help'] = "Check to make the video automatically resize with the browser window size.\n\nUse the width and height fields to define the video proportions (e.g. 16/9 or 800/450).";
 $string['responsive_label'] = '';
 $string['limitdimensions'] = 'Limit size in responsive mode?';
-
+$string['disableseek'] = 'prevent to seek forward';
 $string['video'] = 'Video';
 $string['videos'] = 'Videos';
 $string['videos_help'] = "Add the video file here.\n\nYou can add alternative formats in order to be sure it can play regardless of which browser is being used (usually .mp4, .ogv and .webm covers it.)";
@@ -82,6 +82,9 @@ $string['dash_base_url_explain'] = "Enter here dash base streaming URL, somethin
 $string['hls_base_url'] = "HLS base streaming URL";
 $string['hls_base_url_explain'] = "Enter here HLS base streaming URL, something like http://streaming.company.com/hls/";
 
+$string['hlsingle_base_url'] = "HLSingle base streaming URL";
+$string['hlsingle_base_url_explain'] = "Enter here HLSingle base streaming URL, something like http://streaming.company.com/hlsingle/";
+
 $string['nginx_multi'] = "NGINX multi URL string";
 $string['nginx_multi_explain'] = "NGINX multi URL string, known as vod_multi_uri_suffix in nginx conf";
 
@@ -89,3 +92,8 @@ $string['addsmartbookmark'] = 'Add smart bookmark';
 $string['time'] = 'Time';
 $string['bookmarkname'] = 'Bookmark';
 $string['deletebookmark'] = 'Delete this bookmark?';
+$string['addteacherbookmark'] = 'add bookmark for all participants';
+
+
+//Tami
+$string['video_not_ready'] = 'The video is not ready yet';

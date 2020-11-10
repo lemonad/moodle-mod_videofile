@@ -42,7 +42,7 @@ $string['responsive_explain'] = 'האם רספונסיביות מוגדרת כב
 $string['limitdimensions_explain'] = 'האם גובה ורוחב יוגדרו כמקסימום במצב רספונסיבי';
 $string['inline'] = 'הצג בעמוד הראשי של הקורס?';
 $string['inline_help'] = 'הצג בעמוד הראשי של הקורס?';
-
+$string['disableseek'] = 'למנוע מהמשתמש לדלג קדימה';
 $string['filearea_captions'] = 'כתוביות';
 $string['filearea_posters'] = 'תמונה';
 $string['filearea_videos'] = 'סרטונים';
@@ -77,6 +77,9 @@ $string['dash_base_url_explain'] = "הכנס נתיב Dash, למשל http://stre
 $string['hls_base_url'] = "HLS נתיב";
 $string['hls_base_url_explain'] = "הכנס נתיב HLS, למשל http://streaming.company.com/hls/";
 
+$string['hls_base_url'] = "HLSingle נתיב";
+$string['hls_base_url_explain'] = "הכנס נתיב HLSingle, למשל http://streaming.company.com/hls/";
+
 $string['nginx_multi'] = "מחזרוזת לסיום MultiURI ב-NGINX";
 $string['nginx_multi_explain'] = "מחרוזת עבור NGINX multi URI, ידוע כ- vod_multi_uri_suffix בקובץ nginx conf";
 
@@ -84,3 +87,8 @@ $string['addsmartbookmark'] = 'הוסף סימניה חכמה';
 $string['time'] = 'זמן';
 $string['bookmarkname'] = 'סימנייה';
 $string['deletebookmark'] = 'האם למחוק סימניה זו?';
+$string['addteacherbookmark'] = 'הוסף סימניה עבור כל המשתתפים';
+
+
+//Tami
+$string['video_not_ready'] = 'הסרטון עדין לא מוכן לצפיה';

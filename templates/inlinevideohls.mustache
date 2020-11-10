@@ -1,0 +1,68 @@
+<span>
+    <script src="https://vjs.zencdn.net/6.6.3/video.js"></script>
+    <script src="/mod/videostream/hls.js/videojs-contrib-hls.js"></script>
+    <video id="videostream{{id}}" class="video-js vjs-default-skin" data-setup='{}' 
+                    style="position: relative !important; width: {{width}} !important; height: {{height}} !important;" 
+                    controls> 
+    </video>
+</span>
+
+<script>
+    var player = videojs('videostream{{id}}', {      
+        playbackRates: [0.5, 1, 1.5, 2, 3]
+    });
+    player.src({
+		src: '{{hlsstream}}',
+		type: 'application/x-mpegURL'
+       }); 
+</script>   
+
+{{#value}}
+<script>
+  videojs('videostream{{uiniqid}}').ready(function() {
+    
+    var myPlayer = this;
+    //Set initial time to 0
+    var currentTime = 0;
+    
+    //This example allows users to seek backwards but not forwards.
+    //To disable all seeking replace the if statements from the next
+    //two functions with myPlayer.currentTime(currentTime);
+    myPlayer.on("seeking", function(event) {
+      if (currentTime < myPlayer.currentTime()) {
+        myPlayer.currentTime(currentTime);
+      }
+    });
+    myPlayer.on("seeked", function(event) {
+      if (currentTime < myPlayer.currentTime()) {
+        myPlayer.currentTime(currentTime);
+      }
+    });
+    setInterval(function() {
+      if (!myPlayer.paused()) {
+        currentTime = myPlayer.currentTime();
+      }
+    }, 1000);
+  });
+</script>
+{{/value}}
+
+<script>
+//	player.play();
+    
+    var v = document.querySelector('video[title="{{cmid}}"]');console.log(v);  
+    v.addEventListener('seeked', function() { sendEvent_{{cmid}}('seeked'); }, true);
+    v.addEventListener('play', function() { sendEvent_{{cmid}}('play'); }, true);
+    v.addEventListener('stop', function() { sendEvent_{{cmid}}('stop'); }, true);
+    v.addEventListener('pause', function() { sendEvent_{{cmid}}('pause'); }, true);
+    v.addEventListener('ended', function() { sendEvent_{{cmid}}('ended'); }, true);
+    v.addEventListener('ratechange', function() { sendEvent_{{cmid}}('ratechange'); }, true);
+    
+    function sendEvent_{{cmid}}(event) {
+        console.log(event);
+		console.log(v);
+        require(['jquery'], function($) {
+            $.post( '{{wwwroot}}/mod/videostream/ajax.php',{ mid: {{cmid}}, videoid: {{id}}, action: event, sesskey: '{{sesskey}}' } );
+        });
+    }
+</script> 

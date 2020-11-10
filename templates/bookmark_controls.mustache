@@ -2,14 +2,21 @@
 	<h4>{{#str}}addsmartbookmark, mod_videostream{{/str}}</h4>
 	<div class="form-inline form-group">
 		<input type="hidden" name="bookmarkposition" class="form-control" value="00:00" id="bookmark-position-{{uniqid}}">
-		<label>{{#str}}time, mod_videostream{{/str}}:</label>
-		<input type="text" readonly disabled name="bookmarkpositionvisible" class="form-control" value="0" id="bookmark-position-visible-{{uniqid}}">
+		<!--label>{{#str}}time, mod_videostream{{/str}}:</label>
+		<input type="text" readonly disabled name="bookmarkpositionvisible" class="form-control" value="0" id="bookmark-position-visible-{{uniqid}}"-->
 		<label>{{#str}}bookmarkname, mod_videostream{{/str}}:</label>
 		<input name="bookmarkname" class="form-control" id="bookmarkname-{{uniqid}}">
 		<button id="bookmarkflagtoggle-{{uniqid}}" class="btn"><i class="fa fa-flag"></i></button>
 		<input name="bookmarkflag" type="hidden" value="0">
 		<input name="moduleid" type="hidden" value="{{moduleid}}">
 		<input type="submit" class="btn btn-primary" id="bookmarksave-{{uniqid}}">
+		
+		{{#isteacher}}
+ 			<br><input type="checkbox" id="teacherbookmark" name="teacherbookmark" value = "0">
+			<label for="teacherbookmark">{{#str}}addteacherbookmark, mod_videostream{{/str}}</label>
+		{{/isteacher}}
+		
+
 	</div>
 </form>
 <div id="videobookmarklist">
@@ -45,10 +52,16 @@ require(['jquery', 'core/templates'], function($, templates) {
 		}
 		
 		var theform = $('#bookmarkform-{{uniqid}}');
+		var checkBox = $('#teacherbookmark');
+		console.log(checkBox);
+		if (checkBox.is(':checked')) {
+			  $("#teacherbookmark").val("1");
+		} 
 		$.post(M.cfg.wwwroot + '/mod/videostream/ajax_save.php', theform.serialize(), function(data) {
 			var context = data;
 			theform[0].reset();
 			context.bookmarkflag = context.bookmarkflag === "0" ? null : context.bookmarkflag;
+			context.isteacher = $("#teacherbookmark").val("1") ? true : false;
 			context.bookmarkpositionvisible = s_to_hms(context.bookmarkposition);
 			console.log(context);
 			templates
